@@ -1,4 +1,4 @@
-
+;This is a comment to test git
 @#$#@#$#@
 GRAPHICS-WINDOW
 446
