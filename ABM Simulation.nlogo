@@ -1,4 +1,89 @@
-;This is a comment to test git
+; Set up globals
+globals [team-assignments team-colors]
+
+; Create agent breeds that are defined by sickness-threshold
+breed [high-tolerance high-tolerant]
+breed [medium-tolerance medium-tolerant]
+breed [low-tolerance low-tolerant]
+
+; Give agents the attribute of their team
+turtles-own [team]
+
+; Function to set position based on team ID
+to set-team-position [team-id]
+  if (team-id = 1) [
+    setxy (random-float 5) + 5 (random-float 5) + 5 ; Quadrant 1
+  ]
+  if (team-id = 2) [
+    setxy (random-float 5 - 5) (random-float 5 + 5) ; Quadrant 2
+  ]
+  if (team-id = 3) [
+    setxy (random-float 5 - 5) (random-float 5 - 5) ; Quadrant 3
+  ]
+  if (team-id = 4) [
+    setxy (random-float 5 + 5) (random-float 5 - 5) ; Quadrant 4
+  ]
+end
+
+; Set ICs
+to setup
+  clear-all
+
+  ; Initialize list of team colors (limit of 4 teams for now)
+  set team-colors [blue green yellow cyan]
+
+  ; Generate list for team assignment
+  set team-assignments n-values Number_Employees [random Number_Teams + 1]
+
+  ; Calculate distribution of tolerance level
+  let high-count floor (Number_Employees * 0.33)  ; third high tolerance
+  let medium-count floor (Number_Employees * 0.33) ; third medium tolerance
+  let low-count Number_Employees - high-count - medium-count ; third low tolerance
+
+  ; Create high-tolerance employees
+  create-high-tolerance high-count [
+    let team-id one-of team-assignments
+    set shape "person"
+    set team team-id
+    set color item (team - 1) team-colors ; Assign team color
+
+    ; Set position based on team ID
+    set-team-position team-id
+
+    ; Remove team assignment to avoid duplication
+    set team-assignments remove-item 0 team-assignments
+  ]
+
+  ; Create medium-tolerance employees
+  create-medium-tolerance medium-count [
+    let team-id one-of team-assignments
+    set shape "person"
+    set team team-id
+    set color item (team - 1) team-colors ; Assign team color
+
+    ; Set position based on team ID
+    set-team-position team-id
+
+    ; Remove team assignment to avoid duplication
+    set team-assignments remove-item 0 team-assignments
+  ]
+
+  ; Create low-tolerance employees
+  create-low-tolerance low-count [
+    let team-id one-of team-assignments
+    set shape "person"
+    set team team-id
+    set color item (team - 1) team-colors ; Assign team color
+
+    ; Set position based on team ID
+    set-team-position team-id
+
+    ; Remove team assignment to avoid duplication
+    set team-assignments remove-item 0 team-assignments
+  ]
+
+  reset-ticks
+end
 @#$#@#$#@
 GRAPHICS-WINDOW
 446
@@ -101,11 +186,11 @@ SLIDER
 267
 192
 300
-Number_of_Employees
-Number_of_Employees
+Number_Employees
+Number_Employees
 0
-100
-50.0
+1000
+127.0
 1
 1
 NIL
@@ -120,7 +205,7 @@ Sickness_threshhold
 Sickness_threshhold
 0
 1
-0.5
+0.6
 0.01
 1
 NIL
@@ -142,20 +227,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-21
-366
-291
-564
+0
+454
+274
+561
 Extensions
 11
 0.0
 1
 
 SLIDER
-18
-387
-190
-420
+52
+399
+224
+432
 Limited_Sick_Days
 Limited_Sick_Days
 0
@@ -167,10 +252,10 @@ NIL
 HORIZONTAL
 
 SWITCH
-18
-432
-173
-465
+49
+490
+204
+523
 Work_from_home
 Work_from_home
 1
@@ -223,6 +308,21 @@ false
 PENS
 "default" 1.0 0 -16777216 true "" "plot count turtles"
 
+SLIDER
+34
+347
+206
+380
+Number_Teams
+Number_Teams
+0
+4
+4.0
+1
+1
+NIL
+HORIZONTAL
+
 @#$#@#$#@
 # Phenomenon: Presenteeism
 
@@ -236,24 +336,21 @@ PENS
 
 ## Courses of Action
 
-Why do agents behave the way that they do
+
 
 # Conceptual Model
 
 ## Agents
 
-SPECIFY AGENTS AND AGENT TYPES AND THEIR ROLES
+
 
 ## Environment
 
 ## Interaction behavior
-(including grounding and justification)
 
-(what rules the agents use to create the overall behavior of the model)
 
 # Implementation Approach
 
-(how to use the model, including a description of each of the items in the Interface tab)
 
 
 # Expected Insights
