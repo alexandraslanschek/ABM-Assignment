@@ -9,7 +9,7 @@ breed [low-tolerance low-tolerant]
 ; Give agents the attribute of their team
 turtles-own [team]
 
-; Function to set position based on team ID
+; Function to set position based on team ID ;; 
 to set-team-position [team-id]
   if (team-id = 1) [
     setxy (random-float 5) + 5 (random-float 5) + 5 ; Quadrant 1
@@ -36,7 +36,7 @@ to setup
   set team-assignments n-values Number_Employees [random Number_Teams + 1]
 
   ; Calculate distribution of tolerance level
-  let high-count floor (Number_Employees * 0.33)  ; third high tolerance
+  let high-count floor (Number_Employees * 0.33)  ; third high tolerance ;; We should have the distribution as a slider 
   let medium-count floor (Number_Employees * 0.33) ; third medium tolerance
   let low-count Number_Employees - high-count - medium-count ; third low tolerance
 
