@@ -36,7 +36,6 @@ to setup
     set team-assignments n-values number-of-teams [random number-of-teams] 
     setup-nodes ; set up the nodes
     setup-links ; set up the links
-
     start-outbreak ; initial "shock" to the system
 
     reset-ticks 
@@ -47,20 +46,46 @@ to go
 end
 
 ; Change of status function
+
+to spread-virus ; thsi function is replicated from the virus model
+  ask turtles with [infected?]
+    [ ask link-neighbors with [not home?] ; we can add also immunity here. No spread if at home.
+        ; to calibrate the spread of the virus
+        [ if tolerance == 1 ; this is the high tolerance group
+            [ if random-float 1 < high-spread-chance; <- this is the chance of spreading the virus. we must introduce the tolerance here
+                [ become-infected ] ] ]
+        [ elif tolerance == 2 ; this is the low tolerance group
+            [ if random-float 1 < low-spread-chance; 
+                [ become-infected ] ] ]         
+end
+
+to get-better
+    ask turtles with [infected?]
+    [ if ticks-since-infection > recovery-time ; this is as a hard constraint. We can also add a probability of recovery.
+        [ become-healthy ] ]
+    [ elif random-float 100 < recovery-chance; <- this is the chance of recovery. we can create a
+        [ become-healthy ] ]
+end
+
 to become-infected
-    ; to set up
+    set infected? true
+    set color red ; Initially for visual inspection
+    ; add infected ticks counter?
 end
 
 to become-healthy
-    ; to set up
+    set infected? false
+    set color white 
 end
 
 to sent-Work_from_home
-    ; to set up
+    set home? true
+    set color grey 
 end
 
 to sent-back_to_work
-    ; to set up
+    set home? false
+    set color blue
 end
 
 ; Set up the network
@@ -78,10 +103,13 @@ to update-links
     ; to set up
 end
 
-to update-status
-    ; to set up
+to distrute-tolerance
+    set tolerance random 2 + 1 ; this is a random number between 1 and 2
 end
 
+
+
 to start-outbreak
-    ; to set up -> this one is for the initial outbreak
+    ask n-of initial-infections turtles ; this is replicated from the virus model
+    [ become-infected ]
 end
