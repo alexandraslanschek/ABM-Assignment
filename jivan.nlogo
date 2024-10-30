@@ -43,6 +43,8 @@ end
 
 to go
     ; to set up
+    ; this is one of the most important part of the code.
+
 end
 
 ; Change of status function
@@ -61,9 +63,9 @@ end
 
 to get-better
     ask turtles with [infected?]
-    [ if ticks-since-infection > recovery-time ; this is as a hard constraint. We can also add a probability of recovery.
+    [ if ticks-since-infection > recovery-time ; this is as a hard constraint. i.e. MAX TIME being sick. We can also add a probability of recovery.
         [ become-healthy ] ]
-    [ elif random-float 100 < recovery-chance; <- this is the chance of recovery. we can create a
+    [ elif random-float 100 < recovery-chance; <- this is the chance of recovery before the MAX TIME
         [ become-healthy ] ]
 end
 
