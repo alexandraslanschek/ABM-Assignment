@@ -1,4 +1,3 @@
-
 ; General commentary:
 ; 1. The idea is to create a random network influenced by the team attribution and having the link
 ;    representing the interactions between the agents.
@@ -35,15 +34,17 @@ to setup
   setup-nodes ; set up the nodes
   setup-spatially-clustered-network
 
-  
+
 
   ; initial outbreak
   ask n-of initial-infections turtles [
-    become-infected ]
+    become-infected
+  ]
+  ;start-outbreak ; initial "shock" to the system -> use that later. I have used the one from before because my line didn't run properly
 
   ;setup-links ; set up the links CHANGE LATER
 
-  ;start-outbreak ; initial "shock" to the system
+
   ask links [ set color white ]
   reset-ticks
 end
@@ -57,8 +58,8 @@ to setup-nodes
   [
     ; for visual reasons, we don't put any nodes *too* close to the edges ;; comment from Virus on a Network (VN in short)
     setxy (random-xcor * 0.95) (random-ycor * 0.95)
-    set become-healthy ; everyone is healthy in the ICs
-    set tick-since-infection 0 ; i set that params to 0s, we can change that later
+    become-healthy ; everyone is healthy in the ICs
+    set ticks-since-infection 0 ; i set that params to 0s, we can change that later
     ; I removed some parts here. See if it causes any issues
   ]
 end
@@ -166,16 +167,8 @@ to sent-back-to-work
     set color blue
 end
 
-; Set up the network
 
-to setup-links
-    ; to set up -> here is where we need to use the teams for changing the impact of the teams attributes on to their interactions.
-    ; the
-end
 
-to update-links
-    ; to set up
-end
 
 to distrute-tolerance
     set tolerance random 2 + 1 ; this is a random number between 1 and 2
@@ -187,6 +180,36 @@ to infection-time-counter
     set ticks-since-infection ticks-since-infection + 1 ; based on stackoverflow: this should be equivalent to x = x + 1 in python
   ]
 end
+
+to setup-links
+  ; Here i m gonna try to create a links-creation function which is biased toward intra-team variables
+  while [ count links < max-links ][ ; use a slider for max-link
+    create-link-in-or-out-of-the-team ; a function to define
+  ]
+  ; Do i need sth else?
+end
+
+to create-link-in-or-out-of-the-team
+  ; here i differentiate between interaction within and outside of the team
+
+  ifelse random-float 1 < in-team-link-probability [ ; thsi proba. need to be > .5 to impact the network configuration
+    create-link-with one-of other turtles with [team = [team] of myself]
+  ]
+  [
+    create-link-with one-of other turtles with [team != [team] of myself ]
+  ]
+end
+
+to destroy-link-all-links ;
+  ; I use the line from https://stackoverflow.com/questions/27439136/how-to-kill-off-selected-links-in-a-network
+  ; This function kills all link. Hence, each time, all the link need to be recreated
+
+  ask links [
+    die
+  ]
+
+end
+
 
 ;to start-outbreak
     ;ask n-of initial-infections turtles ; this is replicated from the virus model ---- Need additional check
@@ -250,7 +273,7 @@ number-of-teams
 number-of-teams
 1
 10
-5.0
+2.0
 1
 1
 NIL
@@ -325,7 +348,7 @@ initial-infection-percentage
 initial-infection-percentage
 0
 1
-0.07
+0.32
 0.01
 1
 %
@@ -372,7 +395,7 @@ average-node-degree
 average-node-degree
 0
 100
-50.0
+9.0
 1
 1
 NIL
@@ -387,8 +410,38 @@ initial-infections
 initial-infections
 1
 100
-5.0
+1.0
 1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+844
+495
+1016
+528
+max-links
+max-links
+1
+100
+10.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+750
+398
+954
+431
+in-team-link-probability
+in-team-link-probability
+0.5
+1
+0.76
+0.01
 1
 NIL
 HORIZONTAL
