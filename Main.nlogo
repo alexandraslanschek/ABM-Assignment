@@ -1,5 +1,4 @@
 
-
 ; General commentary:
 ; 1. The idea is to create a random network influenced by the team attribution and having the link
 ;    representing the interactions between the agents.
@@ -21,30 +20,92 @@ globals [team-assignments team-colors]
 
 turtles-own
 [
-    team; team attribution
-    infected? ; infected status
-    home? ; work from home status
-    ticks-since-infection ; time since infection, its a counter
-    tolerance; the tolerance of the agent. I prefer to use it as a status of a turtle rather than as a breed.
+  team; team attribution
+  infected? ; infected status
+  home? ; work from home status
+  ticks-since-infection ; time since infection, its a counter
+  tolerance ; the tolerance of the agent 1 or 2. I prefer to use it as a status of a turtle rather than as a breed.
 ]
 
 
 ; Set up the initial conditions
 to setup
-    clear-all
+  clear-all
+  set team-assignments n-values number-of-teams [random number-of-teams]
+  setup-nodes ; set up the nodes
+  setup-spatially-clustered-network
 
-    set team-assignments n-values number-of-teams [random number-of-teams]
-    setup-nodes ; set up the nodes
-    setup-links ; set up the links
-    start-outbreak ; initial "shock" to the system
+  ; initial outbreak
+  ask n-of initial-infections turtles [
+    become-infected ]
+
+  ;setup-links ; set up the links CHANGE LATER
+
+  ;start-outbreak ; initial "shock" to the system
 
     reset-ticks
 end
 
+; This part is replicated from Virus on a network. The idea is to change it afterwards to better fit our phenomena.
+; However, to initialize our project, I prefer using a point of reference and then change it. :)
+;
+to setup-nodes
+  set-default-shape turtles "circle"
+  create-turtles number-of-agents
+  [
+    ; for visual reasons, we don't put any nodes *too* close to the edges ;; comment from Virus on a Network (VN in short)
+    setxy (random-xcor * 0.95) (random-ycor * 0.95)
+    ; I removed some parts here. See if it causes any issues
+  ]
+end
+
+to setup-spatially-clustered-network
+  let num-links (average-node-degree * number-of-agents) / 2
+  while [count links < num-links ]
+  [
+    ask one-of turtles
+    [
+      let choice (min-one-of (other turtles with [not link-neighbor? myself])
+                   [distance myself])
+      if choice != nobody [ create-link-with choice ]
+    ]
+  ]
+  ; make the network look a little prettier
+  repeat 10
+  [
+    layout-spring turtles links 0.3 (world-width / (sqrt number-of-agents)) 1
+  ]
+end
+
+;
+;
+;
+
+
+
 to go
 ; to set up
 ; this is one of the most important part of the code.
+  if all? turtles [ not infected? ] [ ; stops the model. When can alternatively change it to kick a new infection in. Additionally, we can also have a max tick counter to stop the model.
+    stop
+  ]
+  ; enter different functions here to run at each ticks
+  spread-virus ; similarly to the Virus in a Network model, this function randomly propagates the virus based on link proximity.
+  infection-time-counter ; look below: this function increment the ticks-since-infection attribute by =+ 1
 
+  ; here the question is whether the counter should come before or after the propagation. Allie, what do you think?
+
+
+  ; we need to add the link-update function.
+
+  ; the purpose of the link-update is to
+
+  ; (1) delete existing link. (the team assigment may be use to influence the probability of losing a link (i.e. not interacting in the next tick)
+  ; (2) create a new link. (i.e. the probability of interacting with someone)
+  ; this function is the cornerstone of how we want to model team interaction. Hence, we may have to try different solutions before finding the most coherent one.
+  ; we need sent-Work_from_home and sent-back-to-work functions
+  ; these are the policy functions.
+  ; ADD MORE FUNCTIONS HERE
 
   tick
 
@@ -52,7 +113,9 @@ end
 
 ; Change of status function
 
-to spread-virus ; thsi function is partially replicated from the virus model
+to spread-virus
+  ; thsi function is partially replicated from the virus model
+
   ask turtles with [infected?][
     ask link-neighbors with [not home?][
       if tolerance = 1 [
@@ -89,21 +152,17 @@ to become-healthy
     set color white
 end
 
-to sent-Work_from_home
+to sent-work-from-home
     set home? true
     set color grey
 end
 
-to sent-back_to_work
+to sent-back-to-work
     set home? false
     set color blue
 end
 
 ; Set up the network
-
-to setup-nodes
-    ; to set up
-end
 
 to setup-links
     ; to set up -> here is where we need to use the teams for changing the impact of the teams attributes on to their interactions.
@@ -125,15 +184,14 @@ to infection-time-counter
   ]
 end
 
-to start-outbreak
-    ask n-of initial-infections number-of-agents ; this is replicated from the virus model ---- Need additional check
-    [ become-infected ]
-end
+;to start-outbreak
+    ;ask n-of initial-infections turtles ; this is replicated from the virus model ---- Need additional check
+    ;[ become-infected ]
+;end
 
-to initial-infections
-  set initial-infections number-of-agents * initial-infection-percentage ; the later being a slider from 0:1 with 1% increment.
-end
-
+;to initial-infections
+  ;set initial-infections number-of-agents * initial-infection-percentage ; the later being a slider from 0:1 with 1% increment.
+;end
 @#$#@#$#@
 GRAPHICS-WINDOW
 210
@@ -188,7 +246,7 @@ number-of-teams
 number-of-teams
 1
 10
-2.0
+5.0
 1
 1
 NIL
@@ -263,7 +321,7 @@ initial-infection-percentage
 initial-infection-percentage
 0
 1
-0.0
+0.07
 0.01
 1
 %
@@ -285,6 +343,51 @@ NIL
 NIL
 NIL
 1
+
+SLIDER
+546
+553
+761
+586
+number-of-agents
+number-of-agents
+10
+100
+50.0
+1
+1
+agents
+HORIZONTAL
+
+SLIDER
+544
+517
+740
+550
+average-node-degree
+average-node-degree
+0
+100
+50.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+585
+639
+757
+672
+initial-infections
+initial-infections
+1
+100
+5.0
+1
+1
+NIL
+HORIZONTAL
 
 @#$#@#$#@
 ## WHAT IS IT?
