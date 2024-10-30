@@ -35,6 +35,8 @@ to setup
   setup-nodes ; set up the nodes
   setup-spatially-clustered-network
 
+  
+
   ; initial outbreak
   ask n-of initial-infections turtles [
     become-infected ]
@@ -42,8 +44,8 @@ to setup
   ;setup-links ; set up the links CHANGE LATER
 
   ;start-outbreak ; initial "shock" to the system
-
-    reset-ticks
+  ask links [ set color white ]
+  reset-ticks
 end
 
 ; This part is replicated from Virus on a network. The idea is to change it afterwards to better fit our phenomena.
@@ -55,12 +57,14 @@ to setup-nodes
   [
     ; for visual reasons, we don't put any nodes *too* close to the edges ;; comment from Virus on a Network (VN in short)
     setxy (random-xcor * 0.95) (random-ycor * 0.95)
+    set become-healthy ; everyone is healthy in the ICs
+    set tick-since-infection 0 ; i set that params to 0s, we can change that later
     ; I removed some parts here. See if it causes any issues
   ]
 end
 
 to setup-spatially-clustered-network
-  let num-links (average-node-degree * number-of-agents) / 2
+  let num-links (average-node-degree * number-of-agents) / 2 ; NB: let allows to create a local vars. Hence it disappear. This function should be changed afterwards.
   while [count links < num-links ]
   [
     ask one-of turtles
