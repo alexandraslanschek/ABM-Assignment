@@ -7,7 +7,7 @@ breed [medium-tolerance medium-tolerant]
 breed [low-tolerance low-tolerant]
 
 ; Give agents the attribute of their team
-turtles-own [team]
+turtles-own [team sick]
 
 ; Function to set position based on team ID
 to set-team-position [team-id]
@@ -73,6 +73,7 @@ to setup
     let team-id one-of team-assignments
     set shape "person"
     set team team-id
+    set sick True
     set color item (team - 1) team-colors ; Assign team color
 
     ; Set position based on team ID
@@ -80,10 +81,80 @@ to setup
 
     ; Remove team assignment to avoid duplication
     set team-assignments remove-item 0 team-assignments
+
+
   ]
 
   reset-ticks
 end
+
+to move
+  ask turtles [
+    let outteam random-float 1
+    if outteam < 0.1 [
+      let repo team
+      while [repo = team] [
+        set repo (1 + random Number_Teams)
+      ]
+      if repo = 1 [
+        setxy (random-float 5) + 5 (random-float 5) + 5 ; Quadrant 1
+      ]
+      if repo = 2 [
+        setxy (random-float 5 - 5) (random-float 5 + 5) ; Quadrant 2
+      ]
+      if repo = 3 [
+        setxy (random-float 5 - 5) (random-float 5 - 5) ; Quadrant 3
+      ]
+      if repo = 4  [
+        setxy (random-float 5 + 5) (random-float 5 - 5) ; Quadrant 4
+      ]
+    ]
+  ]
+end
+
+to return
+  ask turtles [
+      if team = 1 [
+        setxy (random-float 5) + 5 (random-float 5) + 5 ; Quadrant 1
+      ]
+      if team = 2 [
+        setxy (random-float 5 - 5) (random-float 5 + 5) ; Quadrant 2
+      ]
+      if team = 3 [
+        setxy (random-float 5 - 5) (random-float 5 - 5) ; Quadrant 3
+      ]
+      if team = 4  [
+        setxy (random-float 5 + 5) (random-float 5 - 5) ; Quadrant 4
+      ]
+  ]
+end
+
+;set up interaction where agents interact within their team with a high probability
+to interact
+  ;let   ;; define interaction range
+  ask turtles [
+    if sick = True [
+      let neighbours turtles in-radius 0.01
+      ask neighbours [
+        ;if random-float 1 < 0.4 [ ;; 40% infection probability
+                                  ;; Define interaction, e.g., change color or share information to test interaction
+          set color orange
+          set sick True
+        ;]
+      ]
+    ]
+  ]
+end
+
+to go
+  return
+  move
+  interact
+  display  ;; updates the view each tick
+  tick
+end
+
+;with each interaction there is a prob of getting sick
 @#$#@#$#@
 GRAPHICS-WINDOW
 446
@@ -190,7 +261,7 @@ Number_Employees
 Number_Employees
 0
 1000
-127.0
+115.0
 1
 1
 NIL
