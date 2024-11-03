@@ -1,5 +1,5 @@
 ; Set up globals
-globals [team-assignments team-colors HIGH_TOLERANCE MEDIUM_TOLERANCE LOW_TOLERANCE]
+globals [team-assignments team-colors HIGH_TOLERANCE MEDIUM_TOLERANCE LOW_TOLERANCE productivities ]
 
 ; Create agent breeds that are defined by sickness-threshold
 breed [high-tolerance high-tolerant]
@@ -77,19 +77,19 @@ to setup
     set team-assignments remove-item 0 team-assignments
   ]
 
-  ; Initial infection
+  ; Initial infection - set a probability that someone comes in with a cold
   ask turtles [
-    ; TODO make variable for initial sick probability
+    ; TODO make variable for initial sick probability just for the high tolerance type?
     if random-float 1 < 0.01 [
       set color orange
       if tolerance = HIGH_TOLERANCE [
-        set days_sick 10
+        set days_sick Recovery_Days_High_Tolerance
       ]
       if tolerance = MEDIUM_TOLERANCE [
-        set days_sick 7
+        set days_sick Recovery_Days_Medium_Tolerance
       ]
       if tolerance = LOW_TOLERANCE [
-        set days_sick 5
+        set days_sick Recovery_Days_Low_Tolerance
       ]
     ]
   ]
@@ -151,13 +151,13 @@ to interact
         if days_sick = 0 and random-float 1 < (Transmission_rate / 100) [
           set color orange
           if tolerance = HIGH_TOLERANCE [
-            set days_sick 10 ; Multiply by ticks per day, rn 1 tick is one day
+            set days_sick Recovery_Days_High_Tolerance * Movements_per_day ; Multiply by ticks per day, rn 1 tick is one day but can adjust with slider
           ]
           if tolerance = MEDIUM_TOLERANCE [
-            set days_sick 7
+            set days_sick Recovery_Days_Medium_Tolerance * Movements_per_day
           ]
           if tolerance = LOW_TOLERANCE [
-            set days_sick 5
+            set days_sick Recovery_Days_Low_Tolerance * Movements_per_day
           ]
         ]
       ]
@@ -165,10 +165,11 @@ to interact
   ]
 end
 
+; set function for healing time, move healing time down by number of ticks per day
 to heal
   ask turtles [
     if days_sick > 0 [
-      set days_sick days_sick - 1 ; implies 1 tick is 1 day
+      set days_sick days_sick - 1 * Movements_per_day ; rn implies 1 tick is 1 day
     ]
     if days_sick = 0 [
       set color item (team_nr - 1) team-colors
@@ -176,17 +177,21 @@ to heal
   ]
 end
 
+; add in productivity calcualtion
 to calc_productivity
-  let productivities []
+  ; initialize productivity
+  set productivities []
   ask turtles [
+    ; if not sick, append value of 100 = full productivity
     ifelse days_sick = 0 [
       set productivities lput 100 productivities
     ] [
+      ; if sick and high type, set productivity to high-type productivity
       if tolerance = HIGH_TOLERANCE [
-        set productivities lput 80 productivities
+        set productivities lput High_Type_productivity productivities
       ]
       if tolerance = MEDIUM_TOLERANCE [
-        set productivities lput 80 productivities
+        set productivities lput Medium_Type_productivity productivities
       ]
       if tolerance = LOW_TOLERANCE [
         set productivities lput 0 productivities
@@ -197,6 +202,7 @@ to calc_productivity
   print mean productivities
 end
 
+; set up go button - works start the day by healing, then calc their produc for start of day, then go into work, then move and interact
 to go
   heal
   calc_productivity
@@ -210,10 +216,10 @@ end
 ;with each interaction there is a prob of getting sick
 @#$#@#$#@
 GRAPHICS-WINDOW
-446
-33
-883
-471
+482
+41
+919
+479
 -1
 -1
 13.0
@@ -336,20 +342,20 @@ NIL
 HORIZONTAL
 
 TEXTBOX
-236
-119
-386
-137
+272
+127
+422
+145
 Outcomes of Interest:
 11
 0.0
 1
 
 PLOT
-232
-143
-432
-293
+268
+151
+468
+301
 Sick Days Over Time
 time
 Sick Days
@@ -361,25 +367,25 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot count turtles"
+"default" 1.0 0 -16777216 true "" "plot count total_sick_days"
 
 PLOT
-233
-302
-433
-452
+269
+310
+469
+460
 Average Productivity
 time
 Avg Productivity
 0.0
-10.0
-0.0
-10.0
+100.0
+20.0
+100.0
 true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot count turtles"
+"default" 1.0 0 -16777216 true "" "plot mean productivities"
 
 SLIDER
 18
@@ -391,6 +397,106 @@ Number_Teams
 0
 4
 4.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+3
+350
+230
+383
+Recovery_Days_Low_Tolerance
+Recovery_Days_Low_Tolerance
+0
+10
+5.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+0
+390
+247
+423
+Recovery_Days_Medium_Tolerance
+Recovery_Days_Medium_Tolerance
+0
+10
+7.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+0
+428
+229
+461
+Recovery_Days_High_Tolerance
+Recovery_Days_High_Tolerance
+0
+10
+10.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+5
+477
+186
+510
+High_Type_productivity
+High_Type_productivity
+0
+100
+80.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+5
+517
+203
+550
+Medium_Type_productivity
+Medium_Type_productivity
+0
+100
+80.0
+1
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+21
+573
+171
+591
+Time Settings
+11
+0.0
+1
+
+SLIDER
+19
+599
+191
+632
+Movements_per_day
+Movements_per_day
+1
+24
+1.0
 1
 1
 NIL
