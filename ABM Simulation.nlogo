@@ -1,5 +1,13 @@
+
+; To Do:
+;
+;
+
+
+
+
 ; Set up globals
-globals [team-assignments team-colors]
+globals [team-assignments team-colors HIGH_TOLERANCE MEDIUM_TOLERANCE LOW_TOLERANCE productivities ]
 
 ; Create agent breeds that are defined by sickness-threshold
 breed [high-tolerance high-tolerant]
@@ -7,27 +15,15 @@ breed [medium-tolerance medium-tolerant]
 breed [low-tolerance low-tolerant]
 
 ; Give agents the attribute of their team
-turtles-own [team]
-
-; Function to set position based on team ID ;; 
-to set-team-position [team-id]
-  if (team-id = 1) [
-    setxy (random-float 5) + 5 (random-float 5) + 5 ; Quadrant 1
-  ]
-  if (team-id = 2) [
-    setxy (random-float 5 - 5) (random-float 5 + 5) ; Quadrant 2
-  ]
-  if (team-id = 3) [
-    setxy (random-float 5 - 5) (random-float 5 - 5) ; Quadrant 3
-  ]
-  if (team-id = 4) [
-    setxy (random-float 5 + 5) (random-float 5 - 5) ; Quadrant 4
-  ]
-end
+turtles-own [team_nr days_sick tolerance]
 
 ; Set ICs
 to setup
   clear-all
+
+  set HIGH_TOLERANCE 1
+  set MEDIUM_TOLERANCE 2
+  set LOW_TOLERANCE 3
 
   ; Initialize list of team colors (limit of 4 teams for now)
   set team-colors [blue green yellow cyan]
@@ -36,7 +32,7 @@ to setup
   set team-assignments n-values Number_Employees [random Number_Teams + 1]
 
   ; Calculate distribution of tolerance level
-  let high-count floor (Number_Employees * 0.33)  ; third high tolerance ;; We should have the distribution as a slider 
+  let high-count floor (Number_Employees * 0.33)  ; third high tolerance
   let medium-count floor (Number_Employees * 0.33) ; third medium tolerance
   let low-count Number_Employees - high-count - medium-count ; third low tolerance
 
@@ -44,11 +40,13 @@ to setup
   create-high-tolerance high-count [
     let team-id one-of team-assignments
     set shape "person"
-    set team team-id
-    set color item (team - 1) team-colors ; Assign team color
+    set team_nr team-id
+    set days_sick 0
+    set tolerance HIGH_TOLERANCE
+    set color item (team_nr - 1) team-colors ; Assign team color
 
     ; Set position based on team ID
-    set-team-position team-id
+    move team-id
 
     ; Remove team assignment to avoid duplication
     set team-assignments remove-item 0 team-assignments
@@ -58,11 +56,14 @@ to setup
   create-medium-tolerance medium-count [
     let team-id one-of team-assignments
     set shape "person"
-    set team team-id
-    set color item (team - 1) team-colors ; Assign team color
+    set team_nr team-id
+    set days_sick 0
+    set tolerance MEDIUM_TOLERANCE
+
+    set color item (team_nr - 1) team-colors ; Assign team color
 
     ; Set position based on team ID
-    set-team-position team-id
+    move team-id
 
     ; Remove team assignment to avoid duplication
     set team-assignments remove-item 0 team-assignments
@@ -72,24 +73,161 @@ to setup
   create-low-tolerance low-count [
     let team-id one-of team-assignments
     set shape "person"
-    set team team-id
-    set color item (team - 1) team-colors ; Assign team color
+    set team_nr team-id
+    set days_sick 0
+    set tolerance LOW_TOLERANCE
+    set color item (team_nr - 1) team-colors ; Assign team color
 
     ; Set position based on team ID
-    set-team-position team-id
+    move team-id
 
     ; Remove team assignment to avoid duplication
     set team-assignments remove-item 0 team-assignments
   ]
 
+  ; Initial infection - set a probability that someone comes in with a cold
+  ask turtles [
+    ; TODO make variable for initial sick probability just for the high tolerance type?
+    if random-float 1 < 0.01 [  ;; This can be made as a slider
+      set color orange
+      if tolerance = HIGH_TOLERANCE [
+        set days_sick Recovery_Days_High_Tolerance
+      ]
+      if tolerance = MEDIUM_TOLERANCE [
+        set days_sick Recovery_Days_Medium_Tolerance
+      ]
+      if tolerance = LOW_TOLERANCE [
+        set days_sick Recovery_Days_Low_Tolerance
+      ]
+    ]
+  ]
+
   reset-ticks
 end
+
+to move [pos]
+  if pos = 1 [
+    setxy (random-float 5 + 8) (random-float 5 + 8) ; Quadrant 1
+  ]
+  if pos = 2 [
+    setxy (random-float 5 - 8) (random-float 5 + 8) ; Quadrant 2
+  ]
+  if pos = 3 [
+    setxy (random-float 5 - 8) (random-float 5 - 8) ; Quadrant 3
+  ]
+  if pos = 4  [
+    setxy (random-float 5 + 8) (random-float 5 - 8) ; Quadrant 4
+  ]
+end
+
+to team_move
+  ask turtles [
+    ;; Only move worker around office if they are not sick or have high tolerance
+    ifelse days_sick = 0 or tolerance = HIGH_TOLERANCE [
+      let outteam random-float 1
+      if outteam < 0.1 [
+        let repositioning team_nr
+        while [repositioning = team_nr] [
+          set repositioning (1 + random Number_Teams)
+        ]
+        move repositioning
+      ]
+    ] [
+      ;; Move to "Home" position
+      setxy random-float 1 random-float 1 ;; Improve this define home area
+    ]
+  ]
+end
+
+to return
+  ask turtles [
+    if days_sick = 0 or tolerance = HIGH_TOLERANCE [
+      move team_nr
+    ]
+  ]
+end
+
+;set up interaction where agents interact within their team with a high probability
+to interact
+  ;let   ;; define interaction range
+  ask turtles [
+    ;; Check if worker is sick and in office
+    if days_sick > 0 and tolerance = HIGH_TOLERANCE [
+      let neighbours turtles in-radius (Infection_radius / 100)
+      ask neighbours [
+        ; Only infect healthy people, don't reset sick peoples counter
+        if days_sick = 0 and random-float 1 < (Transmission_rate / 100) [ ;;; Transmission rate and the radius are confounder to the probability of transmitting the disease. Hence, need to be calibrated together.
+          set color orange
+          if tolerance = HIGH_TOLERANCE [
+            set days_sick Recovery_Days_High_Tolerance * Movements_per_day ; Multiply by ticks per day, rn 1 tick is one day but can adjust with slider
+          ]
+          if tolerance = MEDIUM_TOLERANCE [
+            set days_sick Recovery_Days_Medium_Tolerance * Movements_per_day
+          ]
+          if tolerance = LOW_TOLERANCE [
+            set days_sick Recovery_Days_Low_Tolerance * Movements_per_day
+          ]
+        ]
+      ]
+    ]
+  ]
+end
+
+; set function for healing time, move healing time down by number of ticks per day
+to heal
+  ask turtles [
+    if days_sick > 0 [
+      set days_sick days_sick - 1 * Movements_per_day ; rn implies 1 tick is 1 day
+    ]
+    if days_sick = 0 [
+      set color item (team_nr - 1) team-colors
+    ]
+  ]
+end
+
+; add in productivity calcualtion
+to calc_productivity
+  ; initialize productivity
+  set productivities []
+  ask turtles [
+    ; if not sick, append value of 100 = full productivity
+    ifelse days_sick = 0 [
+      set productivities lput 100 productivities
+    ] [
+      ; if sick and high type, set productivity to high-type productivity
+      if tolerance = HIGH_TOLERANCE [
+        set productivities lput High_Type_productivity productivities
+      ]
+      if tolerance = MEDIUM_TOLERANCE [
+        set productivities lput Medium_Type_productivity productivities
+      ]
+      if tolerance = LOW_TOLERANCE [
+        set productivities lput 0 productivities
+      ]
+    ]
+  ]
+
+  print mean productivities
+end
+
+; set up go button - works start the day by healing, then calc their produc for start of day, then go into work, then move and interact
+to go
+  heal
+  calc_productivity
+  return
+  team_move
+  interact
+  display  ;; updates the view each tick
+  tick
+end
+
+;with each interaction there is a prob of getting sick
 @#$#@#$#@
 GRAPHICS-WINDOW
-446
-33
-883
-471
+482
+41
+919
+479
 -1
 -1
 13.0
@@ -155,7 +293,7 @@ Infection_Radius
 Infection_Radius
 0
 100
-49.0
+100.0
 1
 1
 NIL
@@ -190,23 +328,8 @@ Number_Employees
 Number_Employees
 0
 1000
-127.0
+115.0
 1
-1
-NIL
-HORIZONTAL
-
-SLIDER
-13
-305
-185
-338
-Sickness_threshhold
-Sickness_threshhold
-0
-1
-0.6
-0.01
 1
 NIL
 HORIZONTAL
@@ -216,67 +339,31 @@ SLIDER
 179
 189
 212
-Contagion_level
-Contagion_level
+Transmission_rate
+Transmission_rate
 0
 100
-50.0
+44.0
 1
 1
 NIL
 HORIZONTAL
 
 TEXTBOX
-0
-454
-274
-561
-Extensions
-11
-0.0
-1
-
-SLIDER
-52
-399
-224
-432
-Limited_Sick_Days
-Limited_Sick_Days
-0
-365
-14.0
-1
-1
-NIL
-HORIZONTAL
-
-SWITCH
-49
-490
-204
-523
-Work_from_home
-Work_from_home
-1
-1
--1000
-
-TEXTBOX
-236
-119
-386
-137
+272
+127
+422
+145
 Outcomes of Interest:
 11
 0.0
 1
 
 PLOT
-232
-143
-432
-293
+268
+151
+468
+301
 Sick Days Over Time
 time
 Sick Days
@@ -288,36 +375,136 @@ true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot count turtles"
+"default" 1.0 0 -16777216 true "" "plot count total_sick_days"
 
 PLOT
-233
-302
-433
-452
+269
+310
+469
+460
 Average Productivity
 time
 Avg Productivity
 0.0
-10.0
-0.0
-10.0
+100.0
+20.0
+100.0
 true
 false
 "" ""
 PENS
-"default" 1.0 0 -16777216 true "" "plot count turtles"
+"default" 1.0 0 -16777216 true "" "plot mean productivities"
 
 SLIDER
-34
-347
-206
-380
+18
+306
+190
+339
 Number_Teams
 Number_Teams
 0
 4
 4.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+3
+350
+230
+383
+Recovery_Days_Low_Tolerance
+Recovery_Days_Low_Tolerance
+0
+10
+5.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+0
+390
+247
+423
+Recovery_Days_Medium_Tolerance
+Recovery_Days_Medium_Tolerance
+0
+10
+7.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+0
+428
+229
+461
+Recovery_Days_High_Tolerance
+Recovery_Days_High_Tolerance
+0
+10
+10.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+5
+477
+186
+510
+High_Type_productivity
+High_Type_productivity
+0
+100
+80.0
+1
+1
+NIL
+HORIZONTAL
+
+SLIDER
+5
+517
+203
+550
+Medium_Type_productivity
+Medium_Type_productivity
+0
+100
+87.0
+1
+1
+NIL
+HORIZONTAL
+
+TEXTBOX
+21
+573
+171
+591
+Time Settings
+11
+0.0
+1
+
+SLIDER
+19
+599
+191
+632
+Movements_per_day
+Movements_per_day
+1
+24
+20.0
 1
 1
 NIL
