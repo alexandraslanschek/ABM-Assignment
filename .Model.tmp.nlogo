@@ -966,9 +966,7 @@ In the first phase of the modelling, we explored the possibility of relying on i
   a. The office space is harder to interpret.
   b. The randomisation of the network structure limited replicability of each experiment.
   c. Hard to add additional phenomenon on top of the existing structure.
-  d. Difficult to isolate the source of complexity and understand how the adds-on would change the behaviour of the model.
-
-
+  d. Difficult to isolate the source of complexity
 
 
   2. 
