@@ -541,7 +541,7 @@ days
 mean-productivity
 0.0
 260.0
-0.8
+0.5
 1.0
 false
 true
