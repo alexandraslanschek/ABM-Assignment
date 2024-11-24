@@ -10,11 +10,11 @@ turtles-own [effective-recovery-days immune infected infections out sick sick-le
 to setup
   clear-all
 
-  ;; Empty list for final outcome
-  set productivity []
-
   ;; Set number of ticks per day
   set number-of-ticks-per-day 4
+
+  ;; Empty list for final outcome
+  set productivity []
 
   ;; Assign colors to teams
   set team-colors [yellow orange pink violet blue sky turquoise green brown]
@@ -86,7 +86,7 @@ to setup
 end
 
 to go
-  if ticks mod number-of-ticks-per-day = 0 and ticks != 0 [ ;; First tick of a day
+  if ticks mod number-of-ticks-per-day = 0 and ticks != 0 [ ;; First tick of day
     ;; Decide what to do today
     ask absentees [
       ;; If infected yesterday
@@ -170,7 +170,7 @@ to go
     ]
   ]
 
-  if ticks mod number-of-ticks-per-day != 0 and (ticks + 1) mod number-of-ticks-per-day != 0 [ ;; Intermediate ticks of a day
+  if ticks mod number-of-ticks-per-day != 0 and (ticks + 1) mod number-of-ticks-per-day != 0 [ ;; Intermediate ticks of day
     ;; Randomly infect workers, based on contagiousness and number of sick workers on patches
     infect
 
@@ -180,7 +180,7 @@ to go
     ]
   ]
 
-  if (ticks + 1) mod number-of-ticks-per-day = 0 [ ;; Last tick of a day
+  if (ticks + 1) mod number-of-ticks-per-day = 0 [ ;; Last tick of day
     ;; Randomly infect workers, based on contagiousness and number of sick workers on patches
     infect
 
@@ -288,7 +288,7 @@ to go
     ]
   ]
 
-  ;; Simulate a year
+  ;; Simulate year
   if ticks = 260 * number-of-ticks-per-day - 1 [
     ;; Final outcome
     output-print word "Mean productivity = " (word precision mean productivity 4)
