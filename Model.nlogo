@@ -450,7 +450,7 @@ slower-recovery
 slower-recovery
 0
 1
-0.63
+0.67
 0.01
 1
 NIL
@@ -516,7 +516,7 @@ INPUTBOX
 493
 439
 immunity-days
-10.0
+65.0
 1
 0
 Number
@@ -623,7 +623,7 @@ INPUTBOX
 493
 78
 exogenous-sickness
-0.002
+0.001
 1
 0
 Number
@@ -634,7 +634,7 @@ INPUTBOX
 495
 159
 contagiousness
-0.009
+0.015
 1
 0
 Number
