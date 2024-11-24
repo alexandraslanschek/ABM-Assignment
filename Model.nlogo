@@ -993,10 +993,9 @@ NetLogo 6.4.0
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="calibration" repetitions="50" runMetricsEveryStep="false">
+  <experiment name="calibration" repetitions="100" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
-    <metric>count turtles with [infected = true]</metric>
     <metric>mean [infections] of turtles</metric>
     <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
     <enumeratedValueSet variable="number-of-workers">
@@ -1012,10 +1011,10 @@ NetLogo 6.4.0
       <value value="0.51"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="exogenous-sickness">
-      <value value="0.002"/>
+      <value value="0.001"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="contagiousness">
-      <value value="0.009"/>
+      <value value="0.015"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="severity">
       <value value="0.3"/>
@@ -1024,10 +1023,10 @@ NetLogo 6.4.0
       <value value="5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="slower-recovery">
-      <value value="0.63"/>
+      <value value="0.67"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="immunity-days">
-      <value value="10"/>
+      <value value="65"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="max-sick-leave-days">
       <value value="260"/>

@@ -5,7 +5,7 @@
     - Middle
   - movement-across-teams = 0.50
     - Middle
-  - exogenous-sickness = 0.002
+  - exogenous-sickness = 0.001
     - Exogenous shocks should be very small
   - number-of-ticks-per-day = 4
     - Two-hour rhythm
@@ -25,9 +25,9 @@
     - NHS (https://www.nhs.uk/conditions/common-cold/) recommends seeing general practitioner after 10 days
     - Again, remember that 1 week = 5 days in our model
   - max-sick-leave-days = 260
-    - None in Switzerland
+    - Approximately none in Switzerland
 - Empirical macrocalibrated parameters
-  - contagiousness = 0.009
-    - Weekly incidence for adults is maximally approximately 10 percent (https://www.rki.de/SharedDocs/Bilder/InfAZ/Influenza/Grippeweb/Abbildung3_Wochenbericht.png?__blob=poster&v=138)
-  - immunity-days = 10
+  - contagiousness = 0.01
     - Average number of colds for adults ranges from 2 to 4 (Pappas, 2017, p. 200)
+  - immunity-days = 65
+    - Reinfections with same types of cold are uncommon (Pappas, p. 199)
