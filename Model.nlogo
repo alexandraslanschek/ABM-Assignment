@@ -306,12 +306,7 @@ to infect
   ;; Only healthy and vulnerable workers can be infected
   ask turtles with [sick = false and immune = 0] [
     let contagious-workers count turtles-here with [sick = true]
-    repeat contagious-workers [
-      set infected random-float 1 < contagiousness
-      if infected [
-        stop
-      ]
-    ]
+    set infected random-float 1 < sqrt contagious-workers * contagiousness
   ]
 end
 
