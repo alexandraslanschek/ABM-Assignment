@@ -1,0 +1,33 @@
+- Face microcalibrated parameters
+  - number-of-workers = 200
+    - Trade-off between smoothness and computational complexity
+  - number-of-teams = 5
+    - Middle
+  - movement-across-teams = 0.50
+    - Middle
+  - exogenous-sickness = 0.002
+    - Exogenous shocks should be very small
+  - number-of-ticks-per-day = 4
+    - Two-hour rhythm
+- Face macrocalibrated parameters
+- Empirical microcalibrated parameters
+  - share-of-presentees = 0.51
+    - Estimate for Switzerland (Grebner et al., 2010, p. 81)
+    - What about estimates from Alexandra?
+  - severity = 0.30
+    - Middle between 0.20 and 0.40, which are minimum and maximum estimates for Germany (Kramer et al., 2013, p. 6)
+    - Can we find data which is (1) more scientific and/or (2) related to colds more specifically?
+  - recovery-days = 5
+    - Lower bound of average duration of colds for adults (Pappas, 2017, p. 200)
+    - Remember that 1 week = 5 days in our model
+  - slower-recovery = 0.63
+    - Results in 8 recovery days, which is upper bound of average duration of colds for adults
+    - NHS (https://www.nhs.uk/conditions/common-cold/) recommends seeing general practitioner after 10 days
+    - Again, remember that 1 week = 5 days in our model
+  - max-sick-leave-days = 260
+    - None in Switzerland
+- Empirical macrocalibrated parameters
+  - contagiousness = 0.009
+    - Weekly incidence for adults is maximally approximately 10 percent (https://www.rki.de/SharedDocs/Bilder/InfAZ/Influenza/Grippeweb/Abbildung3_Wochenbericht.png?__blob=poster&v=138)
+  - immunity-days = 10
+    - Average number of colds for adults ranges from 2 to 4 (Pappas, 2017, p. 200)
