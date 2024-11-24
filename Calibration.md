@@ -30,4 +30,4 @@
   - contagiousness = 0.01
     - Average number of colds for adults ranges from 2 to 4 (Pappas, 2017, p. 200)
   - immunity-days = 65
-    - Reinfections with same types of cold are uncommon (Pappas, p. 199)
+    - Reinfections with same types of cold are uncommon (Pappas, 2017, p. 199)
