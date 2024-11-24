@@ -395,7 +395,7 @@ INPUTBOX
 230
 176
 number-of-workers
-100.0
+200.0
 1
 0
 Number
@@ -409,7 +409,7 @@ share-of-presentees
 share-of-presentees
 0
 1
-0.45
+0.51
 0.01
 1
 NIL
@@ -441,7 +441,7 @@ slower-recovery
 slower-recovery
 0
 1
-0.3
+0.63
 0.01
 1
 NIL
@@ -453,7 +453,7 @@ INPUTBOX
 493
 297
 recovery-days
-7.0
+5.0
 1
 0
 Number
@@ -464,7 +464,7 @@ INPUTBOX
 494
 537
 max-sick-leave-days
-10.0
+260.0
 1
 0
 Number
@@ -495,7 +495,7 @@ movement-across-teams
 movement-across-teams
 0
 1
-0.25
+0.5
 0.01
 1
 NIL
@@ -507,7 +507,7 @@ INPUTBOX
 493
 439
 immunity-days
-60.0
+10.0
 1
 0
 Number
@@ -521,7 +521,7 @@ severity
 severity
 0
 1
-0.25
+0.3
 0.01
 1
 NIL
@@ -613,7 +613,7 @@ INPUTBOX
 493
 78
 exogenous-sickness
-0.005
+0.002
 1
 0
 Number
@@ -624,7 +624,7 @@ INPUTBOX
 495
 159
 contagiousness
-0.0111
+0.009
 1
 0
 Number
