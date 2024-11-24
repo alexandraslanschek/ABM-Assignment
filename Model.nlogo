@@ -5,7 +5,7 @@ breed [absentees absentee] ;; Miss work when sick (if allowed)
 breed [presentees presentee] ;; Work when sick
 
 ;; Agent properties
-turtles-own [effective-recovery-days immune infected out sick sick-leave-days team work]
+turtles-own [effective-recovery-days immune infected infections out sick sick-leave-days team work]
 
 to setup
   clear-all
@@ -94,6 +94,7 @@ to go
         ;; Sick today
         set sick true
         set infected false ;; Should be true if and only if infected today
+        set infections infections + 1 ;; Count infections since beginning of year
 
         ;; If still allowed to take sick leave
         ifelse sick-leave-days < max-sick-leave-days [
@@ -145,6 +146,7 @@ to go
         ;; Sick today
         set sick true
         set infected false ;; Should be true if and only if infected today
+        set infections infections + 1 ;; Count infections since beginning of year
 
         ;; Assign red to sick workers at office
         set color red
