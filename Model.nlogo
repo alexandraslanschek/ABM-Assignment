@@ -80,7 +80,7 @@ to setup
   ]
 
   set-current-plot "sickness"
-  set-plot-y-range 0 count turtles / 4
+  set-plot-y-range 0 count turtles
 
   reset-ticks
 end
@@ -248,6 +248,10 @@ to go
     ;; PLOT: Plot today's exogenous incidence
     set-current-plot-pen "exogenous-incidence"
     plot count turtles with [infected = true] - endogenous-incidence
+
+    ;; PLOT: Plot today's immunity
+    set-current-plot-pen "immunity"
+    plot count turtles with [immune > 0]
 
     ;; Update immunity (nothing changes for vulnerable workers)
     ask turtles with [immune > 0] [
@@ -606,6 +610,7 @@ PENS
 "prevalence" 1.0 0 -2674135 true "" ""
 "endogenous-incidence" 1.0 0 -1184463 true "" ""
 "exogenous-incidence" 1.0 0 -16777216 true "" ""
+"immunity" 1.0 0 -10899396 true "" ""
 
 INPUTBOX
 281
