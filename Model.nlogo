@@ -649,15 +649,94 @@ OUTPUT
 @#$#@#$#@
 ## WHAT IS IT?
 
-(a general understanding of what the model is trying to show or explain)
+The key objective of our model is analyse the relationship between sick leave policy and office productivity while capturing emergent dynamics that can only be captured through an agent-based modelling approach At its core, the approach consists in assuming a distribution of workers between two types: (i) presentees – worker that stay at work while being sick and (ii) absentees – workers that use there sick leaves.
+
+### Phenomenon: Presenteeism vs. Absenteeism
+
+At its core, our model attempt to illustrate the tension inherent of sick leave between maintaining productivity and preventing diasease propagation. 
+
+On the one hand, absentees lose substantial productivity when taking their sick leave. Indeed, we assume in our model that workers in sick leave are not productive at all. On the other hand, presenteeism still leads to a compromised productivity as employees work at reduced capacity while still infecting their colleagues. 
+
+Since organisation are complex social systems and workers' team-structure dependent interactions may lead to emergence, our model endeavours to overcome the shortcomings associated with models that only look at the relationship between sick leave policy and productivity at the aggregated level. By taking a bottom-up agent-based modelling approach, we allow our model to capture teh 
+
+
+
+### Illustrative Empirical Evidence
+
+@ Dorian: I think you better understood it, can you fill this part? Thks
+
+### Research Question the model tries to answer
+
+This model tries to evaluate and explain the trade-off manager face in determining the number of maximum sick days allowed for employees. More precisely, it attempts to answer the following two research questions:
+
+  1. What is the relationship between the maximum number of sick leave days and productivity?
+  2. Should firm owners rather forbid employees to work in the office when they are sick?
+
 
 ## HOW IT WORKS
 
-(what rules the agents use to create the overall behavior of the model)
+### Overiew
+
+![logic_map](file:logic_map.png) 
+
+### Set-up
+
+At the initialisation of the model (by pressing "set-up"), we distribute the worker population (slider) among two breeds (absentees / presentees) based on given proportion (default 50%) and uniformly among n-different teams. Our model allow n to be between 1 and 9. 
+
+### Go
+
+TO DO
+
+### Stopping Condition
+
+The model automatically stops when the day count reach 260, which is the set number for the number of work day in a year. 
+
 
 ## HOW TO USE IT
 
 (how to use the model, including a description of each of the items in the Interface tab)
+### Setting up & running the model
+
+First and foremost, before every run you should (re-)press the botton **set-up** as it will allow to reinitialise the model. 
+
+Then, to run the model press **go**. The go function will continue to increment the model up until it reaches the stopping condition, namely 260 days, or equivalently 1,040 ticks.
+
+### Parameters & Key variables
+
+As you can see, there are the following parameters on the **Interface**:
+
+**Number of workers** – Total population (default 200)
+
+*The larger the population, the smoother the process.*
+
+**Movement across teams** - Number of time a worker move to another team during a day (default 0.50)
+
+*DESCR*
+
+**Share of presentees** – Determines the proportion of workers that are of breed presentee (default 51%)
+
+*The large the share, the greater the average productivity and the faster the contagion*
+
+**Exogenous-sickness** – At each tick, the risk for each workers to become sick for reasons outside of their colleagues sickness. (default 0.1%)
+
+*Acts as an initial choice, so there will be no sickness if set at 0*
+
+**Contagiousness** – Thershold probability at which a worker becomes sick for each member in the team that is sick. (default 1.5%)
+
+*Contagiousness is scaling linearly to the number of sick person in a team* MAY CHANGE
+
+**Recovery days** - Number of days required for a sick worker to be well again. (default 5 days)
+
+*The longer the recovery days, the greater the overall propagation of the sickness)
+
+**Slower-recovery** – Recovery day penalty for being sick in the office (default 0.67 day(s))
+
+???
+
+**Immunity days** – Number of days following the fully recovery that a worker cannot fall sick again. (default 65 days)
+
+*The greater the immunity, the greater the lags in the propagation. If the variable is large enough, it is possible to only have 1 wave instead of the default 3*
+
 
 ## THINGS TO NOTICE
 
@@ -679,9 +758,56 @@ OUTPUT
 
 (models in the NetLogo Models Library and elsewhere which are of related interest)
 
+The model is related to two models indirectly. 
+
+**Virus on a Network model** 
+(Stonedahl, F. and Wilensky, U., 2008)
+
+In the first phase of the modelling, we explored the possibility of relying on its network-based approach to virus propagation as the workhorse model. At the time, we identified the following advantages and shortcomings:
+
+**Advantages**:
+  a. Ready-made base model.
+  b. Easy to scale the number of teams and workers.
+
+**Disadvantages**: 
+  a. The office space is harder to interpret.
+  b. The randomisation of the network structure limited replicability of each experiment.
+  c. Hard to add additional phenomenon on top of the existing structure.
+  d. Difficult to isolate the source of complexity and understand how the adds-on would change the behaviour of the model.
+
+
+
+
+  2. 
+
+However, this model still differs from the two related models
+
 ## CREDITS AND REFERENCES
 
-(a reference to the model's URL on the web if it has one, as well as any other necessary credits, citations, and links)
+### Related Models
+Stonedahl, F. and Wilensky, U. (2008). Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
+
+### Bibliography 
+
+
+Van Wormer JJ, King JP, Gajewski A, McLean HQ, Belongia EA. Influenza and Workplace Productivity Loss in Working Adults. J Occup Environ Med. 2017 Dec;59(12):1135-1139. doi: 10.1097/JOM.0000000000001120. PMID: 28759481; PMCID: PMC9982836.
+
+Daniels, S., Wei, H., Han, Y. et al. Risk factors associated with respiratory infectious disease-related presenteeism: a rapid review. BMC Public Health 21, 1955 (2021). https://doi.org/10.1186/s12889-021-12008-9
+
+Blanchet Zumofen, MH., Frimpter, J. & Hansen, S.A. Impact of Influenza and Influenza-Like Illness on Work Productivity Outcomes: A Systematic Literature Review. PharmacoEconomics 41, 253–273 (2023). https://doi.org/10.1007/s40273-022-01224-9
+
+U.S. Department of Labor. (n.d.). Sick leave. Retrieved from https://www.dol.gov/general/topic/workhours/sickleave
+ 
+Swiss Confederation. (n.d.). Inability to work and sick leave. Retrieved from https://www.kmu.admin.ch/kmu/en/home/concrete-know-how/personnel/employment-law/working-hours/inability-work-sick-leave.html
+
+Heymann J, Rho HJ, Schmitt J, Earle A. Ensuring a Healthy and Productive Workforce: Comparing the Generosity of Paid Sick Day and Sick Leave Policies in 22 Countries. International Journal of Health Services. 2010;40(1):1-22. doi:10.2190/HS.40.1.a
+
+Turner RB. The Common Cold. Goldman's Cecil Medicine. 2012:2089–91. doi: 10.1016/B978-1-4377-1604-7.00369-9. Epub 2012 May 8. PMCID: PMC7173442.
+
+Kirkpatrick, G. L. (1996). The common cold. *Primary Care: Clinics in Office Practice, 23*(4), 657–675. https://doi.org/10.1016/S0095-4543(05)70355-9 
+
+Andrup, L., et al. (2023). Transmission route of rhinovirus - the causative agent for common cold: A systematic review. American Journal of Infection Control, 51(8), 938–957. https://doi.org/10.1016/j.ajic.2023.04.005 
+
 @#$#@#$#@
 default
 true
