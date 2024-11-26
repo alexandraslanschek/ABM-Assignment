@@ -715,9 +715,9 @@ As you can see, there are the following parameters on the **Interface**:
 
 *The larger the population, the smoother the process.*
 
-**Movement across teams** - Probability of moving to another team for each tick. (default 0.50)
+**Movement across teams** - Probability of moving to another team for each tick. (default 25%)
 
-*Hence, since we assume for tick a day, the probability of moving across a team is implicitly a binomial distribution*
+*Hence, since we assume for tick a day, the probability of moving across a team is implicitly a binomial distribution. Increasing it leads to XXX*
 
 **Share of presentees** – Determines the proportion of workers that are of breed presentee (default 51%)
 
@@ -752,10 +752,14 @@ As you can see, there are the following parameters on the **Interface**:
 
 (suggested things for the user to try to do (move sliders, switches, etc.) with the model)
 
-**Changing the maximum-of-sick-days
-**Changing the number of teams**
+**Experiment A. Large vs Small Companies**
+You can replicate experiment A by changing XX to XX. As you can observe
 
-**Changing the number of 
+**Experiment B. Changing Share of Presentees**
+XXX
+
+** Experiment C. Changing the Movement Across Teams**
+XXX
 
 
 ## EXTENDING THE MODEL
@@ -770,6 +774,13 @@ As you can see, there are the following parameters on the **Interface**:
 ## NETLOGO FEATURES
 
 (interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
+**1. Day count**
+
+**2. XXX**
+
+**3. XXX**
+
+
 
 ## RELATED MODELS
 
@@ -792,13 +803,21 @@ In the first phase of the modelling, we explored the possibility of relying on i
   c. Hard to add additional phenomenon on top of the existing structure.
   d. Difficult to isolate the source of complexity and understand how the adds-on would change the behaviour of the model.
 
-However, this model still differs from the two related models
-
-**Spread of Disease**
-
-
 **El Farol Model**
 (Rand, W. & Wilensky, U., 2007) 
+
+We also inspired ourself from the El Farol Model primarily for the use of space in the characterisation of the office space compartimentalisation of team interactions. In the first version of the model, we identified that the use of a "Room-based Partitioning" had the following advantages and shortcomings:
+
+**Advantages**:
+  a. Ready-made base model.
+  b. Easy to scale the number of teams and workers.
+
+**Disadvantages**: 
+  a. The office space is harder to interpret.
+  b. The randomisation of the network structure limited replicability of each experiment.
+  c. Hard to add additional phenomenon on top of the existing structure.
+  d. Difficult to isolate the source of complexity and understand how the adds-on would change the behaviour of the model.
+
 
 ## CREDITS AND REFERENCES
 
