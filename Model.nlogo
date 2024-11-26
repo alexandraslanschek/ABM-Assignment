@@ -660,7 +660,6 @@ On the one hand, absentees lose substantial productivity when taking their sick 
 Since organisation are complex social systems and workers' team-structure dependent interactions may lead to emergence, our model endeavours to overcome the shortcomings associated with models that only look at the relationship between sick leave policy and productivity at the aggregated level. By taking a bottom-up agent-based modelling approach, we allow our model to capture teh 
 
 
-
 ### Illustrative Empirical Evidence
 
 @ Dorian: I think you better understood it, can you fill this part? Thks
@@ -685,7 +684,14 @@ At the initialisation of the model (by pressing "set-up"), we distribute the wor
 
 ### Go
 
-TO DO
+At the start, the exogenous infection kick starts the contamination. Worker get infected in two ways:
+1. They become infected because of the exogenous infection (a form a continuous external shock)
+2. They become infected because of other team members are sick in their team. For each team member that are sick, a worker has a constant probability of getting infected. Thus, the more sick people are sick in a team, the greater the risk of getting infected. 
+
+At the end of the day, if worker got infected, they then become sick.
+
+X time a day, the worker move across teams. This enable to capture the compartimentalisation of organisation within teams. In other words, 
+
 
 ### Stopping Condition
 
@@ -701,7 +707,7 @@ First and foremost, before every run you should (re-)press the botton **set-up**
 
 Then, to run the model press **go**. The go function will continue to increment the model up until it reaches the stopping condition, namely 260 days, or equivalently 1,040 ticks.
 
-### Parameters & Key variables
+### Parameters
 
 As you can see, there are the following parameters on the **Interface**:
 
@@ -709,9 +715,9 @@ As you can see, there are the following parameters on the **Interface**:
 
 *The larger the population, the smoother the process.*
 
-**Movement across teams** - Number of time a worker move to another team during a day (default 0.50)
+**Movement across teams** - Probability of moving to another team for each tick. (default 0.50)
 
-*DESCR*
+*Hence, since we assume for tick a day, the probability of moving across a team is implicitly a binomial distribution*
 
 **Share of presentees** – Determines the proportion of workers that are of breed presentee (default 51%)
 
@@ -729,9 +735,9 @@ As you can see, there are the following parameters on the **Interface**:
 
 *The longer the recovery days, the greater the overall propagation of the sickness)
 
-**Slower-recovery** – Recovery day penalty for being sick in the office (default 0.67 day(s))
+**Slower-recovery** – Recovery day penalty for being sick in the office. (default 0.67%)
 
-???
+*This variable is a factor applied to the effective recovery day counts* 
 
 **Immunity days** – Number of days following the fully recovery that a worker cannot fall sick again. (default 65 days)
 
@@ -746,9 +752,20 @@ As you can see, there are the following parameters on the **Interface**:
 
 (suggested things for the user to try to do (move sliders, switches, etc.) with the model)
 
+**Changing the maximum-of-sick-days
+**Changing the number of teams**
+
+**Changing the number of 
+
+
 ## EXTENDING THE MODEL
 
 (suggested things to add or change in the Code tab to make the model more complicated, detailed, accurate, etc.)
+
+1. Unjustified absenteeism
+2. Forward looking anticipation of sick days decision
+3. Work distribution within teams with burnout dynamics
+4. Remote work
 
 ## NETLOGO FEATURES
 
@@ -775,12 +792,13 @@ In the first phase of the modelling, we explored the possibility of relying on i
   c. Hard to add additional phenomenon on top of the existing structure.
   d. Difficult to isolate the source of complexity and understand how the adds-on would change the behaviour of the model.
 
-
-
-
-  2. 
-
 However, this model still differs from the two related models
+
+**Spread of Disease**
+
+
+**El Farol Model**
+(Rand, W. & Wilensky, U., 2007) 
 
 ## CREDITS AND REFERENCES
 
@@ -790,24 +808,23 @@ Stonedahl, F. and Wilensky, U. (2008). Center for Connected Learning and Compute
 ### Bibliography 
 
 
-Van Wormer JJ, King JP, Gajewski A, McLean HQ, Belongia EA. Influenza and Workplace Productivity Loss in Working Adults. J Occup Environ Med. 2017 Dec;59(12):1135-1139. doi: 10.1097/JOM.0000000000001120. PMID: 28759481; PMCID: PMC9982836.
+Van Wormer, J. J., King, J. P., Gajewski, A., McLean, H. Q., & Belongia, E. A. (2017). Influenza and workplace productivity loss in working adults. Journal of Occupational and Environmental Medicine, 59(12), 1135–1139. https://doi.org/10.1097/JOM.0000000000001120
 
-Daniels, S., Wei, H., Han, Y. et al. Risk factors associated with respiratory infectious disease-related presenteeism: a rapid review. BMC Public Health 21, 1955 (2021). https://doi.org/10.1186/s12889-021-12008-9
+Daniels, S., Wei, H., Han, Y., et al. (2021). Risk factors associated with respiratory infectious disease-related presenteeism: A rapid review. BMC Public Health, 21, 1955. https://doi.org/10.1186/s12889-021-12008-9
 
-Blanchet Zumofen, MH., Frimpter, J. & Hansen, S.A. Impact of Influenza and Influenza-Like Illness on Work Productivity Outcomes: A Systematic Literature Review. PharmacoEconomics 41, 253–273 (2023). https://doi.org/10.1007/s40273-022-01224-9
+Blanchet Zumofen, M. H., Frimpter, J., & Hansen, S. A. (2023). Impact of influenza and influenza-like illness on work productivity outcomes: A systematic literature review. PharmacoEconomics, 41(3), 253–273. https://doi.org/10.1007/s40273-022-01224-9
 
 U.S. Department of Labor. (n.d.). Sick leave. Retrieved from https://www.dol.gov/general/topic/workhours/sickleave
- 
+
 Swiss Confederation. (n.d.). Inability to work and sick leave. Retrieved from https://www.kmu.admin.ch/kmu/en/home/concrete-know-how/personnel/employment-law/working-hours/inability-work-sick-leave.html
 
-Heymann J, Rho HJ, Schmitt J, Earle A. Ensuring a Healthy and Productive Workforce: Comparing the Generosity of Paid Sick Day and Sick Leave Policies in 22 Countries. International Journal of Health Services. 2010;40(1):1-22. doi:10.2190/HS.40.1.a
+Heymann, J., Rho, H. J., Schmitt, J., & Earle, A. (2010). Ensuring a healthy and productive workforce: Comparing the generosity of paid sick day and sick leave policies in 22 countries. International Journal of Health Services, 40(1), 1–22. https://doi.org/10.2190/HS.40.1.a
 
-Turner RB. The Common Cold. Goldman's Cecil Medicine. 2012:2089–91. doi: 10.1016/B978-1-4377-1604-7.00369-9. Epub 2012 May 8. PMCID: PMC7173442.
+Turner, R. B. (2012). The common cold. Goldman’s Cecil Medicine, 2089–2091. https://doi.org/10.1016/B978-1-4377-1604-7.00369-9
 
-Kirkpatrick, G. L. (1996). The common cold. *Primary Care: Clinics in Office Practice, 23*(4), 657–675. https://doi.org/10.1016/S0095-4543(05)70355-9 
+Kirkpatrick, G. L. (1996). The common cold. Primary Care: Clinics in Office Practice, 23(4), 657–675. https://doi.org/10.1016/S0095-4543(05)70355-9
 
-Andrup, L., et al. (2023). Transmission route of rhinovirus - the causative agent for common cold: A systematic review. American Journal of Infection Control, 51(8), 938–957. https://doi.org/10.1016/j.ajic.2023.04.005 
-
+Andrup, L., et al. (2023). Transmission route of rhinovirus - the causative agent for common cold: A systematic review. American Journal of Infection Control, 51(8), 938–957. https://doi.org/10.1016/j.ajic.2023.04.005
 @#$#@#$#@
 default
 true
