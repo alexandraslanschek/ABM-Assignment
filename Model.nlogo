@@ -504,7 +504,7 @@ movement-across-teams
 movement-across-teams
 0
 1
-0.5
+0.3
 0.01
 1
 NIL
@@ -529,7 +529,7 @@ SLIDER
 severity
 severity
 0
-1
+0.40
 0.3
 0.01
 1
@@ -623,7 +623,7 @@ INPUTBOX
 493
 78
 exogenous-sickness
-0.001
+0.003
 1
 0
 Number
@@ -634,7 +634,7 @@ INPUTBOX
 495
 159
 contagiousness
-0.015
+0.009
 1
 0
 Number
