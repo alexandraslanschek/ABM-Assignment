@@ -11,7 +11,7 @@ to setup
   clear-all
 
   ;; Set number of ticks per day
-  set number-of-ticks-per-day 4
+  set number-of-ticks-per-day 4 ;; Since contagiousness of cold is estimated for 2 hours (see Info tab), assume two-hour rhythm
 
   ;; Empty list for final outcome
   set productivity []
@@ -701,47 +701,35 @@ The model automatically stops when the day count reach 260, which is the set num
 ## HOW TO USE IT
 
 (how to use the model, including a description of each of the items in the Interface tab)
-### Setting up & running the model
 
-First and foremost, before every run you should (re-)press the botton **set-up** as it will allow to reinitialise the model. 
+Click on the SETUP button to initialize the model.
 
-Then, to run the model press **go**. The go function will continue to increment the model up until it reaches the stopping condition, namely 260 days, or equivalently 1,040 ticks.
+Click on the GO button to run the model. The clock will advance until you press the button again or 1 year is simulated (260 working days).
 
-### Parameters
+The NUMBER-OF-WORKERS input (integer) controls the size of the office. We calibrated the model with 200 workers (as a compromise between smoothness of the plots and computational complexity), but any other value is possible.
 
-As you can see, there are the following parameters on the **Interface**:
+The NUMBER-OF-TEAMS slider controls the number and therefore the size of teams. It should be noted that every team is equally large in expectation. We calibrated the model with 5 teams (simply the middle).
 
-**Number of workers** – Total population (default 200)
+The MOVEMENT-ACROSS-TEAMS slider controls the share of workers who are not in their own teams in the second, third, and fourth ticks of a day (everybody starts the day in their own team). A worker interacts 3 * MOVEMENT-ACROSS-TEAMS with other teams in expectation (out of four interactions) and the probability that a worker interacts only with their own team is (1 - MOVEMENT-ACROSS-TEAMS)<sup>3</sup> a day. We calibrated the model with 0.3.
 
-*The larger the population, the smoother the process.*
+The SHARE-OF-PRESENTEES slider controls the share of workers who work when they are sick. We microcalibrated the share of presentees to 0.51, which is an estimate for Switzerland (Grebner et al., 2010, p. 81). However, many other values are realistic: Estimates range from 0.30 (Sweden) to 0.80 (US) (Blanchet Zumhofen et al., 2022, p. 254; Henneberger & Gämperli, 2014, pp. 13–14). You can even choose 0, which simulates the sick leave policy of forbidding workers to work when they are sick.
 
-**Movement across teams** - Probability of moving to another team for each tick. (default 25%)
+The EXOGENOUS-SICKNESS input (double) controls the probability of catching a cold after work (independent of the prevalence). Since everybody is healthy at the beginning (and possibly again later), EXOGENOUS-SICKNESS should be strictly larger than 0. Otherwise, the results are trivial. Since infections after work are not entirely explained by the model, we calibrated the model with a very small value (0.003).
 
-*Hence, since we assume for tick a day, the probability of moving across a team is implicitly a binomial distribution. Increasing it leads to XXX*
+The CONTAGIOUSNESS input (double) controls how contagious the illness is. More specifically, CONTAGIOUSNESS is the probability of infection for a healthy and vulnerable worker if one sick worker is in the same team. If there are more, the probability increases concavely. We microcalibrated the contagiousness to 0.09, which is the only available estimate for the cold (Lovelock et al., 1952, as cited in Andrup et al., 2023, p. 946).
 
-**Share of presentees** – Determines the proportion of workers that are of breed presentee (default 51%)
+The SEVERITY slider controls how productive sick workers are. While healthy workers produce 1, sick workers produce 1 - SEVERITY a day. We microcalibrated the severity to 0.3, which is an estimate specifically for the cold (Blanchet Zumhofen et al., 2022, p. 260). A more general study shows that values up to 0.4 are realistic (Kramer et al., 2013, p. 6).
 
-*The large the share, the greater the average productivity and the faster the contagion*
+The RECOVERY-DAYS input (integer) controls how many days a sick worker needs to recover at home. We microcalibrated the recovery days to 5, which is the lower bound of the average duration of colds for adults (Pappas, 2017, p. 200). It should be noted that the model excludes weekends, so 5 days in the model correspond to 7 days in reality, which is the upper bound of the average duration of colds for adults.
 
-**Exogenous-sickness** – At each tick, the risk for each workers to become sick for reasons outside of their colleagues sickness. (default 0.1%)
+The SLOWER-RECOVERY slider controls how strongly presenteeism slows recovery. More specifically, RECOVERY-DAYS / SLOWER-RECOVERY is how many days a sick worker needs to recover at work. We microcalibrated SLOWER-RECOVERY to 0.67, which results in 8 recovery days. On the one hand, it is now well established from a variety of studies that presenteeism slows recovery. On the other hand, 10 days are still a common duration of colds for adults (remember that the model excludes weekends). For example, the NHS recommends seeing a doctor only then (2024).
 
-*Acts as an initial choice, so there will be no sickness if set at 0*
+The IMMUNITY-DAYS input (integer) controls how many days a recovered worker is fully protected from sickness. We macrocalibrated the immunity days to 65. As a result, workers are sick 3 times on average, which is what empirical data indicates (Pappas, 2017, p. 200).
 
-**Contagiousness** – Thershold probability at which a worker becomes sick for each member in the team that is sick. (default 1.5%)
+Importantly, while we focus on the cold, any illness can be simulated by changing CONTAGIOUSNESS, SEVERITY, RECOVERY-DAYS, SLOWER-RECOVERY, and IMMUNITY-DAYS accordingly.
 
-*Contagiousness is scaling linearly to the number of sick person in a team* MAY CHANGE
+The MAX-SICK-LEAVE-DAYS input (integer) controls how many days workers are allowed to miss work a year. We calibrated the model with the sick leave policy of no maximum (MAX-SICK-LEAVE-DAYS = 260), which is legally enforced in Switzerland (approximately), in order to be consistent with the share of presentees.
 
-**Recovery days** - Number of days required for a sick worker to be well again. (default 5 days)
-
-*The longer the recovery days, the greater the overall propagation of the sickness)
-
-**Slower-recovery** – Recovery day penalty for being sick in the office. (default 0.67%)
-
-*This variable is a factor applied to the effective recovery day counts* 
-
-**Immunity days** – Number of days following the fully recovery that a worker cannot fall sick again. (default 65 days)
-
-*The greater the immunity, the greater the lags in the propagation. If the variable is large enough, it is possible to only have 1 wave instead of the default 3*
 
 
 ## THINGS TO NOTICE
