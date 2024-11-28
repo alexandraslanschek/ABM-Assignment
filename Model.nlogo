@@ -11,7 +11,7 @@ to setup
   clear-all
 
   ;; Set number of ticks per day
-  set number-of-ticks-per-day 4 ;; Since contagiousness of cold is estimated for 2 hours (see Info tab), assume two-hour rhythm
+  set number-of-ticks-per-day 4
 
   ;; Empty list for final outcome
   set productivity []
@@ -504,7 +504,7 @@ movement-across-teams
 movement-across-teams
 0
 1
-0.3
+0.5
 0.01
 1
 NIL
@@ -529,7 +529,7 @@ SLIDER
 severity
 severity
 0
-0.40
+1
 0.3
 0.01
 1
@@ -623,7 +623,7 @@ INPUTBOX
 493
 78
 exogenous-sickness
-0.003
+0.001
 1
 0
 Number
@@ -634,7 +634,7 @@ INPUTBOX
 495
 159
 contagiousness
-0.009
+0.015
 1
 0
 Number
@@ -1143,10 +1143,18 @@ NetLogo 6.4.0
 @#$#@#$#@
 @#$#@#$#@
 <experiments>
-  <experiment name="calibration" repetitions="100" runMetricsEveryStep="false">
+  <experiment name="calibration" repetitions="1000" runMetricsEveryStep="false">
     <setup>setup</setup>
     <go>go</go>
     <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>mean-productivity turtles</metric>
+    <metric>count turtles with [infected = True]</metric>
+    <metric>count turtles with [sick = True]</metric>
+    <metric>count turtles with [immune &gt; 0]</metric>
     <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
     <enumeratedValueSet variable="number-of-workers">
       <value value="200"/>
@@ -1155,16 +1163,16 @@ NetLogo 6.4.0
       <value value="5"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="movement-across-teams">
-      <value value="0.5"/>
+      <value value="0.3"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="share-of-presentees">
       <value value="0.51"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="exogenous-sickness">
-      <value value="0.001"/>
+      <value value="0.003"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="contagiousness">
-      <value value="0.015"/>
+      <value value="0.09"/>
     </enumeratedValueSet>
     <enumeratedValueSet variable="severity">
       <value value="0.3"/>
@@ -1181,6 +1189,501 @@ NetLogo 6.4.0
     <enumeratedValueSet variable="max-sick-leave-days">
       <value value="260"/>
     </enumeratedValueSet>
+  </experiment>
+  <experiment name="sensitivity test - teams" repetitions="100" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>mean-productivity turtles</metric>
+    <metric>count turtles with [infected = True]</metric>
+    <metric>count turtles with [sick = True]</metric>
+    <metric>count turtles with [immune &gt; 0]</metric>
+    <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
+    <enumeratedValueSet variable="number-of-workers">
+      <value value="200"/>
+    </enumeratedValueSet>
+    <steppedValueSet variable="number-of-teams" first="1" step="1" last="9"/>
+    <enumeratedValueSet variable="movement-across-teams">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="share-of-presentees">
+      <value value="0.51"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exogenous-sickness">
+      <value value="0.003"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="contagiousness">
+      <value value="0.09"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="severity">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="recovery-days">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="slower-recovery">
+      <value value="0.67"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="immunity-days">
+      <value value="65"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-sick-leave-days">
+      <value value="260"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="sensitivity test - workers" repetitions="100" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>mean-productivity turtles</metric>
+    <metric>count turtles with [infected = True]</metric>
+    <metric>count turtles with [sick = True]</metric>
+    <metric>count turtles with [immune &gt; 0]</metric>
+    <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
+    <steppedValueSet variable="number-of-workers" first="100" step="100" last="2000"/>
+    <enumeratedValueSet variable="number-of-teams">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="movement-across-teams">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="share-of-presentees">
+      <value value="0.51"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exogenous-sickness">
+      <value value="0.003"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="contagiousness">
+      <value value="0.09"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="severity">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="recovery-days">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="slower-recovery">
+      <value value="0.67"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="immunity-days">
+      <value value="65"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-sick-leave-days">
+      <value value="260"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="sensitivity test - movement-across-teams" repetitions="100" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>mean-productivity turtles</metric>
+    <metric>count turtles with [infected = True]</metric>
+    <metric>count turtles with [sick = True]</metric>
+    <metric>count turtles with [immune &gt; 0]</metric>
+    <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
+    <enumeratedValueSet variable="number-of-workers">
+      <value value="200"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-teams">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <steppedValueSet variable="movement-across-teams" first="0.1" step="0.1" last="1"/>
+    <enumeratedValueSet variable="share-of-presentees">
+      <value value="0.51"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exogenous-sickness">
+      <value value="0.003"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="contagiousness">
+      <value value="0.09"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="severity">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="recovery-days">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="slower-recovery">
+      <value value="0.67"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="immunity-days">
+      <value value="65"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-sick-leave-days">
+      <value value="260"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="sensitivity test - share-of-presentees" repetitions="100" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>mean-productivity turtles</metric>
+    <metric>count turtles with [infected = True]</metric>
+    <metric>count turtles with [sick = True]</metric>
+    <metric>count turtles with [immune &gt; 0]</metric>
+    <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
+    <enumeratedValueSet variable="number-of-workers">
+      <value value="200"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-teams">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="movement-across-teams">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <steppedValueSet variable="share-of-presentees" first="0.1" step="0.1" last="0.9"/>
+    <enumeratedValueSet variable="exogenous-sickness">
+      <value value="0.003"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="contagiousness">
+      <value value="0.09"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="severity">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="recovery-days">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="slower-recovery">
+      <value value="0.67"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="immunity-days">
+      <value value="65"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-sick-leave-days">
+      <value value="260"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="sensitivity test - exogenous-sickness" repetitions="100" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>mean-productivity turtles</metric>
+    <metric>count turtles with [infected = True]</metric>
+    <metric>count turtles with [sick = True]</metric>
+    <metric>count turtles with [immune &gt; 0]</metric>
+    <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
+    <enumeratedValueSet variable="number-of-workers">
+      <value value="200"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-teams">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="movement-across-teams">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="share-of-presentees">
+      <value value="0.51"/>
+    </enumeratedValueSet>
+    <steppedValueSet variable="exogenous-sickness" first="0.001" step="0.001" last="0.01"/>
+    <enumeratedValueSet variable="contagiousness">
+      <value value="0.09"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="severity">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="recovery-days">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="slower-recovery">
+      <value value="0.67"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="immunity-days">
+      <value value="65"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-sick-leave-days">
+      <value value="260"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="sensitivity test - contagiousness" repetitions="15" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>mean-productivity turtles</metric>
+    <metric>count turtles with [infected = True]</metric>
+    <metric>count turtles with [sick = True]</metric>
+    <metric>count turtles with [immune &gt; 0]</metric>
+    <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
+    <enumeratedValueSet variable="number-of-workers">
+      <value value="200"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-teams">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="movement-across-teams">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="share-of-presentees">
+      <value value="0.51"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exogenous-sickness">
+      <value value="0.003"/>
+    </enumeratedValueSet>
+    <steppedValueSet variable="contagiousness" first="0.01" step="0.01" last="0.99"/>
+    <enumeratedValueSet variable="severity">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="recovery-days">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="slower-recovery">
+      <value value="0.67"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="immunity-days">
+      <value value="65"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-sick-leave-days">
+      <value value="260"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="sensitivity test - severity" repetitions="100" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>mean-productivity turtles</metric>
+    <metric>count turtles with [infected = True]</metric>
+    <metric>count turtles with [sick = True]</metric>
+    <metric>count turtles with [immune &gt; 0]</metric>
+    <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
+    <enumeratedValueSet variable="number-of-workers">
+      <value value="200"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-teams">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="movement-across-teams">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="share-of-presentees">
+      <value value="0.51"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exogenous-sickness">
+      <value value="0.003"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="contagiousness">
+      <value value="0.09"/>
+    </enumeratedValueSet>
+    <steppedValueSet variable="severity" first="0.1" step="0.1" last="1"/>
+    <enumeratedValueSet variable="recovery-days">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="slower-recovery">
+      <value value="0.67"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="immunity-days">
+      <value value="65"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-sick-leave-days">
+      <value value="260"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="sensitivity test - recovery-days" repetitions="100" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>mean-productivity turtles</metric>
+    <metric>count turtles with [infected = True]</metric>
+    <metric>count turtles with [sick = True]</metric>
+    <metric>count turtles with [immune &gt; 0]</metric>
+    <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
+    <enumeratedValueSet variable="number-of-workers">
+      <value value="200"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-teams">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="movement-across-teams">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="share-of-presentees">
+      <value value="0.51"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exogenous-sickness">
+      <value value="0.003"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="contagiousness">
+      <value value="0.09"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="severity">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <steppedValueSet variable="recovery-days" first="1" step="1" last="14"/>
+    <enumeratedValueSet variable="slower-recovery">
+      <value value="0.67"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="immunity-days">
+      <value value="65"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-sick-leave-days">
+      <value value="260"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="sensitivity test - slower-recovery" repetitions="100" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>mean-productivity turtles</metric>
+    <metric>count turtles with [infected = True]</metric>
+    <metric>count turtles with [sick = True]</metric>
+    <metric>count turtles with [immune &gt; 0]</metric>
+    <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
+    <enumeratedValueSet variable="number-of-workers">
+      <value value="200"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-teams">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="movement-across-teams">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="share-of-presentees">
+      <value value="0.51"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exogenous-sickness">
+      <value value="0.003"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="contagiousness">
+      <value value="0.09"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="severity">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="recovery-days">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <steppedValueSet variable="slower-recovery" first="0.1" step="0.1" last="1"/>
+    <enumeratedValueSet variable="immunity-days">
+      <value value="65"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="max-sick-leave-days">
+      <value value="260"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="sensitivity test - immunity-days" repetitions="100" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>mean-productivity turtles</metric>
+    <metric>count turtles with [infected = True]</metric>
+    <metric>count turtles with [sick = True]</metric>
+    <metric>count turtles with [immune &gt; 0]</metric>
+    <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
+    <enumeratedValueSet variable="number-of-workers">
+      <value value="200"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-teams">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="movement-across-teams">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="share-of-presentees">
+      <value value="0.51"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exogenous-sickness">
+      <value value="0.003"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="contagiousness">
+      <value value="0.09"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="severity">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="recovery-days">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="slower-recovery">
+      <value value="0.67"/>
+    </enumeratedValueSet>
+    <steppedValueSet variable="immunity-days" first="5" step="5" last="260"/>
+    <enumeratedValueSet variable="max-sick-leave-days">
+      <value value="260"/>
+    </enumeratedValueSet>
+  </experiment>
+  <experiment name="sensitivity test - max-sick-leave-days" repetitions="100" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>mean-productivity turtles</metric>
+    <metric>count turtles with [infected = True]</metric>
+    <metric>count turtles with [sick = True]</metric>
+    <metric>count turtles with [immune &gt; 0]</metric>
+    <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
+    <enumeratedValueSet variable="number-of-workers">
+      <value value="200"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-teams">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="movement-across-teams">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="share-of-presentees">
+      <value value="0.51"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exogenous-sickness">
+      <value value="0.003"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="contagiousness">
+      <value value="0.09"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="severity">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="recovery-days">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="slower-recovery">
+      <value value="0.67"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="immunity-days">
+      <value value="65"/>
+    </enumeratedValueSet>
+    <steppedValueSet variable="max-sick-leave-days" first="0" step="5" last="260"/>
   </experiment>
 </experiments>
 @#$#@#$#@
