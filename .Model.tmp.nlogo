@@ -769,11 +769,12 @@ The MAX-SICK-LEAVE-DAYS input (integer) controls how many days workers are allow
 ### Simulation Parameters
 
 	1. **Number of Workers**:
-	- Range: 100 to 2000
-- Default: 200
+   - Range: 100 to 2000
+   - Default: 200
    - Explanation: As the number of workers increases, productivity decreases during a wave of the common cold. Larger populations experience more infections and narrower productivity spikes.
    - Sensitivity: Very sensitive.
-2.**Number of Teams**:
+
+ 2. **Number of Teams**:
    - Range: 1 to 9
    - Default: 5
    - Explanation: More teams delay illness spread, leading to longer waves with less productivity impact.
