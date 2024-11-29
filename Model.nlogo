@@ -777,9 +777,13 @@ The model automatically stops when the day count reach 260, which is the set num
 
 ## HOW TO USE IT
 
+### Buttons
+
 Click on the SETUP button to initialize the model.
 
 Click on the GO button to run the model. The clock will advance until you press the button again or 1 year is simulated (260 working days).
+
+### Sliders and Input Boxes
 
 The NUMBER-OF-WORKERS input (integer) controls the size of the office. We calibrated the model with 200 workers (as a compromise between smoothness of the plots and computational complexity), but any other value is possible.
 
@@ -805,9 +809,13 @@ Importantly, while we focus on the cold, any illness can be simulated by changin
 
 The MAX-SICK-LEAVE-DAYS input (integer) controls how many days workers are allowed to miss work a year. We calibrated the model with the sick leave policy of no maximum (MAX-SICK-LEAVE-DAYS = 260), which is legally enforced in Switzerland (approximately), in order to be consistent with the share of presentees.
 
+### View
+
 The view displays all workers, where they are (at work or at home), and what team they are interacting with. The colors of healthy workers show their teams (for example, a worker who belongs to the first team is yellow). Sick workers who are at home are grey, at work red.
 
 Workers who are at work are on team-colored patches. The patch colors show what team they are interacting with (for example, a worker who is interacting with the first team is on the yellow patch). Workers who are at home are on grey patches. Black patches (if NUMBER-OF-TEAMS < 9) are excluded (reserved for remaining 9 - NUMBER-OF-TEAMS teams).
+
+### Plots and Output Box
 
 The MEAN-PRODUCTIVITY plot shows the mean productivity by agent type (absentees, presentees, and all workers) daily. With the calibrated values, the lines are intuitive: When a wave hits, the mean productivity of absentees falls more substantially but recovers more quickly than the mean productivity of presentees. With MAX-SICK-LEAVE-DAYS = 0, the lines are nearly the same, as expected.
 
