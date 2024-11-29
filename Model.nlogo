@@ -11,7 +11,7 @@ to setup
   clear-all
 
   ;; Set number of ticks per day
-  set number-of-ticks-per-day 4
+  set number-of-ticks-per-day 4 ;; Since contagiousness of cold is estimated for 2 hours (see Info tab), assume two-hour rhythm
 
   ;; Empty list for final outcome
   set productivity []
@@ -450,7 +450,7 @@ slower-recovery
 slower-recovery
 0
 1
-0.68
+0.67
 0.01
 1
 NIL
@@ -504,7 +504,7 @@ movement-across-teams
 movement-across-teams
 0
 1
-0.5
+0.3
 0.01
 1
 NIL
@@ -529,7 +529,7 @@ SLIDER
 severity
 severity
 0
-1
+0.40
 0.3
 0.01
 1
@@ -546,7 +546,7 @@ days
 mean-productivity
 0.0
 260.0
-0.5
+0.0
 1.0
 false
 true
@@ -623,7 +623,7 @@ INPUTBOX
 493
 78
 exogenous-sickness
-0.001
+0.003
 1
 0
 Number
@@ -634,7 +634,7 @@ INPUTBOX
 495
 159
 contagiousness
-0.015
+0.09
 1
 0
 Number
