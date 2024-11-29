@@ -767,7 +767,15 @@ The process is illustrated in the pseudo code below
 The model automatically stops when the day count reach 260, which is the set number for the number of work day in a year. The rational of the stopping condition is that the model is used to be measures on a standardised time span. 
 
 
-# HOW TO USE IT
+
+
+
+
+
+
+
+
+## HOW TO USE IT
 
 Click on the SETUP button to initialize the model.
 
@@ -796,6 +804,15 @@ The IMMUNITY-DAYS input (integer) controls how many days a recovered worker is f
 Importantly, while we focus on the cold, any illness can be simulated by changing CONTAGIOUSNESS, SEVERITY, RECOVERY-DAYS, SLOWER-RECOVERY, and IMMUNITY-DAYS accordingly.
 
 The MAX-SICK-LEAVE-DAYS input (integer) controls how many days workers are allowed to miss work a year. We calibrated the model with the sick leave policy of no maximum (MAX-SICK-LEAVE-DAYS = 260), which is legally enforced in Switzerland (approximately), in order to be consistent with the share of presentees.
+
+
+
+
+
+
+
+
+
 
 
 # MODEL SENSITIVTIY
