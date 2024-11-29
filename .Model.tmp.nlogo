@@ -659,6 +659,10 @@ On the one hand, absenteeism leads to significant productivity losses during sic
 
 Recognising that organisations are complex social systems in which team-based interactions can give rise to emergent behaviours, our model aims to address the limitations of traditional approaches that analyse the relationship between sick-leave policies and productivity only at an aggregate level. By adopting a bottom-up, agent-based modelling approach, our model captures the nuanced dynamics and emergent patterns that arise from individual behaviours, team structures and disease transmission processes within the workplace.
 
+
+
+
+
 ## Research Question 
 
 This model attempts to evaluate and explain the trade-offs faced by managers in determining the maximum number of sick days allowed to employees. More specifically, it attempts to answer the following two research questions:
@@ -689,6 +693,10 @@ These assumptions exclude certain facets of the phenomenon:
 - Heterogeneity of the worker population beyond the absentee/presentee dichotomy.
 - The population is only exposed to a single infectious disease. By extension, this also excludes any form of interaction with additional diseases.
 - Productivity losses result only from the productivity loss of being ill at work or being ill at home. There is no interaction within the team of being ill at home on the team's productivity. I.e. there is no burn-out and overwork effect due to the illness of team members.
+
+
+
+
 
 # HOW IT WORKS
 

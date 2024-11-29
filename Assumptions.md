@@ -1,0 +1,6 @@
+- Expected team sizes are equal
+- Everybody is healthy (but nobody immune) at beginning
+- Workers start within teams
+- Decreasing marginal risk of infection
+- If many workers are infected endogenously, fewer workers are infected exogenously
+- 
