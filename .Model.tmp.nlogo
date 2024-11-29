@@ -653,20 +653,19 @@ The key objective of our model is analyse the relationship between sick leave po
 
 ## Phenomenon: Presenteeism vs. Absenteeism
 
-At its core, our model attempt to illustrate the tension inherent of sick leave between maintaining productivity and preventing diasease propagation. 
+At its core, our model seeks to illustrate the inherent tension in sick leave policies between maintaining productivity and preventing the spread of disease.
 
-On the one hand, absentees lose substantial productivity when taking their sick leave. Indeed, we assume in our model that workers in sick leave are not productive at all. On the other hand, presenteeism still leads to a compromised productivity as employees work at reduced capacity while still infecting their colleagues. 
+On the one hand, absenteeism leads to significant productivity losses during sick leave. In our model, workers on sick leave are assumed to be completely unproductive. On the other hand, presenteeism affects productivity because employees work at a reduced capacity and also spread illness to their colleagues.
 
-Since organisation are complex social systems and workers' team-structure dependent interactions may lead to emergence, our model endeavours to overcome the shortcomings associated with models that only look at the relationship between sick leave policy and productivity at the aggregated level. By taking a bottom-up agent-based modelling approach, we allow our model to capture teh 
+Recognising that organisations are complex social systems in which team-based interactions can give rise to emergent behaviours, our model aims to address the limitations of traditional approaches that analyse the relationship between sick-leave policies and productivity only at an aggregate level. By adopting a bottom-up, agent-based modelling approach, our model captures the nuanced dynamics and emergent patterns that arise from individual behaviours, team structures and disease transmission processes within the workplace.
 
 
-## Illustrative Empirical Evidence
 
 
 
 ## Research Question 
 
-This model tries to evaluate and explain the trade-off manager face in determining the number of maximum sick days allowed for employees. More precisely, it attempts to answer the following two research questions:
+This model attempts to evaluate and explain the trade-offs faced by managers in determining the maximum number of sick days allowed to employees. More specifically, it attempts to answer the following two research questions:
 
 >
   1. What is the relationship between the maximum number of sick leave days and productivity?
@@ -690,7 +689,7 @@ While the first question is a positivist one, then end aim is to provide a model
 
 These assumptions exclude certain facets of the phenomenon:
 
-- There is no seasonal pattern of exogenous infection exposure. 
+- There are no seasonal patterns of exogenous infection exposure. 
 - Heterogeneity of the worker population beyond the absentee/presentee dichotomy.
 - The population is only exposed to a single infectious disease. By extension, this also excludes any form of interaction with additional diseases.
 - Productivity losses result only from the productivity loss of being ill at work or being ill at home. There is no interaction within the team of being ill at home on the team's productivity. I.e. there is no burn-out and overwork effect due to the illness of team members.
@@ -706,8 +705,6 @@ These assumptions exclude certain facets of the phenomenon:
 ![logic_map](file:logic_map.png) 
 
 
-
-
 ### Initialisation
 
 At the start the model is initialised. As mentionned under the **Key Assumption** section, the model parameterisation and initialisation assumes a no immunity and sickness as the starting condition. The default parameters are defined under the **HOW TO USE IT** section with explanation of our model calibration choices. We also invite you to look at the **EXPERIMENTS** to replicate our own experiements.
@@ -719,16 +716,9 @@ The model has a unique features that is introduces two temporal layer.
 	1. Tick-base time: at each tick i.e. the model's time increament, a sequence of functions are activiated.
 2. Day counts: The model time convention is that a day is 4 ticks and the model runs up to 260 days, which represents a year of work days. Moreover, certain functions are only activated at specific time of the days.
 
-An example is of this day of time specific activation function is illustrated below:
-```
-if ticks mod number-of-ticks-per-day = 0 and ticks != 0 [ 
-;; First tick of day
-…
-]
+The process is illustrated in the pseudo code below
 
-```
-
-The p
+![pseudo_code](file:pseudo_code.png)
 
 
 ### Stopping Condition
@@ -769,28 +759,18 @@ The MAX-SICK-LEAVE-DAYS input (integer) controls how many days workers are allow
 
 # MODEL SENSITIVTIY
 
-### Simulation Parameters
-___
+After the calibration process, we have analysed the sensitivity of the model to all parameters. The top three most sensitive parameters are the following:
 
-**Number of Workers**:
-- Range: 100 to 2000
-- Default: 200
-- Explanation: As the number of workers increases, productivity decreases during a wave of the common cold. Larger populations experience more infections and narrower productivity spikes.
-   - Sensitivity: Very sensitive.
+	1. NUMBER-OF-WORKERS:
+_We tested the range from 100 to 2000 thereby encompassing medium to larger size companies. As the number of workers increases, the mean productivity of the turtles declines significantly during a wave of the common cold. A larger workforce leads to a higher frequency of infections per employee each year, which in turn amplifies the spread of illness. Consequently, average office productivity becomes highly sensitive to the size of the employee base. Furthermore, illness spikes occur within a narrower range of ticks as the employee count rises, indicating a more concentrated and rapid spread of infections in larger groups._
 
-____
-2.**Number of Teams**:
-   - Range: 1 to 9
-   - Default: 5
-   - Explanation: More teams delay illness spread, leading to longer waves with less productivity impact.
-   - Sensitivity: Somewhat sensitive.
-
-
+  2. RECOVERY-DAYS
+_This range has been tested on the understanding that colds are typically resolved within a period of no longer than two weeks, namely from 1 to 15 days. An extended recovery period results in the prolongation of illness waves, which in turn gives rise to a greater incidence of severe productivity losses. This is consistent with the premise that the greater the severity of the illness, the greater the impact on office productivity. Furthermore, extended recovery periods limit the number of illness waves that can occur within a given period of time._
 
 
 # EXPERIMENTS
 
-(suggested things for the user to try to do (move sliders, switches, etc.) with the model)
+
 
 **Experiment A. Large vs Small Companies**
 You can replicate experiment A by changing XX to XX. As you can observe
@@ -839,12 +819,38 @@ We also inspired ourself from the El Farol Model primarily for the use of space 
 
 Therefore, the current version of the model inspired itself from the use of spatial visualisation of the teams while allowing greater flexibility in terms of the scaling of the model by defining the team variable as an turtle attribute directly rather than on the spatial one.
 
-## Our Model's Unique Features
-(interesting or unusual features of NetLogo that the model uses, particularly in the Code tab; or where workarounds were needed for missing features)
-**1. Day count**
+## Our Model's Noteworthy Features
 
-**2. XXX**
+**Day count**
+The model dual day and tick count allow to model action at different intraday frequencies.
 
+An example is of this day of time specific activation function is illustrated below:
+
+```
+if ticks mod number-of-ticks-per-day = 0 and ticks != 0 [ 
+;; First tick of day
+…
+]
+```
+**Binomial Infection Probability Distribution**
+This allow us to make depend the infection spread incidence to the number of sick 
+
+
+```
+to infect
+  ;; Only healthy and vulnerable workers can be infected
+  ask turtles with [sick = false and immune = 0] [
+    let contagious-workers count turtles-here with [sick = true]
+    repeat contagious-workers [
+      set infected random-float 1 < contagiousness
+      if infected [
+        stop
+      ]
+    ]
+  ]
+end
+```
+`
 **3. XXX**
 
 # Extending the Model
