@@ -23,6 +23,55 @@ to setup
   set x-coordinates [1 2 3 1 2 3 1 2 3]
   set y-coordinates [3 3 3 2 2 2 1 1 1]
 
+  ;; Color patches
+  ask patches [
+    set pcolor 9
+  ]
+
+  ask patch 1 3 [
+    set pcolor 49
+  ]
+  ask patch 2 3 [
+    set pcolor (ifelse-value
+      number-of-teams >= 2 [29]
+      [black])
+  ]
+  ask patch 3 3 [
+    set pcolor (ifelse-value
+      number-of-teams >= 3 [139]
+      [black])
+  ]
+  ask patch 1 2 [
+    set pcolor (ifelse-value
+      number-of-teams >= 4 [119]
+      [black])
+  ]
+  ask patch 2 2 [
+    set pcolor (ifelse-value
+      number-of-teams >= 5 [109]
+      [black])
+  ]
+  ask patch 3 2 [
+    set pcolor (ifelse-value
+      number-of-teams >= 6 [99]
+      [black])
+  ]
+  ask patch 1 1 [
+    set pcolor (ifelse-value
+      number-of-teams >= 7 [79]
+      [black])
+  ]
+  ask patch 2 1 [
+    set pcolor (ifelse-value
+      number-of-teams >= 8 [59]
+      [black])
+  ]
+  ask patch 3 1 [
+    set pcolor (ifelse-value
+      number-of-teams >= 9 [39]
+      [black])
+  ]
+
   ;; Set movement across teams to 0 if number of teams is 1
   if number-of-teams = 1 [
     set movement-across-teams 0
