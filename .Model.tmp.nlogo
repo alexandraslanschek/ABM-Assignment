@@ -450,7 +450,7 @@ slower-recovery
 slower-recovery
 0
 1
-0.67
+0.68
 0.01
 1
 NIL
@@ -672,6 +672,7 @@ This model tries to evaluate and explain the trade-off manager face in determini
   1. What is the relationship between the maximum number of sick leave days and productivity?
   2. Should firm owners rather forbid employees to work in the office when they are sick?
 >
+
 While the first question is a positivist one, then end aim is to provide a model that enable to consider different illness and their resulting normative insight(s).
 
 ## Hypothesis
@@ -727,6 +728,8 @@ if ticks mod number-of-ticks-per-day = 0 and ticks != 0 [
 
 ```
 
+The p
+
 
 ### Stopping Condition
 
@@ -767,14 +770,16 @@ The MAX-SICK-LEAVE-DAYS input (integer) controls how many days workers are allow
 # MODEL SENSITIVTIY
 
 ### Simulation Parameters
+___
 
-	1. **Number of Workers**:
-   - Range: 100 to 2000
-   - Default: 200
-   - Explanation: As the number of workers increases, productivity decreases during a wave of the common cold. Larger populations experience more infections and narrower productivity spikes.
+**Number of Workers**:
+- Range: 100 to 2000
+- Default: 200
+- Explanation: As the number of workers increases, productivity decreases during a wave of the common cold. Larger populations experience more infections and narrower productivity spikes.
    - Sensitivity: Very sensitive.
 
- 2. **Number of Teams**:
+____
+2.**Number of Teams**:
    - Range: 1 to 9
    - Default: 5
    - Explanation: More teams delay illness spread, leading to longer waves with less productivity impact.
@@ -893,6 +898,11 @@ Kopp, N. (2024). Fiebrig und fröstelnd vor dem Bildschirm. Warum tun wir uns da
 Kramer, F., Gämperli, M., & Henneberger, F. (2013). Präsentismus: Verlust von Gesundheit und Produktivität. IGA-Fakten, Nr. 6. Initiative Gesundheit und Arbeit (IGA). Retrieved from http://www.iga-info.de
 
 Pappas, D. E. (2017). The common cold. In J. E. Bennett, R. Dolin, & M. J. Blaser (Eds.), Mandell, Douglas, and Bennett's principles and practice of infectious diseases (8th ed., pp. 199–202). Elsevier.
+
+
+________
+
+![sensitivity](file:Sensitivity_Tests.png)
 @#$#@#$#@
 default
 true
