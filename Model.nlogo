@@ -728,6 +728,10 @@ if ticks mod number-of-ticks-per-day = 0 and ticks != 0 [
 
 ```
 
+The process is illustrated in the pseudo code below
+
+![pseudo_code](file:pseudo_code.png
+
 
 ### Stopping Condition
 
