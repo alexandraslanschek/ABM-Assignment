@@ -791,7 +791,7 @@ The SHARE-OF-PRESENTEES slider controls the share of workers who work when they 
 
 The EXOGENOUS-SICKNESS input (double) controls the probability of catching a cold after work (independent of the prevalence). Since everybody is healthy at the beginning (and possibly again later), EXOGENOUS-SICKNESS should be strictly larger than 0. Otherwise, the results are trivial. Since infections after work are not entirely explained by the model, we calibrated the model with a very small value (0.003).
 
-The CONTAGIOUSNESS input (double) controls how contagious the illness is. More specifically, CONTAGIOUSNESS is the probability of infection for a healthy and vulnerable worker if one sick worker is in the same team. If there are more, the probability increases concavely. We microcalibrated the contagiousness to 0.09, which is the only available estimate for the cold (Lovelock et al., 1952, as cited in Andrup et al., 2023, p. 946).
+The CONTAGIOUSNESS input (double) controls how contagious the illness is. More specifically, CONTAGIOUSNESS is the probability of infection for a healthy and vulnerable worker if 1 sick worker is in the same team. If there are more, the probability increases concavely. We microcalibrated the contagiousness to 0.09, which is the only available estimate for the cold (Lovelock et al., 1952, as cited in Andrup et al., 2023, p. 946).
 
 The SEVERITY slider controls how productive sick workers are. While healthy workers produce 1, sick workers produce 1 - SEVERITY a day. We microcalibrated the severity to 0.3, which is an estimate specifically for the cold (Blanchet Zumhofen et al., 2022, p. 260). A more general study shows that values up to 0.4 are realistic (Kramer et al., 2013, p. 6).
 
