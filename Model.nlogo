@@ -441,7 +441,7 @@ number-of-teams
 number-of-teams
 1
 9
-5.0
+9.0
 1
 1
 NIL
@@ -698,7 +698,7 @@ OUTPUT
 @#$#@#$#@
 # WHAT IS IT?
 
-The key objective of our model is analyse the relationship between sick leave policy and office productivity while capturing emergent dynamics that can only be captured through an agent-based modelling approach At its core, the approach consists in assuming a distribution of workers between two types: (i) presentees – worker that stay at work while being sick and (ii) absentees – workers that use there sick leaves.
+This model aims to analyze the relationship between sick leave policies and office productivity, leveraging agent-based modeling to capture emergent dynamics. At its core, the model classifies the distribution of workers into two types: (i) presentees – employees who stay at work despite being sick and (ii) absentees – employees who take sick leave when unwell.
 
 ## Phenomenon: Presenteeism vs. Absenteeism
 
@@ -719,7 +719,6 @@ This model attempts to evaluate and explain the trade-offs faced by managers in 
 
 While the first question is a positivist one, then end aim is to provide a model that enable to consider different illness and their resulting normative insight(s).
 
-## Hypothesis
 
 ## Key assumptions & associated limitations
 >
@@ -783,31 +782,249 @@ Click on the SETUP button to initialize the model.
 
 Click on the GO button to run the model. The clock will advance until you press the button again or 1 year is simulated (260 working days).
 
-### Sliders and Input Boxes
+### Sliders and Input Boxes:
+In this section we detail the sliders and input boxes available for this model, as well as values that we recommend testing to implement the model for the common cold. Further, we present verifcation and validation checks for each of these parameters to identify the the calibrated values for the model. 
 
-The NUMBER-OF-WORKERS input (integer) controls the size of the office. We calibrated the model with 200 workers (as a compromise between smoothness of the plots and computational complexity), but any other value is possible.
+The verification checks are performed via univariate sensitivity analysis, examining a range of values for each parameter,to confirm that the model behaves as expected. 
 
-The NUMBER-OF-TEAMS slider controls the number and therefore the size of teams. It should be noted that every team is equally large in expectation. We calibrated the model with 5 teams (simply the middle).
+The validation checks leverage empirical data and statistics, model assumptions, and the results of the verification checks to determine the calibrated values for the model.
 
-The MOVEMENT-ACROSS-TEAMS slider controls the share of workers who are not in their own teams in the second, third, and fourth ticks of a day (everybody starts the day in their own team). A worker interacts 3 * MOVEMENT-ACROSS-TEAMS with other teams in expectation (out of four interactions) and the probability that a worker interacts only with their own team is (1 - MOVEMENT-ACROSS-TEAMS)<sup>3</sup> a day. We calibrated the model with 0.3.
+Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RECOVERY-DAYS, SLOWER-RECOVERY, and IMMUNITY-DAYS are specifically adjusted to match the characteristics of this illness. However, any illness can be simulated by changing these parameters accordingly.
 
-The SHARE-OF-PRESENTEES slider controls the share of workers who work when they are sick. We microcalibrated the share of presentees to 0.51, which is an estimate for Switzerland (Grebner et al., 2010, p. 81). However, many other values are realistic: Estimates range from 0.30 (Sweden) to 0.80 (US) (Blanchet Zumhofen et al., 2022, p. 254; Henneberger & Gämperli, 2014, pp. 13–14). You can even choose 0, which simulates the sick leave policy of forbidding workers to work when they are sick.
+<strong>1. NUMBER-OF-WORKERS </strong>
 
-The EXOGENOUS-SICKNESS input (double) controls the probability of catching a cold after work (independent of the prevalence). Since everybody is healthy at the beginning (and possibly again later), EXOGENOUS-SICKNESS should be strictly larger than 0. Otherwise, the results are trivial. Since infections after work are not entirely explained by the model, we calibrated the model with a very small value (0.003).
+<table border="1" cellpadding="5" cellspacing="0">
+    <td><strong>Description</strong></td>
+    <td>The <code>NUMBER-OF-WORKERS</code> input (integer) determines the number of workers employed in the office.</td>
+  </tr>
+  <tr>
+    <td><strong>Verification</strong></td>
+    <td>
+      We tested the input across a range between 100 and 2,000 workers, representing medium to larger-sized companies. The results indicate that as the number of workers increases, the average productivity of turtles declines during a wave of the common cold. Moreover, larger workforces experience a higher frequency of infections per employee annually, amplifying illness propagation. This can be seen through illness spikes occuring within a narrower range of ticks, reflecting a more concentrated and rapid spread in larger groups. These findings demonstate that a company's productivity during illness outbreaks is highly sensitive to its respective size. 
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Validation</strong></td>
+    <td>
+      The model is calibrated using 200 workers, balancing plot smoothness with computational efficiency. However, the <code>NUMBER-OF-WORKERS</code> input can be set to any desired value.
+    </td>
+  </tr>
+</table>
 
-The CONTAGIOUSNESS input (double) controls how contagious the illness is. More specifically, CONTAGIOUSNESS is the probability of infection for a healthy and vulnerable worker if 1 sick worker is in the same team. If there are more, the probability increases concavely. We microcalibrated the contagiousness to 0.09, which is the only available estimate for the cold (Lovelock et al., 1952, as cited in Andrup et al., 2023, p. 946).
 
-The SEVERITY slider controls how productive sick workers are. While healthy workers produce 1, sick workers produce 1 - SEVERITY a day. We microcalibrated the severity to 0.3, which is an estimate specifically for the cold (Blanchet Zumhofen et al., 2022, p. 260). A more general study shows that values up to 0.4 are realistic (Kramer et al., 2013, p. 6).
+<strong>2. NUMBER-OF-TEAMS </strong>
 
-The RECOVERY-DAYS input (integer) controls how many days a sick worker needs to recover at home. We microcalibrated the recovery days to 5, which is the lower bound of the average duration of colds for adults (Pappas, 2017, p. 200). It should be noted that the model excludes weekends, so 5 days in the model correspond to 7 days in reality, which is the upper bound of the average duration of colds for adults.
+<table border="1" cellpadding="5" cellspacing="0">
+    <td><strong>Description</strong></td>
+    <td>The <code>NUMBER-OF-TEAMS</code> slider controls the number of teams in the office, and therefore also the number of employees per team. Each team is equally sized on average.</td>
+  </tr>
+  <tr>
+    <td><strong>Verification</strong></td>
+    <td>
+      Varying the number of teams reveals that as the number of teams increases, the spread of illness is delayed. This causes each wave of illness to occur at a later tick than compared to scenarios with fewer teams. Employees therefore experience less illness on average as the number of teams increases. Additionally, waves of illness are more spread out over time and do not decrease productivity as severely within a single tick. This is expected because employees are less likely to interact outside their own team, slowing the spread of illness. 
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Validation</strong></td>
+    <td>
+      We calibrate the model with 5 teams (a middle-ground value), but the slider allows any input between 1 and 9.
+    </td>
+  </tr>
+</table>
 
-The SLOWER-RECOVERY slider controls how strongly presenteeism slows recovery. More specifically, RECOVERY-DAYS / SLOWER-RECOVERY is how many days a presentee needs to recover. We microcalibrated SLOWER-RECOVERY to 0.67, which results in 8 recovery days. On the one hand, it is now well established from a variety of studies that presenteeism slows recovery (Henneberger & Gämperli, 2014, p. 27). On the other hand, 10 days are still a common duration of colds for adults (remember that the model excludes weekends). For example, the NHS recommends seeing a doctor only then (2024).
 
-The IMMUNITY-DAYS input (integer) controls how many days a recovered worker is fully protected from sickness. We macrocalibrated the immunity days to 65. As a result, workers are sick 3 times on average, which is what empirical data indicates (Pappas, 2017, p. 200).
+<strong>3. MOVEMENT-ACROSS-TEAMS </strong>
 
-Importantly, while we focus on the cold, any illness can be simulated by changing CONTAGIOUSNESS, SEVERITY, RECOVERY-DAYS, SLOWER-RECOVERY, and IMMUNITY-DAYS accordingly.
+<table border="1" cellpadding="5" cellspacing="0">
+    <td><strong>Description</strong></td>
+    <td>The <code>MOVEMENT-ACROSS-TEAMS</code> slider determines the proportion of workers who spend time outside their own team in the second, third, and fourth ticks of a day (all workers start the day in their own team). Each worker interacts with outher teams approximately  <code>3 x  MOVEMENT-ACROSS-TEAMS</code> times (out of four total interactions) on average. The probability of a worker interacting only with their own team throughout a full day is <code>(1 -  MOVEMENT-ACROSS-TEAMS)<sup>3</sup></code>. This assumes that employees interact once every two hours.</td>
+  </tr>
+  <tr>
+    <td><strong>Verification</strong></td>
+    <td>
+      We test the <code>MOVEMENT-ACROSS-TEAMS</code> parameter across a range from 0.1 to 1. The results show that as the <code>MOVEMENT-ACROSS-TEAMS</code> increases, the illness spreads more quickly throughout the office, making shorter illness waves that more severely decrease productivity in a single tick. 
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Validation</strong></td>
+    <td>
+       <code>MOVEMENT-ACROSS-TEAMS</code> is initially set at 0.3. This represents an office where the majority of work is completed within the team but it is still likely for workers to interact with other teams throughout the day. 
+    </td>
+  </tr>
+</table>
 
-The MAX-SICK-LEAVE-DAYS input (integer) controls how many days workers are allowed to miss work a year. We calibrated the model with the sick leave policy of no maximum (MAX-SICK-LEAVE-DAYS = 260), which is legally enforced in Switzerland (approximately), in order to be consistent with the share of presentees.
+
+
+<strong>4. SHARE-OF-PRESENTEES </strong>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <td><strong>Description</strong></td>
+    <td>The  <code>SHARE-OF-PRESENTEES</code> slider controls the proportion of workers who choose to work while they are sick (presentees). The remaining share of workers are the abensentees, who stay home when sick.</td>
+  </tr>
+  <tr>
+    <td><strong>Verification</strong></td>
+    <td>
+      Testing the <code>SHARE-OF-PRESENTEES</code> parameter across a range from 0.1 to 0.9 shows that lower shares of presentees leads to fewer illness waves. Specifically, we find that if the share of presentees is under 30%, the number of illness waves decreases from 4 to 3. However, productivity losses are generally higher with lower shares of presentees, ceteris paribus.
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Validation</strong></td>
+    <td>
+       We microcalibrate the share of presentees to 0.51, which is the estimated share of presentees for a typical company in Switzerland (Grebner et al., 2010, p. 81). However,  other values are realistic: Estimates range from 0.30 (Sweden) to 0.80 (US) (Blanchet Zumhofen et al., 2022, p. 254; Henneberger & Gämperli, 2014, pp. 13–14). You can even choose 0, which simulates the sick leave policy of forbidding workers to work when they are sick.
+    </td>
+  </tr>
+</table>
+  
+
+<strong>5. EXOGENOUS-SICKNESS </strong>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <td><strong>Description</strong></td>
+    <td>The <code>EXOGENOUS-SICKNESS</code> input represents the probability of employees contracting illness outside of the office, independent of illness prevalence inside the office. This parameter introduces external sources of infection, triggering multiple waves of illness throughout the year.</td>
+  </tr>
+  <tr>
+    <td><strong>Verification</strong></td>
+    <td> Sensitivity tests were conducted for values between 0.001 and 0.01. The results indicate that higher values of  <code>EXOGENOUS-SICKNESS</code> (above 0.005) lead to four distinct waves of illness annually. For values between 0.002 and 0.003, the model produces 3 to 4 waves of illness per year. However, when the value drops below 0.002, the results become highly sensitive to the number of workers. In smaller offices, low probabilities of exogenous sickness make it unlikely for illness waves to propagate throughout the office. To accurately reflect the behavior of common colds, which typically cause 2-4 waves per year, <code>EXOGENOUS-SICKNESS</code> should be set to at least 0.002. Finally,the model also shows that the number of infections also increases with higher rates of exogenous sickness. 
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Validation</strong></td>
+    <td>
+       Since all workers are healthy upon initialization of the model and again when they recover from illness, <code>EXOGENOUS-SICKNESS</code> must be strictly larger than 0 to produce meaningful results. To align with realistic scenarios, where external interactions contribute to illness, we calibrated the model with a default value of 0.003. This value represents a reasonable estimate for introducing external infections while maintaining model stability. 
+    </td>
+  </tr>
+</table>
+
+
+<strong>6. CONTAGIOUSNESS </strong>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <td><strong>Description</strong></td>
+    <td>The <code>CONTAGIOUSNESS</code> input determines the probability a healthy, vulnerable worker becomes infected after interacting with a sick employee in the same team. If there is more than 1 sick worker in a team, the probability of the healthy employee becoming infected increases concavely (increases at a diminishing rate).</td>
+  </tr>
+  <tr>
+    <td><strong>Verification</strong></td>
+    <td>
+	 Sensitivity tests conducted for values between 0.01 and 0.99, show that <code>CONTAGIOUSNESS</code> rates above 0.1, lead to four distinct waves of illness, while rates between 0.02 and 0.09 product 3 to 4 waves annually. Rates under 0.01 lead to longer waves that have lower impacts on productivity within a single tick. At low rates productivity osciallates around 95%, without sharp dips in productivity as seen during distinct illness waves. We therefore recommend <code>CONTAGIOUSNESS</code> levels of at least 0.02 when modeling for the common cold.
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Validation</strong></td>
+    <td>
+     The model’s <code>CONTAGIOUSNESS</code> parameter is calibrated to 0.09, which aligns with empirical estimates for common cold transmission in confined spaces  (Lovelock et al., 1952, as cited in Andrup et al., 2023, p. 946).
+    </td>
+  </tr>
+</table>
+
+
+<strong>7. SEVERITY </strong>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <td><strong>Description</strong></td>
+    <td>The <code>SEVERITY</code> slider controls the productivity of sick presentees (sick absentees automatically have a productivity of zero). While healthy workers produce at 100% capacity, sick presentees produce 1 - SEVERITY a day.</td>
+  </tr>
+  <tr>
+    <td><strong>Verification</strong></td>
+    <td>
+      When examing severity levels between 0.1 and 1, we find that lower severity levels increase the average productivity of presentees and of the average worker during illness spikes. A severity level of 0.7, would make absentees on average more productive than presentees during an illness, ceteris paribus. Severity only affects productivity but not the number of illnesses per year by design.
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Validation</strong></td>
+    <td>
+      We microcalibrate the <code>SEVERITY</code> to 0.3. This is an estimate specifically for how much the common cold affects productivity (Blanchet Zumhofen et al., 2022, p. 260). A more general study shows that values up to 0.4 are also realistic (Kramer et al., 2013, p. 6).
+    </td>
+  </tr>
+</table>
+
+ 
+<strong>8. RECOVERY-DAYS </strong>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <td><strong>Description</strong></td>
+    <td>The <code>RECOVERY-DAYS</code> input (integer) controls how many days a sick worker needs to recover at home.</td>
+  </tr>
+  <tr>
+    <td><strong>Verification</strong></td>
+    <td>
+      This range has been tested on the understanding that colds are typically resolved within a period of no longer than two weeks, namely from 1 to 15 days. An extended recovery period results in the prolongation of illness waves, which in turn gives rise to a greater incidence of severe productivity losses. This is consistent with the premise that the greater the severity and therfore recovery time necessary of an illness, the  greater the impact on office productivity. Furthermore, extended recovery periods limit the number of illness waves that can occur within a given period of time.
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Validation</strong></td>
+    <td>
+       We microcalibrate the <code>RECOVERY-DAYS</code> to 5, which is the lower bound of the average duration of colds for adults (Pappas, 2017, p. 200). It should be noted that the model excludes weekends, so 5 days in the model correspond to 7 days in reality, which is the upper bound of the average duration of colds for adults.
+    </td>
+  </tr>
+</table>
+
+
+<strong>9. SLOWER-RECOVERY </strong>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <td><strong>Description</strong></td>
+    <td>The <code>SLOWER-RECOVERY</code> slider controls how strongly presenteeism slows recovery. More specifically, <code> RECOVERY-DAYS / SLOWER-RECOVERY</code> gives the number of days a presentee needs to recover.</td>
+  </tr>
+  <tr>
+    <td><strong>Verification</strong></td>
+    <td>
+      Sensitivity tests with <code>SLOWER-RECOVERY</code> values between 0.1 to 1 reveal that values at the slowest recovery rate tested (0.1), absentees are more productive than presentees after the initial illness shock, as presentees continue working at reduced capcity for such a long period of time. At recovery rates between 0.6 and 1, presentees' recovery rate does not make them less productive than absentees. This shows the model's sensitivity to recovery rates, where slow recovery from presentees can result in lower productivity.
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Validation</strong></td>
+    <td>
+      We microcalibrate <code>SLOWER-RECOVERY</code> to 0.67, corresponding to 8 recovery days. This aligns with studies showing that presenteeism slows recovery (Henneberger & Gämperli, 2014, p. 27). Conversely, common colds can last up to 10 days for adults (remember that the model excludes weekends). For example, the NHS recommends seeing a doctor only then (2024). Therefore, this value may need to be adjusted depending on the how the type of work effects the presentee's recovery. 
+    </td>
+  </tr>
+</table>
+
+ 
+
+<strong>10. IMMUNITY-DAYS </strong>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <td><strong>Description</strong></td>
+    <td>The <code>IMMUNITY-DAYS</code> input (integer) controls how many days a recovered worker is fully protected from sickness and thus cannot be reinfected in this period.
+</td>
+  </tr>
+  <tr>
+    <td><strong>Verification</strong></td>
+    <td>
+	The value of <code>IMMUNITY-DAYS</code> shift the amount of time between infections, determining the number of sickness waves per year. Therefore this model is very sensitive this parameter. Shorter immunity periods lead to much higher rates of infections, leading productivity to oscillate throughout the year. Longer immunity periods, for example 65 days, result in distinct waves of illness throughout the year, with 3-4 waves (depending on the other parameters) in this example. For modeling the common cold, it is more accurate to observe distinct wave rather can constant reinfection throughout the year.  
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Validation</strong></td>
+    <td>
+      We macrocalibrate the <code>IMMUNITY-DAYS</code> to 65 days. As a result, workers are sick 3-4 times on average, which is what empirical data indicates as typical for common cold infections per year (Pappas, 2017, p. 200).
+    </td>
+  </tr>
+</table>
+
+
+<strong>11. MAX-SICK-LEAVE-DAYS </strong>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <td><strong>Description</strong></td>
+    <td>The <code>MAX-SICK-LEAVE-DAYS </code> input (integer) controls the number of work days employees are allowed to miss a year due to illness.</td>
+  </tr>
+  <tr>
+    <td><strong>Verification</strong></td>
+    <td>
+      We tested a range of sick day allowances, from 0 (no sick days allowed) to 260 (unlimited sick days for the year). When no sick days are permitted, absentees and presentees exhibit identical behavior, leading to the same productivity levels. However, as the number of permitted sick days increases, the two groups begin to diverge, with absentees showing lower average productivity during illness waves in the calibrated model. As absentees deplete their sick days, their behavior becomes indistinguishable from that of presentees, resulting in a return to similar productivity levels.
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Validation</strong></td>
+    <td>
+      We calibrate the model with the sick leave policy of no maximum ( <code>MAX-SICK-LEAVE-DAYS </code> = 260), which is legally enforced in Switzerland (approximately), in order to be consistent with the share of presentees.
+    </td>
+  </tr>
+</table>
+
+
+
 
 ### View
 
@@ -827,24 +1044,6 @@ The PRESENTEE-BEHAVIOR plot shows the number of healthy presentees, the number o
 
 The output box shows the mean productivity of all workers for the whole year, which is arguably the main dependent variable of interest for firm owners, who are the primary users of the model.
 
-
-
-
-
-
-
-
-
-
-# MODEL SENSITIVTIY
-
-After the calibration process, we have analysed the sensitivity of the model to all parameters. The top three most sensitive parameters are the following:
-
-	1. NUMBER-OF-WORKERS:
-_We tested the range from 100 to 2000 thereby encompassing medium to larger size companies. As the number of workers increases, the mean productivity of the turtles declines significantly during a wave of the common cold. A larger workforce leads to a higher frequency of infections per employee each year, which in turn amplifies the spread of illness. Consequently, average office productivity becomes highly sensitive to the size of the employee base. Furthermore, illness spikes occur within a narrower range of ticks as the employee count rises, indicating a more concentrated and rapid spread of infections in larger groups._
-
-  2. RECOVERY-DAYS
-_This range has been tested on the understanding that colds are typically resolved within a period of no longer than two weeks, namely from 1 to 15 days. An extended recovery period results in the prolongation of illness waves, which in turn gives rise to a greater incidence of severe productivity losses. This is consistent with the premise that the greater the severity of the illness, the greater the impact on office productivity. Furthermore, extended recovery periods limit the number of illness waves that can occur within a given period of time._
 
 
 # EXPERIMENTS
