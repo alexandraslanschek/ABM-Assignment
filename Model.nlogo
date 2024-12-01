@@ -760,19 +760,11 @@ The process is illustrated in the pseudo code below
 
 ![pseudo_code](file:pseudo_code.png)
 
+This pseudo-code chart illustrate the iterative process of our agent-based model. At the start of the day, the model update the status of our agents and then increment a tick. In the second part of the day, non-immune agents are exposed to their localised infection risk and agents are moved across teams. In the last step of the day, immunity status are updated and if applicable, sick agents recover from their sickness. Lastly, the day count is incremented. 
 
 ### Stopping Condition
 
 The model automatically stops when the day count reach 260, which is the set number for the number of work day in a year. The rational of the stopping condition is that the model is used to be measures on a standardised time span. 
-
-
-
-
-
-
-
-
-
 
 ## HOW TO USE IT
 
@@ -1062,9 +1054,7 @@ XXX
 
 # RELATED MODELS
 
-(models in the NetLogo Models Library and elsewhere which are of related interest)
-
-The model is related to two models indirectly. 
+The development of this model was inspired by two existing frameworks: Virus on a Network (Stonedahl & Wilensky, 2008) and the El Farol Model (Rand & Wilensky, 2007). Although we could not adopt either model as our core framework, both provided valuable insights that shaped the design of our current approach. Below, we outline how these models influenced our work, highlighting their advantages and shortcomings.
 
 **Virus on a Network model** 
 (Stonedahl, F. and Wilensky, U., 2008)
@@ -1111,8 +1101,7 @@ if ticks mod number-of-ticks-per-day = 0 and ticks != 0 [
 ]
 ```
 **Binomial Infection Probability Distribution**
-This allow us to make depend the infection spread incidence to the number of sick 
-
+This allow us to make depend the infection spread incidence to the number of sick worker in each given teams. The infection function is illustated below:
 
 ```
 to infect
@@ -1128,15 +1117,20 @@ to infect
   ]
 end
 ```
-`
-**3. XXX**
+
+While the infection risk modelling may required more sophisticated probabilistic models, the use of a binomial distribution through sequential bernoulli trial appears as a simple and straightforward approach. While 
 
 # Extending the Model
 
-1. Unjustified absenteeism
-2. Forward looking anticipation of sick days decision
-3. Work distribution within teams with burnout dynamics
-4. Remote work
+	1. **Unjustified absenteeism**
+In our model, we assume that sick leave is that absentees who take sick leaves are justified to do so and do not use the sick leave policy as a way to shirk their duties. While this interpretation of the real policy trade-off enables us to simplify the decision-making modelling, it skews the end normative policy insight that can be gained from our model. To overcome this limitation, we suggest creating an additional shirking attribute that leads workers to take a day off while not being ill. This would have the effect to draw down the sick days more quickly. The two implications are that it would lead to an increased loss of productivity and amplification of the end-of-the-year contamination for absentee workers.  
+2. **Forward looking anticipation of sick days decision**
+Another limitation of our model is the absence of a clearly defined micro-founded decision-making process. We could enhance the model by addressing how workers internally anticipate the potential outcomes associated with their decision to take a sick day. Currently, our model assumes that workers will automatically take the maximum number of sick days allowed when they fall ill. However, in reality, workers often consider the future risk of getting sick or may save their sick days to use strategically later in the year. To incorporate these additional complexities, we could explicitly model the trade-off that agents face when deciding whether to use their sick days, using an expected utility function for each worker. However, this approach is extremely challenging to calibrate, as the parameters of these utility function are unobservable.
+3. **Work distribution within teams with burnout dynamics**
+One key assumption of our model is that productivity is affected primarily by the productivity losses associated with employees taking sick leave. In many organizations, productivity targets are often not adjusted for teams that experience a high number of sick workers. Consequently, healthy employees may end up shouldering the burden of the productivity loss caused by their absent colleagues. This situation increases their workload to a level that raises the risk of burnout. As a result, a wave of sick leave can initiate a self-reinforcing cycle of burnout, which ultimately leads to a lasting decline in the team's overall productivity. To implement such a auxiliary process we would need to assign each team a fixed productivity and a mapping between the effective team productivity and the targetted one. The larger the distance, the greater the probability of becoming sick due to burnout. 
+4. **Remote work**
+Our model assumes that employees who are sick cannot be productive at all. However, by introducing remote work, we could theoretically reinterpret this assumption, potentially increasing the productivity of absentee workers. While incorporating remote work would create a more realistic representation of an office environment, it would also add to the complexity by introducing a new variable in the current mix of policies.
+
 
 # CREDITS AND REFERENCES
 
