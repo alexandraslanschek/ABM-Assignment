@@ -2033,6 +2033,84 @@ NetLogo 6.4.0
     </enumeratedValueSet>
     <steppedValueSet variable="max-sick-leave-days" first="0" step="5" last="260"/>
   </experiment>
+  <experiment name="experiment" repetitions="20" runMetricsEveryStep="false">
+    <setup>setup</setup>
+    <go>go</go>
+    <metric>mean-productivity turtles</metric>
+    <metric>mean-productivity absentees</metric>
+    <metric>mean-productivity presentees</metric>
+    <metric>count turtles with [sick = false and work = true]</metric>
+    <metric>count turtles with [sick = true and work = false]</metric>
+    <metric>count turtles with [sick = true and work = true]</metric>
+    <metric>count absentees with [sick = false and work = true]</metric>
+    <metric>count absentees with [sick = true and work = false]</metric>
+    <metric>count absentees with [sick = true and work = true]</metric>
+    <metric>count presentees with [sick = false and work = true]</metric>
+    <metric>count presentees with [sick = true and work = false]</metric>
+    <metric>count presentees with [sick = true and work = true]</metric>
+    <metric>mean [infections] of turtles</metric>
+    <metric>mean [infections] of absentees</metric>
+    <metric>mean [infections] of presentees</metric>
+    <runMetricsCondition>(ticks + 1) mod number-of-ticks-per-day = 0</runMetricsCondition>
+    <enumeratedValueSet variable="max-sick-leave-days">
+      <value value="0"/>
+      <value value="1"/>
+      <value value="2"/>
+      <value value="3"/>
+      <value value="4"/>
+      <value value="5"/>
+      <value value="6"/>
+      <value value="7"/>
+      <value value="8"/>
+      <value value="9"/>
+      <value value="10"/>
+      <value value="15"/>
+      <value value="20"/>
+      <value value="30"/>
+      <value value="50"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-workers">
+      <value value="100"/>
+      <value value="200"/>
+      <value value="400"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="number-of-teams">
+      <value value="1"/>
+      <value value="5"/>
+      <value value="9"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="movement-across-teams">
+      <value value="0.1"/>
+      <value value="0.3"/>
+      <value value="0.5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="share-of-presentees">
+      <value value="0.3"/>
+      <value value="0.4"/>
+      <value value="0.51"/>
+      <value value="0.6"/>
+      <value value="0.7"/>
+      <value value="0.8"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="exogenous-sickness">
+      <value value="0.003"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="contagiousness">
+      <value value="0.09"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="severity">
+      <value value="0.3"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="recovery-days">
+      <value value="5"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="slower-recovery">
+      <value value="0.67"/>
+    </enumeratedValueSet>
+    <enumeratedValueSet variable="immunity-days">
+      <value value="65"/>
+    </enumeratedValueSet>
+  </experiment>
 </experiments>
 @#$#@#$#@
 @#$#@#$#@
