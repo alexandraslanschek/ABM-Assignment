@@ -698,15 +698,19 @@ OUTPUT
 @#$#@#$#@
 # WHAT IS IT?
 
-This model aims to analyze the relationship between sick leave policies and office productivity, leveraging agent-based modelling to capture emergent dynamics. At its core, the model classifies the distribution of workers into two types: (i) presentees – employees who stay at work despite being sick and (ii) absentees – employees who take sick leave when unwell.
+This model explores the relationship between sick leave policies and workplace productivity, leveraging agent-based modeling to capture emergent dynamics. 
+
+The core framework characterizes employees into two distinct types: (i) presentees – employees who stay at work despite being sick and (ii) absentees – employees who take sick leave when unwell. The model measures key outcomes such as overall office productivity based on the proportion of absentees vs presentees, the characteristics of the illness spreading through the workplace, and other environmental factors. Ultimately, this model aims to reveal the potential productivity costs associated with presenteeism versus absenteeism. 
 
 ## Phenomenon: Presenteeism vs. Absenteeism
 
-At its core, our model seeks to illustrate the inherent tension in sick leave policies between maintaining productivity and preventing the spread of disease. Managers are facing a balancing act when they need to decide how to best set their sick leave policy. While the productivity loss associated with absenteeism is straightforward to identify, it is harder to evaluate the non-linear effects of presenteeism on productivity instinctively. Presentees, namely, sick workers staying at the office, increase the infection spread thereby resulting in greater contamination. This in turn results in a greater number of workers falling sick.
+Absenteeism costs firms in Switzerland approximately 1,540 CHF per employee annually (Fauceglia, 2005). However, presenteeism is estimated to be at least twice as costly (Jacobshagen, 2020). Managers thus face a complex balancing act when designing their sick leave policies. While the productivity loss from absenteeism is straightforward to identify, the non-linear effects of presenteeism on productivity are more challenging to evaluate. This is because presentees not only experience diminished productivity when sick, but also contribute to the propagation of illness within the office, resulting in a greater number of workers falling sick. 
 
-While presentees' productivity is only partially diminished, they do not fully internalise the common good which is collective health. Therefore, by staying at the office, they amplify the spread of the disease and depending on the specific parameters, may result in greater productivity losses than the one resulting from their absentee counterparts. On the other hand, absentees are assumed to be completely unproductive while recovering at home. Their impact on organisational productivity is significant and cannot be ignored from a profit maximisation perspective.
+Although presentees remain partially productivity, they fail to interalize the collective health of the office. By continuing to work at the office while ill, they amplify the spread of the disease. Depending on certain conditions, this may result in greater productivity losses compared to absenteeism. On the other hand, absentees, though assumed to be completely unproductive while recovering at home, contain the spread of illness. Nonetheless, absenteeism sill leads to significant decreases on organisational productivity and cannot be ignored from a profit maximisation perspective.
 
-Recognising that organisations are complex social systems in which team-based interactions can give rise to emergent behaviours, our model aims to address the limitations of traditional approaches that analyse the relationship between sick leave policies and productivity only at an aggregate level. By adopting a bottom-up, agent-based modelling approach, our model captures the nuanced dynamics and emergent patterns that arise from individual behaviours, team structures and disease transmission processes within the workplace.
+This model investigates the inherent tension between absenteeism and presenteeism by examining how changes in sick leave policies influence both productivity and the spread of illness. Recognizing that workplaces are complex social systems where team interactions and individual behaviors shape outcomes, the model moves beyond traditional aggregate-level analyses. Using an agent-based modeling approach, it simulates the nuanced dynamics of disease transmission, team structures, and individual decision-making to capture emergent patterns within the workplace.
+
+To manage the spread of illness, firm owners and managers typically adopt either top-down measures, such as enforcing strict infection control policies, or bottom-up strategies, like encouraging employees to adopt healthier practices. This model adopts a middle-ground approach, focusing on how guiding employees through sick leave allocations can influence workplace dynamics, productivity, and health outcomes.
 
 ## Research Question 
 
@@ -719,8 +723,8 @@ This model attempts to evaluate and explain the trade-offs faced by managers in 
 
 While the first question is a positivist one, the end aim is to provide a model that enables us to consider different illness and their resulting normative insight(s).
 
-
-## Key assumptions & associated limitations
+## Model Components and Mechanisms 
+### Key assumptions & associated limitations
 >
 - Workers are evenly distributed across teams at the start.
 - There are two types of workers: absent and present. The population is therefore heterogeneous only to this extent.
@@ -1176,7 +1180,6 @@ Kopp, N. (2024). Fiebrig und fröstelnd vor dem Bildschirm. Warum tun wir uns da
 Kramer, F., Gämperli, M., & Henneberger, F. (2013). Präsentismus: Verlust von Gesundheit und Produktivität. IGA-Fakten, Nr. 6. Initiative Gesundheit und Arbeit (IGA). Retrieved from http://www.iga-info.de
 
 Pappas, D. E. (2017). The common cold. In J. E. Bennett, R. Dolin, & M. J. Blaser (Eds.), Mandell, Douglas, and Bennett's principles and practice of infectious diseases (8th ed., pp. 199–202). Elsevier.
-
 @#$#@#$#@
 default
 true
