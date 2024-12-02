@@ -441,7 +441,7 @@ number-of-teams
 number-of-teams
 1
 9
-9.0
+5.0
 1
 1
 NIL
