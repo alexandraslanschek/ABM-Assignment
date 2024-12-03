@@ -712,16 +712,16 @@ This model investigates the inherent tension between absenteeism and presenteeis
 
 To manage the spread of illness, firm owners and managers typically adopt either top-down measures, such as enforcing strict infection control policies, or bottom-up strategies, like encouraging employees to adopt healthier practices. This model adopts a middle-ground approach, focusing on how guiding employees through sick leave allocations can influence workplace dynamics, productivity, and health outcomes.
 
-## Research Question 
 
-This model attempts to evaluate and explain the trade-offs faced by managers in determining the maximum number of sick days allowed to employees. More specifically, it attempts to answer the following two research questions:
 
->
-  1. What is the relationship between the maximum number of sick leave days and productivity?
-  2. Should firm owners rather forbid employees to work in the office when they are sick?
->
+### Research Questions
 
-While the first question is a positivist one, the end aim is to provide a model that enables us to consider different illness and their resulting normative insight(s).
+The following research questions will be addressed:
+
+* How do (1) productivity and (2) health depend on the maximum number of sick leave days?
+* How do the relationships depend on the number of workers, the number of teams, the frequency of interaction across teams, and the share of presentees?
+
+
 
 ## Model Components and Mechanisms 
 ### Key assumptions & associated limitations
