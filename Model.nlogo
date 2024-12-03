@@ -1087,6 +1087,131 @@ Other things to try are:
 
 
 
+## THINGS TO NOTICE
+
+The following section presents interesting emergent behavior of the model, attempts to answer the research questions, and critically evaluates the answers.
+
+
+
+### Maximum Number of Sick Leave Days, Productivity, and Health
+
+Figure 1 shows the relationship between the maximum number of sick leave days and productivity for all workers (with varying number of workers, number of teams, frequency of interaction across teams, and share of presentees). The maximum number of sick leave days is on the horizontal axis and productivity (yearly mean) on the vertical axis. According to the model, productivity decreases with the maximum number of sick leave days (up to the point where workers have enough sick leave days, which is at approximately 20). More specifically, if workers are not allowed to take sick leave (MAX-SICK-LEAVE-DAYS = 0), mean productivity is 0.963. If the number of sick leave days is effectively unlimited (MAX-SICK-LEAVE-DAYS >= 20), mean productivity is 0.949. In between, mean productivity falls approximately linearly.
+
+<br>
+
+![](file:Figure%201.png)
+
+<br>
+
+It is important to emphasize that this result contradicts previous findings, which show that presenteeism is (at least) two times as costly for firms as absenteeism (Jacobshagen, 2020, p. 37). Figure 2, which shows the same as Figure 1 but separately for absentees (in grey) and presentees (in red), offers a possible explanation for this: With MAX-SICK-LEAVE-DAYS >= 20, absentees are less productive than presentees. The reason is because the cold is relatively mild (SEVERITY = 0.3) and even presentees recover relatively quickly (RECOVERY-DAYS / SLOWER-RECOVERY = 8). No previous study focused on the cold. Additionally, the model excludes increased risk of long-term sick leave as a negative consequence of presenteeism (Henneberger & Gämperli, 2014, p. 24).
+
+<br>
+
+![](file:Figure%202.png)
+
+<br>
+
+Interestingly, while productivity of absentees decreases with the maximum number of sick leave days (for the above reasons), productivity of presentees increases with the maximum number of sick leave days. The reason is because workers are sick less frequently (Figure 3). With MAX-SICK-LEAVE-DAYS >= 20, workers catch a cold 3.753 times on average, whereas with MAX-SICK-LEAVE-DAYS = 0, workers catch a cold 3.979 times on average. The decrease in the average number of infections is nearly the same for absentees and presentees (Figure 4). This result is consistent with previous findings, which identify increased risk of contagion as a negative consequence of presenteeism (Henneberger & Gämperli, 2024, pp. 25-26).
+
+<br>
+
+![](file:Figure%203.png)
+
+<br>
+
+![](file:Figure%204.png)
+
+<br>
+
+Figure 5 shows the number of sick days (in percent) on the vertical axis and the maximum number of sick leave days on the horizontal axis for all workers. Unsurprisingly, the number of sick days decreases with the maximum number of sick leave days. There are two reasons:
+
+* Workers are sick less frequently (see above).
+* Absentees recover more quickly.
+
+Figure 6, which compares the number of sick days of absentees and presentees, illustrates the second reason. The decrease in the number of sick days is more substantial for absentees (slope = -0.252) than presentees (slope = -0.038). While presentees benefit only from fewer infections, absentees benefit additionally from fewer sick days per infection.
+
+<br>
+
+![](file:Figure%205.png)
+
+<br>
+
+![](file:Figure%206.png)
+
+<br>
+
+In summary, there is a trade-off between productivity, which is arguably the main dependent variable of interest for firm owners, and health, which is arguably the main dependent variable of interest for workers.
+
+
+
+### Number of Workers, Number of Teams, Frequency of Interaction Across Teams, and Share of Presentees
+
+In order to investigate how the relationship between the maximum number of sick leave days and productivity for all workers depends on the number of workers, the number of teams, the frequency of interaction across teams, and the share of presentees, we estimate the following multiple linear regression model:
+
+<br>
+
+> `Mean Productivity` =
+> b<sub>0</sub> +
+> b<sub>1</sub> * `Maximum Sick Leave Days` +
+> b<sub>2</sub> * `Number of Workers` +
+> b<sub>3</sub> * `Number of Teams` +
+> b<sub>4</sub> * `Frequency of Interaction Across Teams` +
+> b<sub>5</sub> * `Share of Presentees` +
+> b<sub>6</sub> * `Maximum Sick Leave Days` * `Number of Workers` +
+> b<sub>7</sub> * `Maximum Sick Leave Days` * `Number of Teams` +
+> b<sub>8</sub> * `Maximum Sick Leave Days` * `Frequency of Interaction Across Teams` +
+> b<sub>9</sub> * `Maximum Sick Leave Days` * `Share of Presentees`
+
+<br>
+
+The results indicate that
+
+* productivity decreases with the number of workers (b<sub>2</sub> < 0). The reason is because CONTAGIOUSNESS is independent of the team size, so workers are sick more frequently. It may be worthwhile to relax the assumption in the future.
+* productivity increases with the number of teams (b<sub>3</sub> > 0). The reason is again because CONTAGIOUSNESS is independent of the team size (see above).
+* productivity decreases with the frequency of interaction across teams (b<sub>4</sub> < 0). Intuitively, a lower frequency of interaction across teams is a way to contain the cold within teams, so waves are less likely to harm all teams.
+* productivity increases with the share of presentees (b<sub>5</sub> > 0). As explained in detail above, absentees are less productive than presentees.
+
+As a result, productivity decreases with the maximum number of sick leave days less substantially if
+
+* there are fewer workers (b<sub>6</sub> < 0), more teams (b<sub>7</sub> > 0), and/or a lower frequency of interaction across teams (b<sub>8</sub> < 0). If workers are sick less frequently, the sick leave policy is less important.
+* there are (relatively) more presentees (b<sub>9</sub> > 0). If there are more presentees, the sick leave policy is less important (if there are only presentees, the effect is zero).
+
+We do the same for the average number of infections and the number of sick days:
+
+<br>
+
+> `Average Number of Infections` =
+> b<sub>0</sub> +
+> b<sub>1</sub> * `Maximum Sick Leave Days` +
+> b<sub>2</sub> * `Number of Workers` +
+> b<sub>3</sub> * `Number of Teams` +
+> b<sub>4</sub> * `Frequency of Interaction Across Teams` +
+> b<sub>5</sub> * `Share of Presentees` +
+> b<sub>6</sub> * `Maximum Sick Leave Days` * `Number of Workers` +
+> b<sub>7</sub> * `Maximum Sick Leave Days` * `Number of Teams` +
+> b<sub>8</sub> * `Maximum Sick Leave Days` * `Frequency of Interaction Across Teams` +
+> b<sub>9</sub> * `Maximum Sick Leave Days` * `Share of Presentees`
+
+<br>
+
+> `Number of Sick Days (in %)` =
+> b<sub>0</sub> +
+> b<sub>1</sub> * `Maximum Sick Leave Days` +
+> b<sub>2</sub> * `Number of Workers` +
+> b<sub>3</sub> * `Number of Teams` +
+> b<sub>4</sub> * `Frequency of Interaction Across Teams` +
+> b<sub>5</sub> * `Share of Presentees` +
+> b<sub>6</sub> * `Maximum Sick Leave Days` * `Number of Workers` +
+> b<sub>7</sub> * `Maximum Sick Leave Days` * `Number of Teams` +
+> b<sub>8</sub> * `Maximum Sick Leave Days` * `Frequency of Interaction Across Teams` +
+> b<sub>9</sub> * `Maximum Sick Leave Days` * `Share of Presentees`
+
+<br>
+
+The results confirm that
+
+* workers are sick more frequently and on more days if there are more workers, fewer teams, and a higher frequency of interaction across teams.
+* risk of contagion increases with the share of presentees provided that MAX-SICK-LEAVE-DAYS is large enough (otherwise, the share of presentees does not matter because everybody behaves nearly the same).
 
 
 
