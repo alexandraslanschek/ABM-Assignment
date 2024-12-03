@@ -1287,6 +1287,10 @@ While the infection risk modelling may required more sophisticated probabilistic
 
 # Extending the Model
 
+Maximum number of sick leave days depepdning on the hours worked like in the United States
+
+Long-term effects
+
 	1. **Unjustified absenteeism**
 In our model, we assume that sick leave is that absentees who take sick leaves are justified to do so and do not use the sick leave policy as a way to shirk their duties. While this interpretation of the real policy trade-off enables us to simplify the decision-making modelling, it skews the end normative policy insight that can be gained from our model. To overcome this limitation, we suggest creating an additional shirking attribute that leads workers to take a day off while not being ill. This would have the effect to draw down the sick days more quickly. The two implications are that it would lead to an increased loss of productivity and amplification of the end-of-the-year contamination for absentee workers.  
 2. **Forward-looking anticipation of sick days decision**
