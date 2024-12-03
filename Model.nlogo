@@ -866,7 +866,7 @@ Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RE
   <tr>
     <td><strong>Validation</strong></td>
     <td>
-       We microcalibrate the share of presentees to 0.51, which is the estimated share of presentees for a typical company in Switzerland (Grebner et al., 2010, p. 81). However,  other values are realistic: Estimates range from 0.30 (Sweden) to 0.80 (US) (Blanchet Zumhofen et al., 2022, p. 254; Henneberger & Gämperli, 2014, pp. 13–14). You can even choose 0, which simulates the sick leave policy of forbidding workers to work when they are sick.
+       We microcalibrate the share of presentees to 0.51, which is the estimated share of presentees for a typical company in Switzerland (Grebner et al., 2010, p. 81). However,  other values are realistic: Estimates range from 0.30 (Sweden) to 0.80 (US) (Blanchet Zumhofen et al., 2022, p. 254; Henneberger & Gämperli, 2014, pp. 13–14).
     </td>
   </tr>
 </table>
@@ -1042,18 +1042,54 @@ The output box shows the mean productivity of all workers for the whole year, wh
 
 
 
-# EXPERIMENTS
+
+
+## THINGS TO TRY
+
+The model encapsulates many courses of action which firms owners can take to control presenteeism and absenteeism:
+
+<br>
+
+<table border="1">
+	<tr>
+		<th>Course of Action</th>
+		<th>Sliders and Input Boxes</th>
+	</tr>
+	<tr>
+		<td>Firm owners can limit the number of (paid) sick leave days per year.</td>
+		<td>The user can control the maximum number of sick leave days per year directly with the MAX-SICK-LEAVE-DAYS input.</td>
+	</tr>
+	<tr>
+		<td>Firm owners can implement occupational health management measures which make workers aware of the risks involved with presenteeism (Henneberger & Gämperli, 2014, pp. 35–36).</td>
+		<td>Occupational health management measures of this type are equivalent to a decrease in the share of presentees, which the user can control with the SHARE-OF-PRESENTEES slider.</td>
+	</tr>
+	<tr>
+		<td>Firm owners can influence presenteeism and absenteeism as role models (Henneberger & Gämperli, 2014, p. 37). For example, if they do not work when they are sick, workers are more likely to do the same.</td>
+		<td>This course of action is equivalent to a decrease (or an increase) in the share of presentees, which the user can control with the SHARE-OF-PRESENTEES slider.</td>
+	</tr>
+	<tr>
+		<td>Firm owners can nudge workers into good infection control practices (like social distancing).</td>
+		<td>The user can control the quality of infection control practices directly with the MOVEMENT-ACROSS-TEAMS slider and indirectly with the CONTAGIOUSNESS input.
+	<tr>
+		<td>Firm owners can forbid workers to work when they are sick (Henneberger & Gämperli, 2014, p. 37).</td>
+		<td>With SHARE-OF-PRESENTEES = 0, the user can simulate this course of action.</tr>
+</table>
+
+<br>
+
+Other things to try are:
+
+* Adapt NUMBER-OF-WORKERS, NUMBER-OF-TEAMS, and MOVEMENT-ACROSS-TEAMS to a given office.
+* Adapt SHARE-OF-PRESENTEES to a given composition of workers.
+* Adapt EXOGENOUS-SICKNESS, CONTAGIOUSNESS, SEVERITY, RECOVERY-DAYS, SLOWER-RECOVERY, and IMMUNITY-DAYS to another sickness.
 
 
 
-**Experiment A. Large vs Small Companies**
-You can replicate experiment A by changing XX to XX. As you can observe
 
-**Experiment B. Changing Share of Presentees**
-XXX
 
-** Experiment C. Changing the Movement Across Teams**
-XXX
+
+
+
 
 
 # RELATED MODELS
