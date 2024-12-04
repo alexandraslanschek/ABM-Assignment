@@ -716,7 +716,7 @@ To manage the spread of illness, firm owners and managers typically adopt either
 
 
 
-### Research Questions
+## Research Question
 
 The following research questions will be addressed:
 
@@ -724,29 +724,44 @@ The following research questions will be addressed:
 * How do the relationships depend on the number of workers, the number of teams, the frequency of interaction across teams, and the share of presentees?
 
 
+## Conceptual Model Overview
+### Setting and Structure
+This model is set in an open floor plan office, where workers can be evenly divided into up to 9 teams. Each worker is randomly assigned to be either an absentee (someone who takes leave when sick) or presentee (someone who works while sick). The share of presentees is adjustable through the variable <code>share-of-presentees</code>. The population is heterogeneous only to this extent. The nubmer of workers in the office can also be adjusted at initialization of the model.
 
-### Model Components and Mechanisms 
-### Key assumptions & associated limitations
->
-- Workers are evenly distributed across teams at the start.
-- There are two types of workers: absent and present. The population is therefore heterogeneous only to this extent.
-- The population is initially healthy (but no one is immune).
-- The conditional probability of infection is (effectively) a binomial distribution.
-- The working population is exposed to a constant exogenous infection rate.
-- The productivity losses associated with sickness, conditional on type, are constant and deterministic.  
-- The probability of leaving a team once during a day is (effectively) a binomial distribution. Movements between teams are random, so there is an equal probability of moving to a particular team if a worker leaves his own team. 
->
+### Productivity and Recovery
+When workers are healthy, they are assumed to work at 100% productivity. Illness reduces this productivity depending on the worker type. 
+<ul>
+<li> <b>Presentees</b> continue to work in the office at a reduced capacity, determined by the variable <code>severity</code>. These workers experience longer recovery times, defined by the variable <code>slower_recovery</code>, due to the strain of working while sick. While presentees contribute to productivity, they also spread illness in the office.   </li>
 
-These assumptions exclude certain facets of the phenomenon:
+<li> <b>Absentees</b> leave the workplace when ill, resulting in complete productivity loss for the set <code>recovery-days</code>. These workers recovery at the set recovery days and therefore faster than presentees. 
+ </li>
+</ul>
 
-- There are no seasonal patterns of exogenous infection exposure. 
-- Heterogeneity of the worker population beyond the absentee/presentee dichotomy.
-- The population is only exposed to a single infectious disease. By extension, this also excludes any form of interaction with additional diseases.
-- Productivity losses result only from the productivity loss of being ill at work or being ill at home. There is no interaction within the team of being ill at home on the team's productivity. I.e. there is no burn-out and overwork effect due to the illness of team members.
+In this model, productivity losses are solely due to illness, and individual productivity is assumed to be independent of other agents.  
 
 
+### Daily Interactions and Movement
+Each day is divided into 4 ticks, representing discrete moments of interaction amoung employees. During the first tick, employees interact exclusively within their assigned team environment. In the remaining three ticks, employees can move to other teams. All employees have a higher probability of staying within their own team, compared to moving to other teams. This probability is determined by the variable <code> movement-across-teams</code>. 
 
-### Pseudocode
+Through these interactions sick employees spread illness within their team or to other teams, with the likelihood of transmission determined by if these is a sick person in the team area and by the variable <code>contagiousness</code>, giving the probability of transmission. 
+
+### Illness Dynamics and Focus on the Common Cold
+The model begins with a healthy population, except for an initially sick employee who introduces the illness. Sick employees remain contagious througout their illness, with a constant transmissibility rate.
+
+This model is set-up so that it can be adjusted for any illness. The calibrated version of this model is set up to capture the impacts the common cold. We focus on the common cold as it has been found to be the cause of one-third of sick days in working populations. The common cold does not incapacitate patients immediately, making is percieved as a minor disease, leading to high levels of presenteeism. 
+
+Since most adults experience 2 to 4 common colds per year, this model incorperates recurrent waves of illness over time, determined by the variables <code>exoenous-sickness</code> and <code>immunity-days</code>. All incubation periods of sickness are excluded in this analysis in a simplifying assumption. Further, we assume agents know they are sick the day after infection occurs. 
+
+After agents are sick, they have an immunity period that is set by the variable <code>immunity-days</code> in which the employees are immune to any circulating in the illness to the office. This varaible allows for the realistic modeling of distinct sickness waves permiating through an office.
+
+### Sick Leave Policy
+The sick day policy, can be set by <code>max-sick-leave-days</code>. Once absentees deplete their allowed sick days, they behave identically to presentees, making the two employee types indistinguishable. 
+
+### Model Simplifactions
+To focus on illness dynamics, the model incorperates several simplifying assumptions. For example, seasonal patterns of illness, and interactions with other diseases are excluded. Additionally, non-illnessed-related productivity losses, such as burn-out or overwork, are not considered, even if they result from team members' illnesses. 
+
+
+### Model Depiction 
 
 The following picture illustrates the code simply. It should be noted that there are two layers of time: ticks and days. One day is four ticks (governed by NUMBER-OF-TICKS-PER-DAYS, which is hardcoded). Also, the code stops after one year (260 working days). The beige rectangles are connected with time.
 
