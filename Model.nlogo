@@ -744,33 +744,41 @@ These assumptions exclude certain facets of the phenomenon:
 - The population is only exposed to a single infectious disease. By extension, this also excludes any form of interaction with additional diseases.
 - Productivity losses result only from the productivity loss of being ill at work or being ill at home. There is no interaction within the team of being ill at home on the team's productivity. I.e. there is no burn-out and overwork effect due to the illness of team members.
 
-# HOW IT WORKS
-
-## Overiew
-
-![logic_map](file:logic_map.png) 
 
 
-### Initialisation
+### Pseudocode
 
-At the start, the model is initialised. As mentioned under the **Key Assumption** section, the model parameterisation and initialisation assume no immunity and sickness as the starting condition. The default parameters are defined under the **HOW TO USE IT** section with an explanation of our model calibration choices. We also invite you to look at the **EXPERIMENTS** to replicate our own experiments.
+The following picture illustrates the code simply. It should be noted that there are two layers of time: ticks and days. One day is four ticks (governed by NUMBER-OF-TICKS-PER-DAYS, which is hardcoded). Also, the code stops after one year (260 working days). The beige rectangles are connected with time.
 
-### Process
+<br>
 
-One of the model's unique feature that is introduces two temporal layer. 
+![](file:Picture%201.png)
 
-	1. Tick-base time: at each tick i.e. the model's time increments, a sequence of functions are activiated.
-2. Day counts: The model time convention is that a day is 4 ticks and the model runs up to 260 days, which represents a year of work days. Moreover, certain functions are only activated at specific times of the day.
+<br>
 
-The process is illustrated in the pseudo-code below
+The following picture illustrates the transition between health states (red rectangles) in more detail. Whether or not a healthy and vulnerable worker gets infected at work depends on the number of sick workers in the teams which they interact with and the contagiousness. Importantly, we assume that everybody is healthy and vulnerable at the beginning of a year.
 
-![pseudo_code](file:pseudo_code.png)
+<br>
 
-This pseudo-code chart illustrates the iterative process of our agent-based model. At the start of the day, the model updates the status of our agents and then increments a tick. In the second part of the day, non-immune agents are exposed to their localised infection risk and agents are moved across teams. In the last step of the day, immunity status are updated and if applicable, sick agents recover from their sickness. Lastly, the day count is incremented. 
+![](file:Picture%202.png)
 
-### Stopping Condition
+<br>
 
-The model automatically stops when the day count reaches 260, which is the set number for the number of work days in a year. The rationale of the stopping condition is that the model is used to be measured on a standardised time span. 
+The following picture illustrates how workers decide whether to work or stay at home today (blue rectangle on the first tick of a day) in more detail. The sick leave days are counted since the beginning of a year.
+
+<br>
+
+![](file:Picture%203.png)
+
+<br>
+
+The decision whether to stay within or move across teams (blue rectangle on the intermediate ticks of a day) is random with a given probability.
+
+See the Code tab for more details and the implementation in NetLogo.
+
+
+
+
 
 ## HOW TO USE IT
 
