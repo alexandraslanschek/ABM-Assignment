@@ -696,13 +696,15 @@ OUTPUT
 13
 
 @#$#@#$#@
-# WHAT IS IT?
+## WHAT IS IT?
 
 This model explores the relationship between sick leave policies and workplace productivity, leveraging agent-based modeling to capture emergent dynamics. 
 
 The core framework characterizes employees into two distinct types: (i) presentees – employees who stay at work despite being sick and (ii) absentees – employees who take sick leave when unwell. The model measures key outcomes such as overall office productivity based on the proportion of absentees vs presentees, the characteristics of the illness spreading through the workplace, and other environmental factors. Ultimately, this model aims to reveal the potential productivity costs associated with presenteeism versus absenteeism. 
 
-## Phenomenon: Presenteeism vs. Absenteeism
+
+
+### Phenomenon: Presenteeism vs. Absenteeism
 
 Absenteeism costs firms in Switzerland approximately 1,540 CHF per employee annually (Fauceglia, 2005). However, presenteeism is estimated to be at least twice as costly (Jacobshagen, 2020). Managers thus face a complex balancing act when designing their sick leave policies. While the productivity loss from absenteeism is straightforward to identify, the non-linear effects of presenteeism on productivity are more challenging to evaluate. This is because presentees not only experience diminished productivity when sick, but also contribute to the propagation of illness within the office, resulting in a greater number of workers falling sick. 
 
@@ -723,7 +725,7 @@ The following research questions will be addressed:
 
 
 
-## Model Components and Mechanisms 
+### Model Components and Mechanisms 
 ### Key assumptions & associated limitations
 >
 - Workers are evenly distributed across teams at the start.
