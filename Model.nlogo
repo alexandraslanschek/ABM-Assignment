@@ -778,7 +778,7 @@ The model automatically stops when the day count reaches 260, which is the set n
 
 Click on the SETUP button to initialize the model.
 
-Click on the GO button to run the model. The clock will advance until you press the button again or 1 year is simulated (260 working days).
+Click on the GO button to run the model. The clock will advance until you press the button again or one year is simulated (260 working days).
 
 ### Sliders and Input Boxes:
 In this section we detail the sliders and input boxes available for this model, as well as values that we recommend testing to implement the model for the common cold. Further, we present verifcation and validation checks for each of these parameters to identify the the calibrated values for the model. 
