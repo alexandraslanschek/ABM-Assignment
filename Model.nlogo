@@ -1312,10 +1312,6 @@ While the infection risk modelling may required more sophisticated probabilistic
 
 # Extending the Model
 
-Maximum number of sick leave days depepdning on the hours worked like in the United States
-
-Long-term effects
-
 	1. **Unjustified absenteeism**
 In our model, we assume that sick leave is that absentees who take sick leaves are justified to do so and do not use the sick leave policy as a way to shirk their duties. While this interpretation of the real policy trade-off enables us to simplify the decision-making modelling, it skews the end normative policy insight that can be gained from our model. To overcome this limitation, we suggest creating an additional shirking attribute that leads workers to take a day off while not being ill. This would have the effect to draw down the sick days more quickly. The two implications are that it would lead to an increased loss of productivity and amplification of the end-of-the-year contamination for absentee workers.  
 2. **Forward-looking anticipation of sick days decision**
@@ -1337,39 +1333,41 @@ Rand, W. & Wilensky, U. (2007). El Farol Model. Center for Connected Learning an
 ## Bibliography 
 
 
-Van Wormer, J. J., King, J. P., Gajewski, A., McLean, H. Q., & Belongia, E. A. (2017). Influenza and workplace productivity loss in working adults. Journal of Occupational and Environmental Medicine, 59(12), 1135–1139. https://doi.org/10.1097/JOM.0000000000001120
-
-Daniels, S., Wei, H., Han, Y., et al. (2021). Risk factors associated with respiratory infectious disease-related presenteeism: A rapid review. BMC Public Health, 21, 1955. https://doi.org/10.1186/s12889-021-12008-9
+Andrup, L., Krogfelt, K. A., Hansen, K. S., & Madsen, A. M. (2023). Transmission route of rhinovirus – the causative agent for common cold: A systematic review. American Journal of Infection Control, 51(8), 938–957. https://doi.org/10.1016/j.ajic.2022.12.005
 
 Blanchet Zumofen, M. H., Frimpter, J., & Hansen, S. A. (2023). Impact of influenza and influenza-like illness on work productivity outcomes: A systematic literature review. PharmacoEconomics, 41(3), 253–273. https://doi.org/10.1007/s40273-022-01224-9
 
-U.S. Department of Labor. (n.d.). Sick leave. Retrieved from https://www.dol.gov/general/topic/workhours/sickleave
-
-Swiss Confederation. (n.d.). Inability to work and sick leave. Retrieved from https://www.kmu.admin.ch/kmu/en/home/concrete-know-how/personnel/employment-law/working-hours/inability-work-sick-leave.html
-
-Heymann, J., Rho, H. J., Schmitt, J., & Earle, A. (2010). Ensuring a healthy and productive workforce: Comparing the generosity of paid sick day and sick leave policies in 22 countries. International Journal of Health Services, 40(1), 1–22. https://doi.org/10.2190/HS.40.1.a
-
-Turner, R. B. (2012). The common cold. Goldman’s Cecil Medicine, 2089–2091. https://doi.org/10.1016/B978-1-4377-1604-7.00369-9
-
-Kirkpatrick, G. L. (1996). The common cold. Primary Care: Clinics in Office Practice, 23(4), 657–675. https://doi.org/10.1016/S0095-4543(05)70355-9
-
-Andrup, L., et al. (2023). Transmission route of rhinovirus - the causative agent for common cold: A systematic review. American Journal of Infection Control, 51(8), 938–957. https://doi.org/10.1016/j.ajic.2023.04.005
-
-Blanchet Zumofen, M. H., Frimpter, J., & Hansen, S. A. (2023). Impact of influenza and influenza-like illness on work productivity outcomes: A systematic literature review. PharmacoEconomics, 41(3), 253–273. https://doi.org/10.1007/s40273-022-01224-9
+Daniels, S., Wei, H., Han, Y., Catt, H., Denning, D. W., Hall, I., Regan, M., Verma, A., Whitfield, C. A., & van Tongeren, M. (2021). Mobile health applications for chronic disease management: A scoping review. BMC Public Health, 21(1), 1902. https://doi.org/10.1186/s12889-021-12008-9
 
 Fauceglia, D. (n.d.). Absentismus in der Schweiz: Eine empirische Analyse [Master’s thesis, Universität St. Gallen]. Referent: PD Dr. Alfonso Sousa-Poza.
 
-Grebner, S., Berlowitz, I., Alvarado, V., & Cassina, M. (n.d.). Stress bei Schweizer Erwerbstätigen. SECO | Arbeitsbedingungen.
+Henneberger, F., & Gämperli, M. (2014). Präsentismus: Ein kurzer Überblick über die ökonomische Relevanz eines verbreiteten Phänomens. Diskussionspapiere des Forschungsinstituts für Arbeit und Arbeitsrecht an der Universität St. Gallen (No. 129).
 
-Henneberger, F., & Gämperli, M. (2014). Präsentismus: Ein kurzer Überblick über die ökonomische Relevanz eines verbreiteten Phänomens. Diskussionspapiere des Forschungsinstituts für Arbeit und Arbeitsrecht an der Universität St. Gallen, (129).
+Heymann, J., Rho, H. J., Schmitt, J., & Earle, A. (2010). Ensuring a healthy and productive workforce: Comparing the generosity of paid sick day and sick leave policies in 22 countries. International Journal of Health Services, 40(1), 1–22. https://doi.org/10.2190/HS.40.1.a
 
 Jacobshagen, N. (2020). Was Führung mit Präsentismus zu tun hat. Seminar WOTD, HS 2020, Termin 6 – 24.06.2020. Universität Bern.
 
-Kopp, N. (2024). Fiebrig und fröstelnd vor dem Bildschirm. Warum tun wir uns das an? NZZ.
+Kirkpatrick, G. L. (1996). The common cold. Primary Care, 23(4), 657–675. https://doi.org/10.1016/s0095-4543(05)70355-9
 
-Kramer, F., Gämperli, M., & Henneberger, F. (2013). Präsentismus: Verlust von Gesundheit und Produktivität. IGA-Fakten, Nr. 6. Initiative Gesundheit und Arbeit (IGA). Retrieved from http://www.iga-info.de
+Kopp, N. (2024, February 17). Fiebrig und fröstelnd vor dem Bildschirm: Warum tun wir uns das an? Neue Zürcher Zeitung.
 
-Pappas, D. E. (2017). The common cold. In J. E. Bennett, R. Dolin, & M. J. Blaser (Eds.), Mandell, Douglas, and Bennett's principles and practice of infectious diseases (8th ed., pp. 199–202). Elsevier.
+Kramer, F., Gämperli, M., & Henneberger, F. (2013). Präsentismus: Verlust von Gesundheit und Produktivität. IGA-Fakten (No. 6). Initiative Gesundheit und Arbeit (IGA). Retrieved December 8, 2024, from https://www.iga-info.de
+
+Pappas, D. E. (2017). The common cold. In J. E. Bennett, R. Dolin, & M. J. Blaser (Eds.), Mandell, Douglas, and Bennett’s principles and practice of infectious diseases (8th ed., pp. 199–202). Elsevier.
+
+Rand, W., & Wilensky, U. (2007). El Farol Model. Center for Connected Learning and Computer-Based Modeling, Northwestern University, Evanston, IL.
+
+Staatssekretariat für Wirtschaft SECO. (2010). Stress bei Schweizer Erwerbstätigen: Zusammenhänge zwischen Arbeitsbedingungen, Personenmerkmalen, Befinden und Gesundheit. Retrieved December 8, 2024, from https://www.seco.admin.ch/studien_berichte
+
+Stonedahl, F., & Wilensky, U. (2008). Center for Connected Learning and Computer-Based Modeling. Northwestern University, Evanston, IL.
+
+Swiss Confederation. (n.d.). Inability to work and sick leave. Retrieved December 8, 2024, from https://www.kmu.admin.ch/kmu/en/home/concrete-know-how/personnel/employment-law/working-hours/inability-work-sick-leave.html
+
+Turner, R. B. (2012). The common cold. In L. Goldman & A. I. Schafer (Eds.), Goldman’s Cecil Medicine (24th ed., pp. 2089–2091). Elsevier. https://doi.org/10.1016/B978-1-4377-1604-7.00369-9
+
+U.S. Department of Labor. (n.d.). Sick leave. Retrieved December 8, 2024, from https://www.dol.gov/general/topic/workhours/sickleave
+
+Van Wormer, J. J., King, J. P., Gajewski, A., McLean, H. Q., & Belongia, E. A. (2017). Influenza and workplace productivity loss in working adults. Journal of Occupational and Environmental Medicine, 59(12), 1135–1139. https://doi.org/10.1097/JOM.0000000000001120
 @#$#@#$#@
 default
 true
