@@ -586,10 +586,10 @@ NIL
 HORIZONTAL
 
 PLOT
-666
+665
 10
-1375
-190
+1270
+199
 mean-productivity
 days
 mean-productivity
@@ -647,9 +647,9 @@ PENS
 
 PLOT
 665
-196
-1440
-377
+203
+1279
+384
 sickness
 NIL
 NIL
