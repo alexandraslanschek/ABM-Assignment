@@ -406,13 +406,13 @@ to-report mean-productivity [x]
 end
 @#$#@#$#@
 GRAPHICS-WINDOW
-218
+332
 10
-665
-458
+778
+457
 -1
 -1
-87.8
+87.6
 1
 10
 1
@@ -433,10 +433,10 @@ ticks
 30.0
 
 SLIDER
-1
-66
-211
-99
+27
+551
+325
+584
 number-of-teams
 number-of-teams
 1
@@ -448,10 +448,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-0
-566
-214
-626
+27
+474
+325
+534
 number-of-workers
 200.0
 1
@@ -459,10 +459,10 @@ number-of-workers
 Number
 
 SLIDER
-0
-138
-212
-171
+28
+650
+325
+683
 share-of-presentees
 share-of-presentees
 0
@@ -474,10 +474,10 @@ NIL
 HORIZONTAL
 
 BUTTON
-10
-10
-101
-61
+332
+551
+544
+602
 NIL
 setup
 NIL
@@ -491,10 +491,10 @@ NIL
 1
 
 SLIDER
-0
-174
-213
-207
+26
+283
+326
+316
 slower-recovery
 slower-recovery
 0
@@ -506,10 +506,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-0
-249
-212
-309
+26
+208
+327
+268
 recovery-days
 5.0
 1
@@ -517,10 +517,10 @@ recovery-days
 Number
 
 INPUTBOX
-0
-503
-213
-563
+332
+474
+777
+534
 max-sick-leave-days
 260.0
 1
@@ -528,10 +528,10 @@ max-sick-leave-days
 Number
 
 BUTTON
-113
-10
-204
-61
+565
+551
+777
+602
 NIL
 go
 T
@@ -545,10 +545,10 @@ NIL
 1
 
 SLIDER
-0
-100
-212
-133
+28
+601
+325
+634
 movement-across-teams
 movement-across-teams
 0
@@ -560,10 +560,10 @@ NIL
 HORIZONTAL
 
 INPUTBOX
-0
-312
-213
-372
+27
+332
+326
+392
 immunity-days
 65.0
 1
@@ -571,10 +571,10 @@ immunity-days
 Number
 
 SLIDER
-0
-211
-212
-244
+26
+160
+327
+193
 severity
 severity
 0
@@ -586,10 +586,10 @@ NIL
 HORIZONTAL
 
 PLOT
-666
+784
 10
-1375
-190
+1392
+232
 mean-productivity
 days
 mean-productivity
@@ -606,10 +606,10 @@ PENS
 "presentees" 1.0 0 -2674135 true "" ""
 
 PLOT
-669
-387
-1057
-683
+784
+465
+1085
+687
 absentee-behavior
 NIL
 NIL
@@ -626,10 +626,10 @@ PENS
 "sick-at-work" 1.0 0 -2674135 true "" ""
 
 PLOT
-1061
-387
-1447
-683
+1090
+465
+1391
+687
 presentee-behavior
 NIL
 NIL
@@ -646,10 +646,10 @@ PENS
 "sick-at-work" 1.0 0 -2674135 true "" ""
 
 PLOT
-665
-196
-1440
-377
+784
+237
+1392
+459
 sickness
 NIL
 NIL
@@ -667,10 +667,10 @@ PENS
 "immunity" 1.0 0 -10899396 true "" ""
 
 INPUTBOX
-0
-375
-212
-435
+25
+10
+327
+70
 exogenous-sickness
 0.003
 1
@@ -678,10 +678,10 @@ exogenous-sickness
 Number
 
 INPUTBOX
-0
-437
-212
-497
+25
+86
+327
+146
 contagiousness
 0.09
 1
@@ -689,10 +689,10 @@ contagiousness
 Number
 
 OUTPUT
-214
-462
-666
-530
+332
+620
+778
+688
 13
 
 @#$#@#$#@
