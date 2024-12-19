@@ -579,7 +579,7 @@ severity
 severity
 0
 0.40
-0.3
+0.4
 0.01
 1
 NIL
@@ -708,7 +708,7 @@ The core framework characterizes employees into two distinct types: (i) presente
 
 Absenteeism costs firms in Switzerland approximately 1,540 CHF per employee annually (Fauceglia, 2005). However, presenteeism is estimated to be at least twice as costly (Jacobshagen, 2020). Managers thus face a complex balancing act when designing their sick leave policies. While the productivity loss from absenteeism is straightforward to identify, the non-linear effects of presenteeism on productivity are more challenging to evaluate. This is because presentees not only experience diminished productivity when sick, but also contribute to the propagation of illness within the office, resulting in a greater number of workers falling sick. 
 
-Although presentees remain partially productivity, they fail to interalize the collective health of the office. By continuing to work at the office while ill, they amplify the spread of the disease. Depending on certain conditions, this may result in greater productivity losses compared to absenteeism. On the other hand, absentees, though assumed to be completely unproductive while recovering at home, contain the spread of illness. Nonetheless, absenteeism sill leads to significant decreases on organisational productivity and cannot be ignored from a profit maximisation perspective.
+Although presentees remain partially productive, they fail to internalize the collective health of the office. By continuing to work at the office while ill, they amplify the spread of the disease. Depending on certain conditions, this may result in greater productivity losses compared to absenteeism. On the other hand, absentees, though assumed to be completely unproductive while recovering at home, contain the spread of illness. Nonetheless, absenteeism still leads to significant decreases in organizational productivity and cannot be ignored from a profit maximization perspective.
 
 This model investigates the inherent tension between absenteeism and presenteeism by examining how changes in sick leave policies influence both productivity and the spread of illness. Recognizing that workplaces are complex social systems where team interactions and individual behaviors shape outcomes, the model moves beyond traditional aggregate-level analyses. Using an agent-based modeling approach, it simulates the nuanced dynamics of disease transmission, team structures, and individual decision-making to capture emergent patterns within the workplace.
 
@@ -726,44 +726,43 @@ The following research questions will be addressed:
 
 ## Conceptual Model Overview
 ### Setting and Structure
-This model is set in an open floor plan office, where workers can be evenly divided into up to 9 teams. Each worker is randomly assigned to be either an absentee (someone who takes leave when sick) or presentee (someone who works while sick). The share of presentees is adjustable through the variable <code>share-of-presentees</code>. The population is heterogeneous only to this extent. The nubmer of workers in the office can also be adjusted at initialization of the model.
+This model is set in an open floor plan office, where workers can be evenly divided into up to 9 teams. Each worker is randomly assigned to be either an absentee (someone who takes leave when sick) or presentee (someone who works while sick). The share of presentees is adjustable through the variable <code>share-of-presentees</code>. The population is heterogeneous only to this extent. The number of workers in the office can also be adjusted at the initialization of the model.
 
 ### Productivity and Recovery
 When workers are healthy, they are assumed to work at 100% productivity. Illness reduces this productivity depending on the worker type. 
 <ul>
 <li> <b>Presentees</b> continue to work in the office at a reduced capacity, determined by the variable <code>severity</code>. These workers experience longer recovery times, defined by the variable <code>slower_recovery</code>, due to the strain of working while sick. While presentees contribute to productivity, they also spread illness in the office.   </li>
 
-<li> <b>Absentees</b> leave the workplace when ill, resulting in complete productivity loss for the set <code>recovery-days</code>. These workers recovery at the set recovery days and therefore faster than presentees. 
+<li> <b>Absentees</b> leave the workplace when ill, resulting in complete productivity loss for the set <code>recovery-days</code>. These workers recover at the set recovery days and therefore faster than presentees. 
  </li>
 </ul>
 
 In this model, productivity losses are solely due to illness, and individual productivity is assumed to be independent of other agents.  
 
 
-### Daily Interactions and Movement
-Each day is divided into 4 ticks, representing discrete moments of interaction amoung employees. During the first tick, employees interact exclusively within their assigned team environment. In the remaining three ticks, employees can move to other teams. All employees have a higher probability of staying within their own team, compared to moving to other teams. This probability is determined by the variable <code> movement-across-teams</code>. 
-
-Through these interactions sick employees spread illness within their team or to other teams, with the likelihood of transmission determined by if these is a sick person in the team area and by the variable <code>contagiousness</code>, giving the probability of transmission. 
-
 ### Illness Dynamics and Focus on the Common Cold
-The model begins with a healthy population, except for an initially sick employee who introduces the illness. Sick employees remain contagious througout their illness, with a constant transmissibility rate.
+The model begins with a healthy population, except for an initially sick employee who introduces the illness. Sick employees remain contagious throughout their illness, with a constant transmissibility rate.
 
-This model is set-up so that it can be adjusted for any illness. The calibrated version of this model is set up to capture the impacts the common cold. We focus on the common cold as it has been found to be the cause of one-third of sick days in working populations. The common cold does not incapacitate patients immediately, making is percieved as a minor disease, leading to high levels of presenteeism. 
+This model is set up so that it can be adjusted for any illness. The calibrated version of this model is set up to capture the impacts of the common cold. We focus on the common cold as it has been found to be the cause of one-third of sick days in working populations (Van Wormer et al., 2017, p. 1). The common cold does not incapacitate patients immediately, making it perceived as a minor disease, leading to high levels of presenteeism (Daniels et al., 2021, p. 2). 
 
-Since most adults experience 2 to 4 common colds per year, this model incorperates recurrent waves of illness over time, determined by the variables <code>exoenous-sickness</code> and <code>immunity-days</code>. All incubation periods of sickness are excluded in this analysis in a simplifying assumption. Further, we assume agents know they are sick the day after infection occurs. 
+Since most adults experience 2 to 4 common colds per year, this model incorporates recurrent waves of illness over time, determined by the variables <code>exoenous-sickness</code> and <code>immunity-days</code> (Kirkpatrick, 1996). All incubation periods of sickness are excluded in this analysis in a simplifying assumption. Further, we assume agents know they are sick the day after the infection occurs. 
 
-After agents are sick, they have an immunity period that is set by the variable <code>immunity-days</code> in which the employees are immune to any circulating in the illness to the office. This varaible allows for the realistic modeling of distinct sickness waves permiating through an office.
+After agents are sick, they have an immunity period set by the variable <code>immunity-days</code> in which the employees are immune to any circulating illness in the office. This variable allows for the realistic modeling of distinct sickness waves permiating through an office.
 
 ### Sick Leave Policy
-The sick day policy, can be set by <code>max-sick-leave-days</code>. Once absentees deplete their allowed sick days, they behave identically to presentees, making the two employee types indistinguishable. 
+The sick day policy can be set by <code>max-sick-leave-days</code>. Once absentees deplete their allowed sick days, they behave identically to presentees, making the two employee types indistinguishable in actions. 
 
 ### Model Simplifactions
-To focus on illness dynamics, the model incorperates several simplifying assumptions. For example, seasonal patterns of illness, and interactions with other diseases are excluded. Additionally, non-illnessed-related productivity losses, such as burn-out or overwork, are not considered, even if they result from team members' illnesses. 
+To focus on illness dynamics, the model incorporates several simplifying assumptions. For example, seasonal patterns of illness, and interactions with other diseases are excluded. Additionally, non-illness-related productivity losses, such as burn-out or overwork, are not considered, even if they result from team members' illnesses. 
 
 
-### Model Depiction 
+### Model Description and Depiction 
 
-The following picture illustrates the code simply. It should be noted that there are two layers of time: ticks and days. One day is four ticks (governed by NUMBER-OF-TICKS-PER-DAYS, which is hardcoded). Also, the code stops after one year (260 working days). The beige rectangles are connected with time.
+There are two layers of time within this model: ticks and days. One day is four ticks (governed by NUMBER-OF-TICKS-PER-DAYS, which is hardcoded). Once the run reaches one year (260 working days), the run ends. The image below illustrates the logic of our code, with beige rectangles connected with time. Within each tick (moment of time) there are random discrete moments of interaction among employees. During the first tick, employees interact exclusively within their assigned team environment. In the remaining three ticks, employees can move to other teams. All employees have a higher probability of staying within their own team, compared to moving to other teams. This probability is determined by the variable <code> movement-across-teams</code>. 
+
+Through these interactions sick employees spread illness within their team or to other teams, with the likelihood of transmission determined by if there is a sick person in the team area and by the variable <code>contagiousness</code>, giving the probability of transmission. 
+
+
 
 <br>
 
@@ -771,7 +770,7 @@ The following picture illustrates the code simply. It should be noted that there
 
 <br>
 
-The following picture illustrates the transition between health states (red rectangles) in more detail. Whether or not a healthy and vulnerable worker gets infected at work depends on the number of sick workers in the teams which they interact with and the contagiousness. Importantly, we assume that everybody is healthy and vulnerable at the beginning of a year.
+The following picture illustrates the transition between health states (red rectangles) in more detail. Whether or not a healthy and vulnerable worker gets infected at work depends on the number of sick workers in the teams which they interact with and the contagiousness. Importantly, we assume that everybody is healthy and vulnerable at the beginning of the year.
 
 <br>
 
@@ -779,7 +778,7 @@ The following picture illustrates the transition between health states (red rect
 
 <br>
 
-The following picture illustrates how workers decide whether to work or stay at home today (blue rectangle on the first tick of a day) in more detail. The sick leave days are counted since the beginning of a year.
+The following picture illustrates how workers decide whether to work or stay at home today (blue rectangle on the first tick of a day) in more detail. The sick leave days are counted since the beginning of the year.
 
 <br>
 
@@ -787,7 +786,7 @@ The following picture illustrates how workers decide whether to work or stay at 
 
 <br>
 
-The decision whether to stay within or move across teams (blue rectangle on the intermediate ticks of a day) is random with a given probability.
+The decision of whether to stay within or move across teams (blue rectangle on the intermediate ticks of a day) is random with a given probability.
 
 See the Code tab for more details and the implementation in NetLogo.
 
@@ -804,13 +803,13 @@ Click on the SETUP button to initialize the model.
 Click on the GO button to run the model. The clock will advance until you press the button again or one year is simulated (260 working days).
 
 ### Sliders and Input Boxes:
-In this section we detail the sliders and input boxes available for this model, as well as values that we recommend testing to implement the model for the common cold. Further, we present verifcation and validation checks for each of these parameters to identify the the calibrated values for the model. 
+In this section, we detail the sliders and input boxes available for this model, as well as values that we recommend testing to implement the model for the common cold. Further, we present verification and validation checks for each of these parameters to identify the calibrated values for the model. 
 
-The verification checks are performed via univariate sensitivity analysis, examining a range of values for each parameter,to confirm that the model behaves as expected. 
+The verification checks are performed via univariate sensitivity analysis, examining a range of values for each parameter, to confirm that the model behaves as expected. 
 
 The validation checks leverage empirical data and statistics, model assumptions, and the results of the verification checks to determine the calibrated values for the model.
 
-Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RECOVERY-DAYS, SLOWER-RECOVERY, and IMMUNITY-DAYS are specifically adjusted to match the characteristics of this illness. However, any illness can be simulated by changing these parameters accordingly.
+Importantly, since we are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RECOVERY-DAYS, SLOWER-RECOVERY, and IMMUNITY-DAYS are specifically adjusted to match the characteristics of this illness. However, any illness can be simulated by changing these parameters accordingly.
 
 <strong>1. NUMBER-OF-WORKERS </strong>
 
@@ -821,7 +820,7 @@ Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RE
   <tr>
     <td><strong>Verification</strong></td>
     <td>
-      We tested the input across a range between 100 and 2,000 workers, representing medium to larger-sized companies. The results indicate that as the number of workers increases, the average productivity of turtles declines during a wave of the common cold. Moreover, larger workforces experience a higher frequency of infections per employee annually, amplifying illness propagation. This can be seen through illness spikes occuring within a narrower range of ticks, reflecting a more concentrated and rapid spread in larger groups. These findings demonstate that a company's productivity during illness outbreaks is highly sensitive to its respective size. 
+      We tested the input across a range between 100 and 2,000 workers, representing medium to larger-sized companies. The results indicate that as the number of workers increases, the average productivity of turtles declines during a wave of the common cold. Moreover, larger workforces experience a higher frequency of infections per employee annually, amplifying illness propagation. This can be seen through illness spikes occurring within a narrower range of ticks, reflecting a more concentrated and rapid spread in larger groups. These findings demonstrate that a company's productivity during illness outbreaks is highly sensitive to its respective size. 
     </td>
   </tr>
   <tr>
@@ -858,7 +857,7 @@ Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RE
 
 <table border="1" cellpadding="5" cellspacing="0">
     <td><strong>Description</strong></td>
-    <td>The <code>MOVEMENT-ACROSS-TEAMS</code> slider determines the proportion of workers who spend time outside their own team in the second, third, and fourth ticks of a day (all workers start the day in their own team). Each worker interacts with outher teams approximately  <code>3 x  MOVEMENT-ACROSS-TEAMS</code> times (out of four total interactions) on average. The probability of a worker interacting only with their own team throughout a full day is <code>(1 -  MOVEMENT-ACROSS-TEAMS)<sup>3</sup></code>. This assumes that employees interact once every two hours.</td>
+    <td>The <code>MOVEMENT-ACROSS-TEAMS</code> slider determines the proportion of workers who spend time outside their own team in the second, third, and fourth ticks of a day (all workers start the day in their own team). Each worker interacts with other teams approximately  <code>3 x  MOVEMENT-ACROSS-TEAMS</code> times (out of four total interactions) on average. The probability of a worker interacting only with their own team throughout a full day is <code>(1 -  MOVEMENT-ACROSS-TEAMS)<sup>3</sup></code>. This assumes that employees interact once every two hours.</td>
   </tr>
   <tr>
     <td><strong>Verification</strong></td>
@@ -885,7 +884,7 @@ Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RE
   <tr>
     <td><strong>Verification</strong></td>
     <td>
-      Testing the <code>SHARE-OF-PRESENTEES</code> parameter across a range from 0.1 to 0.9 shows that lower shares of presentees leads to fewer illness waves. Specifically, we find that if the share of presentees is under 30%, the number of illness waves decreases from 4 to 3. However, productivity losses are generally higher with lower shares of presentees, ceteris paribus.
+      Testing the <code>SHARE-OF-PRESENTEES</code> parameter across a range from 0.1 to 0.9 shows that lower shares of presentees lead to fewer illness waves. Specifically, we find that if the share of presentees is under 30%, the number of illness waves decreases from 4 to 3. However, productivity losses are generally higher with lower shares of presentees, ceteris paribus.
     </td>
   </tr>
   <tr>
@@ -905,7 +904,7 @@ Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RE
   </tr>
   <tr>
     <td><strong>Verification</strong></td>
-    <td> Sensitivity tests were conducted for values between 0.001 and 0.01. The results indicate that higher values of  <code>EXOGENOUS-SICKNESS</code> (above 0.005) lead to four distinct waves of illness annually. For values between 0.002 and 0.003, the model produces 3 to 4 waves of illness per year. However, when the value drops below 0.002, the results become highly sensitive to the number of workers. In smaller offices, low probabilities of exogenous sickness make it unlikely for illness waves to propagate throughout the office. To accurately reflect the behavior of common colds, which typically cause 2-4 waves per year, <code>EXOGENOUS-SICKNESS</code> should be set to at least 0.002. Finally,the model also shows that the number of infections also increases with higher rates of exogenous sickness. 
+    <td> Sensitivity tests were conducted for values between 0.001 and 0.01. The results indicate that higher values of  <code>EXOGENOUS-SICKNESS</code> (above 0.005) lead to four distinct waves of illness annually. For values between 0.002 and 0.003, the model produces 3 to 4 waves of illness per year. However, when the value drops below 0.002, the results become highly sensitive to the number of workers. In smaller offices, low probabilities of exogenous sickness make it unlikely for illness waves to propagate throughout the office. To accurately reflect the behavior of common colds, which typically cause 2-4 waves per year, <code>EXOGENOUS-SICKNESS</code> should be set to at least 0.002. Finally, the model also shows that the number of infections also increases with higher rates of exogenous sickness. 
     </td>
   </tr>
   <tr>
@@ -926,7 +925,7 @@ Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RE
   <tr>
     <td><strong>Verification</strong></td>
     <td>
-	 Sensitivity tests conducted for values between 0.01 and 0.99, show that <code>CONTAGIOUSNESS</code> rates above 0.1, lead to four distinct waves of illness, while rates between 0.02 and 0.09 product 3 to 4 waves annually. Rates under 0.01 lead to longer waves that have lower impacts on productivity within a single tick. At low rates productivity osciallates around 95%, without sharp dips in productivity as seen during distinct illness waves. We therefore recommend <code>CONTAGIOUSNESS</code> levels of at least 0.02 when modeling for the common cold.
+	 Sensitivity tests conducted for values between 0.01 and 0.99, show that <code>CONTAGIOUSNESS</code> rates above 0.1, lead to four distinct waves of illness, while rates between 0.02 and 0.09 produce 3 to 4 waves annually. Rates under 0.01 lead to longer waves that have lower impacts on productivity within a single tick. At low rates, productivity oscillates around 95%, without sharp dips in productivity as seen during distinct illness waves. We therefore recommend <code>CONTAGIOUSNESS</code> levels of at least 0.02 when modeling for the common cold.
     </td>
   </tr>
   <tr>
@@ -947,7 +946,7 @@ Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RE
   <tr>
     <td><strong>Verification</strong></td>
     <td>
-      When examing severity levels between 0.1 and 1, we find that lower severity levels increase the average productivity of presentees and of the average worker during illness spikes. A severity level of 0.7, would make absentees on average more productive than presentees during an illness, ceteris paribus. Severity only affects productivity but not the number of illnesses per year by design.
+      When examining severity levels between 0.1 and 1, we find that lower severity levels increase the average productivity of presentees and of the average worker during illness spikes. A severity level of 0.7 would make absentees on average more productive than presentees during an illness, ceteris paribus. Severity only affects productivity but not the number of illnesses per year by design.
     </td>
   </tr>
   <tr>
@@ -968,7 +967,7 @@ Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RE
   <tr>
     <td><strong>Verification</strong></td>
     <td>
-      This range has been tested on the understanding that colds are typically resolved within a period of no longer than two weeks, namely from 1 to 15 days. An extended recovery period results in the prolongation of illness waves, which in turn gives rise to a greater incidence of severe productivity losses. This is consistent with the premise that the greater the severity and therfore recovery time necessary of an illness, the  greater the impact on office productivity. Furthermore, extended recovery periods limit the number of illness waves that can occur within a given period of time.
+      This range has been tested on the understanding that colds are typically resolved within a period of no longer than two weeks, namely from 1 to 15 days. An extended recovery period results in the prolongation of illness waves, which in turn gives rise to a greater incidence of severe productivity losses. This is consistent with the premise that the greater the severity and therefore recovery time necessary for an illness, the greater the impact on office productivity. Furthermore, extended recovery periods limit the number of illness waves that can occur within a given period of time.
     </td>
   </tr>
   <tr>
@@ -989,13 +988,13 @@ Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RE
   <tr>
     <td><strong>Verification</strong></td>
     <td>
-      Sensitivity tests with <code>SLOWER-RECOVERY</code> values between 0.1 to 1 reveal that values at the slowest recovery rate tested (0.1), absentees are more productive than presentees after the initial illness shock, as presentees continue working at reduced capcity for such a long period of time. At recovery rates between 0.6 and 1, presentees' recovery rate does not make them less productive than absentees. This shows the model's sensitivity to recovery rates, where slow recovery from presentees can result in lower productivity.
+      Sensitivity tests with <code>SLOWER-RECOVERY</code> values between 0.1 to 1 reveal that values at the slowest recovery rate tested (0.1), absentees are more productive than presentees after the initial illness shock, as presentees continue working at reduced capacity for such a long period of time. At recovery rates between 0.6 and 1, presentees' recovery rate does not make them less productive than absentees. This shows the model's sensitivity to recovery rates, where slow recovery from presentees can result in lower productivity.
     </td>
   </tr>
   <tr>
     <td><strong>Validation</strong></td>
     <td>
-      We microcalibrate <code>SLOWER-RECOVERY</code> to 0.67, corresponding to 8 recovery days. This aligns with studies showing that presenteeism slows recovery (Henneberger & Gämperli, 2014, p. 27). Conversely, common colds can last up to 10 days for adults (remember that the model excludes weekends). For example, the NHS recommends seeing a doctor only then (2024). Therefore, this value may need to be adjusted depending on the how the type of work effects the presentee's recovery. 
+      We microcalibrate <code>SLOWER-RECOVERY</code> to 0.67, corresponding to 8 recovery days. This aligns with studies showing that presenteeism slows recovery (Henneberger & Gämperli, 2014, p. 27). Conversely, common colds can last up to 10 days for adults (remember that the model excludes weekends). For example, the NHS recommends seeing a doctor only then (2024). Therefore, this value may need to be adjusted depending on how the type of work affects the presentee's recovery. 
     </td>
   </tr>
 </table>
@@ -1012,7 +1011,7 @@ Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RE
   <tr>
     <td><strong>Verification</strong></td>
     <td>
-	The value of <code>IMMUNITY-DAYS</code> shift the amount of time between infections, determining the number of sickness waves per year. Therefore this model is very sensitive this parameter. Shorter immunity periods lead to much higher rates of infections, leading productivity to oscillate throughout the year. Longer immunity periods, for example 65 days, result in distinct waves of illness throughout the year, with 3-4 waves (depending on the other parameters) in this example. For modeling the common cold, it is more accurate to observe distinct wave rather can constant reinfection throughout the year.  
+	The value of <code>IMMUNITY-DAYS</code> shifts the amount of time between infections, determining the number of sickness waves per year. Therefore this model is very sensitive to this parameter. Shorter immunity periods lead to much higher rates of infections, leading productivity to oscillate throughout the year. Longer immunity periods, for example, 65 days, result in distinct waves of illness throughout the year, with 3-4 waves (depending on the other parameters) in this example. For modeling the common cold, it is more accurate to observe distinct waves rather than constant reinfection throughout the year.  
     </td>
   </tr>
   <tr>
@@ -1049,7 +1048,7 @@ Importantly, since are focusing on the common cold, CONTAGIOUSNESS, SEVERITY, RE
 
 ### View
 
-The view displays all workers, where they are (at work or at home), and what team they are interacting with. The colors of healthy workers show their teams (for example, a worker who belongs to the first team is yellow). Sick workers who are at home are grey, at work red.
+The view displays all workers, where they are (at work or at home), and what team they are interacting with. The colors of healthy workers show their teams (for example, a worker who belongs to the first team is yellow). Sick workers who are at home are grey, and at work red.
 
 Workers who are at work are on team-colored patches. The patch colors show what team they are interacting with (for example, a worker who is interacting with the first team is on the yellow patch). Workers who are at home are on grey patches. Black patches (if NUMBER-OF-TEAMS < 9) are excluded (reserved for remaining 9 - NUMBER-OF-TEAMS teams).
 
@@ -1071,7 +1070,7 @@ The output box shows the mean productivity of all workers for the whole year, wh
 
 ## THINGS TO TRY
 
-The model encapsulates many courses of action which firms owners can take to control presenteeism and absenteeism:
+The model encapsulates many courses of action that firms owners can take to control presenteeism and absenteeism:
 
 <br>
 
@@ -1128,7 +1127,7 @@ Figure 1 shows the relationship between the maximum number of sick leave days an
 
 <br>
 
-It is important to emphasize that this result contradicts previous findings, which show that presenteeism is (at least) two times as costly for firms as absenteeism (Jacobshagen, 2020, p. 37). Figure 2, which shows the same as Figure 1 but separately for absentees (in grey) and presentees (in red), offers a possible explanation for this: With MAX-SICK-LEAVE-DAYS >= 20, absentees are less productive than presentees. The reason is because the cold is relatively mild (SEVERITY = 0.3) and even presentees recover relatively quickly (RECOVERY-DAYS / SLOWER-RECOVERY = 8). No previous study focused on the cold. Additionally, the model excludes increased risk of long-term sick leave as a negative consequence of presenteeism (Henneberger & Gämperli, 2014, p. 24).
+It is important to emphasize that this result contradicts previous findings, which show that presenteeism is (at least) two times as costly for firms as absenteeism (Jacobshagen, 2020, p. 37). Figure 2, which shows the same as Figure 1 but separately for absentees (in grey) and presentees (in red), offers a possible explanation for this: With MAX-SICK-LEAVE-DAYS >= 20, absentees are less productive than presentees. The reason is because the cold is relatively mild (SEVERITY = 0.3) and even presentees recover relatively quickly (RECOVERY-DAYS / SLOWER-RECOVERY = 8). No previous study focused on the cold. Additionally, the model excludes the increased risk of long-term sick leave as a negative consequence of presenteeism (Henneberger & Gämperli, 2014, p. 24).
 
 <br>
 
@@ -1136,7 +1135,7 @@ It is important to emphasize that this result contradicts previous findings, whi
 
 <br>
 
-Interestingly, while productivity of absentees decreases with the maximum number of sick leave days (for the above reasons), productivity of presentees increases with the maximum number of sick leave days. The reason is because workers are sick less frequently (Figure 3). With MAX-SICK-LEAVE-DAYS >= 20, workers catch a cold 3.753 times on average, whereas with MAX-SICK-LEAVE-DAYS = 0, workers catch a cold 3.979 times on average. The decrease in the average number of infections is nearly the same for absentees and presentees (Figure 4). This result is consistent with previous findings, which identify increased risk of contagion as a negative consequence of presenteeism (Henneberger & Gämperli, 2024, pp. 25-26).
+Interestingly, while the productivity of absentees decreases with the maximum number of sick leave days (for the above reasons), the productivity of presentees increases with the maximum number of sick leave days. The reason is because workers are sick less frequently (Figure 3). With MAX-SICK-LEAVE-DAYS >= 20, workers catch a cold 3.753 times on average, whereas with MAX-SICK-LEAVE-DAYS = 0, workers catch a cold 3.979 times on average. The decrease in the average number of infections is nearly the same for absentees and presentees (Figure 4). This result is consistent with previous findings, which identify an increased risk of contagion as a negative consequence of presenteeism (Henneberger & Gämperli, 2024, pp. 25-26).
 
 <br>
 
@@ -1171,7 +1170,7 @@ In summary, there is a trade-off between productivity, which is arguably the mai
 
 ### Number of Workers, Number of Teams, Frequency of Interaction Across Teams, and Share of Presentees
 
-In order to investigate how the relationship between the maximum number of sick leave days and productivity for all workers depends on the number of workers, the number of teams, the frequency of interaction across teams, and the share of presentees, we estimate the following multiple linear regression model:
+To investigate how the relationship between the maximum number of sick leave days and productivity for all workers depends on the number of workers, the number of teams, the frequency of interaction across teams, and the share of presentees, we estimate the following multiple linear regression model:
 
 <br>
 
@@ -1249,33 +1248,33 @@ The development of this model was inspired by two existing frameworks: Virus on 
 **Virus on a Network model** 
 (Stonedahl, F. and Wilensky, U., 2008)
 
-In the first phase of the modelling, we explored the possibility of relying on its network-based approach to virus propagation as the workhorse model. At the time, we identified the following advantages and shortcomings:
+In the first phase of the modeling, we explored the possibility of relying on its network-based approach to virus propagation as the workhorse model. At the time, we identified the following advantages and shortcomings:
 
 **Advantages**:
-	a. Ready-made base model.
-b. Easy to scale the number of teams and workers.
+	a. Ready-made base model
+b. Easy to scale the number of teams and workers
 
 **Disadvantages**: 
-	a. The office space is harder to interpret.
-b. The randomisation of the network structure limited the replicability of each experiment.
-c. Hard to add additional phenomena on top of the existing structure.
-d. Difficult to isolate the source of complexity and understand how the add-on would change the behaviour of the model.
+	a. The office space is harder to interpret
+b. The randomization of the network structure limited the replicability of each experiment
+c. Hard to add additional phenomena on top of the existing structure
+d. Difficult to isolate the source of complexity and understand how the add-on would change the behavior of the model
 
 **El Farol Model**
 (Rand, W. & Wilensky, U., 2007) 
 
-We also inspired ourselves from the El Farol Model primarily for the use of space in the characterisation of the office space compartmentalisation of team interactions. In the first version of the model, we identified that the use of "Room-based Partitioning" had the following advantages and shortcomings:
+We were also inspired by the model El Farol, primarily for the use of space in the characterization of the office space compartmentalization of team interactions. In the first version of the model, we identified that the use of "Room-based Partitioning" had the following advantages and shortcomings:
 
 **Advantages**:
-	a. Easy visualisation.
-b. Leverages better the NetLogo interface.
+	a. Easy visualisation
+b. Leverages better the NetLogo interface
 
 **Disadvantages**: 
 	a. Could not be used as a workhorse model
-b. Purely batch-based spatial model limits scaling possibilities.
-c. Drastically different in its logic structure than the phenomenon our model aims to study. 
+b. Purely batch-based spatial model limits scaling possibilities
+c. Drastically different in its logic structure than the phenomenon our model aims to study
 
-Therefore, the current version of the model inspired itself from the use of spatial visualisation of the teams while allowing greater flexibility in terms of the scaling of the model by defining the team variable as a turtle attribute directly rather than on the spatial one.
+Therefore, the current version of the model inspired from the use of spatial visualization of the teams while allowing greater flexibility in terms of the scaling of the model by defining the team variable as a turtle attribute directly rather than on the spatial one.
 
 ## Our Model's Noteworthy Features
 
@@ -1308,16 +1307,16 @@ to infect
 end
 ```
 
-While the infection risk modelling may required more sophisticated probabilistic models, the use of a binomial distribution through sequential bernoulli trial appears as a simple and straightforward approach. While 
+While the infection risk modelling may required more sophisticated probabilistic models, the use of a binomial distribution through sequential bernoulli trial appears as a simple and straightforward approach. 
 
 # Extending the Model
 
 	1. **Unjustified absenteeism**
-In our model, we assume that sick leave is that absentees who take sick leaves are justified to do so and do not use the sick leave policy as a way to shirk their duties. While this interpretation of the real policy trade-off enables us to simplify the decision-making modelling, it skews the end normative policy insight that can be gained from our model. To overcome this limitation, we suggest creating an additional shirking attribute that leads workers to take a day off while not being ill. This would have the effect to draw down the sick days more quickly. The two implications are that it would lead to an increased loss of productivity and amplification of the end-of-the-year contamination for absentee workers.  
+In our model, we assume that sick leave is that absentees who take sick leaves are justified to do so and do not use the sick leave policy as a way to shirk their duties. While this interpretation of the real policy trade-off enables us to simplify the decision-making modeling, it skews the end normative policy insight that can be gained from our model. To overcome this limitation, we suggest creating an additional shirking attribute that leads workers to take a day off while not being ill. This would have the effect to draw down the sick days more quickly. The two implications are that it would lead to an increased loss of productivity and amplification of the end-of-the-year contamination for absentee workers.  
 2. **Forward-looking anticipation of sick days decision**
-Another limitation of our model is the absence of a clearly defined micro-founded decision-making process. We could enhance the model by addressing how workers internally anticipate the potential outcomes associated with their decision to take a sick day. Currently, our model assumes that workers will automatically take the maximum number of sick days allowed when they fall ill. However, in reality, workers often consider the future risk of getting sick or may save their sick days to use strategically later in the year. To incorporate these additional complexities, we could explicitly model the trade-off that agents face when deciding whether to use their sick days, using an expected utility function for each worker. However, this approach is extremely challenging to calibrate, as the parameters of these utility function are unobservable.
+Another limitation of our model is the absence of a clearly defined micro-founded decision-making process. We could enhance the model by addressing how workers internally anticipate the potential outcomes associated with their decision to take a sick day. Currently, our model assumes that workers will automatically take the maximum number of sick days allowed when they fall ill. However, in reality, workers often consider the future risk of getting sick or may save their sick days to use strategically later in the year. To incorporate these additional complexities, we could explicitly model the trade-off that agents face when deciding whether to use their sick days, using an expected utility function for each worker. However, this approach is extremely challenging to calibrate, as the parameters of these utility functions are unobservable.
 3. **Work distribution within teams with burnout dynamics**
-One key assumption of our model is that productivity is affected primarily by the productivity losses associated with employees taking sick leave. In many organizations, productivity targets are often not adjusted for teams that experience a high number of sick workers. Consequently, healthy employees may end up shouldering the burden of the productivity loss caused by their absent colleagues. This situation increases their workload to a level that raises the risk of burnout. As a result, a wave of sick leave can initiate a self-reinforcing cycle of burnout, which ultimately leads to a lasting decline in the team's overall productivity. To implement such an auxiliary process we would need to assign each team a fixed productivity and a mapping between the effective team productivity and the targetted one. The larger the distance, the greater the probability of becoming sick due to burnout. 
+One key assumption of our model is that productivity is affected primarily by the productivity losses associated with employees taking sick leave. In many organizations, productivity targets are often not adjusted for teams that experience a high number of sick workers. Consequently, healthy employees may end up shouldering the burden of the productivity loss caused by their absent colleagues. This situation increases their workload to a level that raises the risk of burnout. As a result, a wave of sick leave can initiate a self-reinforcing cycle of burnout, which ultimately leads to a lasting decline in the team's overall productivity. To implement such an auxiliary process we would need to assign each team a fixed productivity and a mapping between the effective team productivity and the targeted one. The larger the distance, the greater the probability of becoming sick due to burnout. 
 4. **Remote work**
 Our model assumes that employees who are sick cannot be productive at all. However, by introducing remote work, we could theoretically reinterpret this assumption, potentially increasing the productivity of absentee workers. While incorporating remote work would create a more realistic representation of an office environment, it would also add to the complexity by introducing a new variable in the current mix of policies.
 
