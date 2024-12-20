@@ -726,7 +726,7 @@ The following research questions will be addressed:
 
 ## Conceptual Model Overview
 ### Setting and Structure
-This model is set in an open floor plan office, where workers can be evenly divided into up to 9 teams. Each worker is randomly assigned to be either an absentee (someone who takes leave when sick) or presentee (someone who works while sick). The share of presentees is adjustable through the variable <code>share-of-presentees</code>. The population is heterogeneous only to this extent. The number of workers in the office can also be adjusted at the initialization of the model.
+This model is set in an open floor plan office, where workers can be evenly divided into up to 9 teams. Each worker is randomly assigned to be either an absentee (someone who takes leave when sick) or a presentee (someone who works while sick). The share of presentees is adjustable through the variable <code>share-of-presentees</code>. The population is heterogeneous only to this extent. The number of workers in the office can also be adjusted at the initialization of the model.
 
 ### Productivity and Recovery
 When workers are healthy, they are assumed to work at 100% productivity. Illness reduces this productivity depending on the worker type. 
@@ -745,14 +745,14 @@ The model begins with a healthy population, except for an initially sick employe
 
 This model is set up so that it can be adjusted for any illness. The calibrated version of this model is set up to capture the impacts of the common cold. We focus on the common cold as it has been found to be the cause of one-third of sick days in working populations (Van Wormer et al., 2017, p. 1). The common cold does not incapacitate patients immediately, making it perceived as a minor disease, leading to high levels of presenteeism (Daniels et al., 2021, p. 2). 
 
-Since most adults experience 2 to 4 common colds per year, this model incorporates recurrent waves of illness over time, determined by the variables <code>exoenous-sickness</code> and <code>immunity-days</code> (Kirkpatrick, 1996). All incubation periods of sickness are excluded in this analysis in a simplifying assumption. Further, we assume agents know they are sick the day after the infection occurs. 
+Since most adults experience 2 to 4 common colds per year, this model incorporates recurrent waves of illness over time, determined by the variables <code>exogenous-sickness</code> and <code>immunity-days</code> (Kirkpatrick, 1996). All incubation periods of sickness are excluded in this analysis in a simplifying assumption. Further, we assume agents know they are sick the day after the infection occurs. 
 
 After agents are sick, they have an immunity period set by the variable <code>immunity-days</code> in which the employees are immune to any circulating illness in the office. This variable allows for the realistic modeling of distinct sickness waves permiating through an office.
 
 ### Sick Leave Policy
 The sick day policy can be set by <code>max-sick-leave-days</code>. Once absentees deplete their allowed sick days, they behave identically to presentees, making the two employee types indistinguishable in actions. 
 
-### Model Simplifactions
+### Model Simplificactions
 To focus on illness dynamics, the model incorporates several simplifying assumptions. For example, seasonal patterns of illness, and interactions with other diseases are excluded. Additionally, non-illness-related productivity losses, such as burn-out or overwork, are not considered, even if they result from team members' illnesses. 
 
 
@@ -879,7 +879,7 @@ Importantly, since we are focusing on the common cold, CONTAGIOUSNESS, SEVERITY,
 
 <table border="1" cellpadding="5" cellspacing="0">
     <td><strong>Description</strong></td>
-    <td>The  <code>SHARE-OF-PRESENTEES</code> slider controls the proportion of workers who choose to work while they are sick (presentees). The remaining share of workers are the abensentees, who stay home when sick.</td>
+    <td>The  <code>SHARE-OF-PRESENTEES</code> slider controls the proportion of workers who choose to work while they are sick (presentees). The remaining share of workers is the abensentees, who stay home when sick.</td>
   </tr>
   <tr>
     <td><strong>Verification</strong></td>
@@ -1070,7 +1070,7 @@ The output box shows the mean productivity of all workers for the whole year, wh
 
 ## THINGS TO TRY
 
-The model encapsulates many courses of action that firms owners can take to control presenteeism and absenteeism:
+The model encapsulates many courses of action that firm owners can take to control presenteeism and absenteeism:
 
 <br>
 
@@ -1084,7 +1084,7 @@ The model encapsulates many courses of action that firms owners can take to cont
 		<td>The user can control the maximum number of sick leave days per year directly with the MAX-SICK-LEAVE-DAYS input.</td>
 	</tr>
 	<tr>
-		<td>Firm owners can implement occupational health management measures which make workers aware of the risks involved with presenteeism (Henneberger & Gämperli, 2014, pp. 35–36).</td>
+		<td>Firm owners can implement occupational health management measures that make workers aware of the risks involved with presenteeism (Henneberger & Gämperli, 2014, pp. 35–36).</td>
 		<td>Occupational health management measures of this type are equivalent to a decrease in the share of presentees, which the user can control with the SHARE-OF-PRESENTEES slider.</td>
 	</tr>
 	<tr>
@@ -1113,13 +1113,13 @@ Other things to try are:
 
 ## THINGS TO NOTICE
 
-The following section presents interesting emergent behavior of the model, attempts to answer the research questions, and critically evaluates the answers.
+The following section presents interesting emergent behaviors of the model, attempts to answer the research questions, and critically evaluates the answers.
 
 
 
 ### Maximum Number of Sick Leave Days, Productivity, and Health
 
-Figure 1 shows the relationship between the maximum number of sick leave days and productivity for all workers (with varying number of workers, number of teams, frequency of interaction across teams, and share of presentees). The maximum number of sick leave days is on the horizontal axis and productivity (yearly mean) on the vertical axis. According to the model, productivity decreases with the maximum number of sick leave days (up to the point where workers have enough sick leave days, which is at approximately 20). More specifically, if workers are not allowed to take sick leave (MAX-SICK-LEAVE-DAYS = 0), mean productivity is 0.963. If the number of sick leave days is effectively unlimited (MAX-SICK-LEAVE-DAYS >= 20), mean productivity is 0.949. In between, mean productivity falls approximately linearly.
+Figure 1 shows the relationship between the maximum number of sick leave days and productivity for all workers (with varying numbers of workers, number of teams, frequency of interaction across teams, and share of presentees). The maximum number of sick leave days is on the horizontal axis and productivity (yearly mean) is on the vertical axis. According to the model, productivity decreases with the maximum number of sick leave days (up to the point where workers have enough sick leave days, which is at approximately 20). More specifically, if workers are not allowed to take sick leave (MAX-SICK-LEAVE-DAYS = 0), mean productivity is 0.963. If the number of sick leave days is effectively unlimited (MAX-SICK-LEAVE-DAYS >= 20), the mean productivity is 0.949. In between, mean productivity falls approximately linearly.
 
 <br>
 
@@ -1274,23 +1274,23 @@ b. Leverages better the NetLogo interface
 b. Purely batch-based spatial model limits scaling possibilities
 c. Drastically different in its logic structure than the phenomenon our model aims to study
 
-Therefore, the current version of the model inspired from the use of spatial visualization of the teams while allowing greater flexibility in terms of the scaling of the model by defining the team variable as a turtle attribute directly rather than on the spatial one.
+Therefore, the current version of the model is inspired by the use of spatial visualization of the teams while allowing greater flexibility in terms of the scaling of the model by defining the team variable as a turtle attribute directly rather than on the spatial one.
 
 ## Our Model's Noteworthy Features
 
 **Day count**
 The model dual day and tick count allow to model action at different intraday frequencies.
 
-An example is of this day of time specific activation function is illustrated below:
+An example of this day of time-specific activation function is illustrated below:
 
 ```
 if ticks mod number-of-ticks-per-day = 0 and ticks != 0 [ 
-;; First tick of day
+;; First tick of the day
 …
 ]
 ```
 **Binomial Infection Probability Distribution**
-This allow us to make depend the infection spread incidence to the number of sick worker in each given teams. The infection function is illustated below:
+This allows us to make depend the infection spread incidence on the number of sick worker in each given team. The infection function is illustated below:
 
 ```
 to infect
@@ -1307,7 +1307,7 @@ to infect
 end
 ```
 
-While the infection risk modelling may required more sophisticated probabilistic models, the use of a binomial distribution through sequential bernoulli trial appears as a simple and straightforward approach. 
+While the infection risk modeling may require more sophisticated probabilistic models, the use of a binomial distribution through a sequential Bernoulli trial appears as a simple and straightforward approach. 
 
 # Extending the Model
 
